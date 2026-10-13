@@ -12,10 +12,10 @@ As decisões sobre autenticação e distribuição dos modelos de IA estão em [
 
 Links fornecidos pelo proprietário em 13/10/2026:
 
-- [Conversa de construção do projeto](https://chatgpt.com/c/6acd0109-d750-83e9-87c5-20624f28c845).
-- [Conversa de revisão do projeto](https://chatgpt.com/g/g-p-68e9442f219c819194ca1a7b430a04c7-jp/c/6ace2a19-46c8-83e9-a889-8f27d2311c40).
+- [Conversa de construção do projeto](https://chatgpt.com/share/6ace5036-066c-83e9-b0d3-5e354cafe70c).
+- [Conversa de revisão do projeto](https://chatgpt.com/share/6ace546a-7aa0-83e9-aebf-378e7d694ae7).
 
-São referências às conversas originais na conta ChatGPT do proprietário. A leitura pode depender da sessão e das permissões dessa conta; não foram verificados como links públicos compartilhados. A narrativa e as evidências presentes no repositório permitem acompanhar o processo sem depender de acesso às conversas. Não se apresentam como export integral do chat.
+São links de compartilhamento do ChatGPT fornecidos pelo proprietário para a banca, substituindo os endereços internos das conversas. A disponibilidade e o conteúdo dos links não foram verificados nesta atualização. A narrativa e as evidências presentes no repositório permitem acompanhar o processo independentemente dos links; não se apresentam como export integral do chat.
 
 ## Etapas e evidências
 

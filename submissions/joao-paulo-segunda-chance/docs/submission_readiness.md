@@ -13,7 +13,7 @@ Conferido no repositório oficial em 12/10/2026:
 | Segmentos e contas identificáveis | Tabela no diagnóstico; filtro e detalhe no site com IDs. Ordenação por exposição contratual para investigação, sem risco previsto. |
 | Ações concretas e impacto | Plano priorizado no diagnóstico; volumes observados e cenário de capacidade separados de impacto financeiro não identificável. |
 | Correlação versus causalidade | Limites explícitos e resultado de ação sem atribuição causal automática. |
-| Processo de IA | [Índice consolidado](../process-log/README.md), decisões de autenticação/modelos e referências às conversas de construção/revisão; registros por etapa, testes e commits. As conversas podem exigir acesso à conta do proprietário. |
+| Processo de IA | [Índice consolidado](../process-log/README.md), decisões de autenticação/modelos e referências às conversas de construção/revisão; registros por etapa, testes e commits. Links de compartilhamento do ChatGPT fornecidos pelo proprietário; disponibilidade não verificada nesta atualização. |
 | README oficial / setup | Seções do template e instruções Python, frontend, banco e Edge. |
 | Alterações só na pasta | Conferir diff antes de qualquer PR; nenhum arquivo externo deve ser incluído. |
 | Login | Aceitação completa informada pelo proprietário em 13/10/2026. |

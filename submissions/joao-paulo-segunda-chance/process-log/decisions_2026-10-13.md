@@ -28,7 +28,7 @@ Os modelos usados para desenvolver e revisar o projeto são distintos do modelo 
 
 ## Referências de conversa
 
-- [Chat de construção — fornecido pelo proprietário](https://chatgpt.com/c/6acd0109-d750-83e9-87c5-20624f28c845).
-- [Chat de revisão — fornecido pelo proprietário](https://chatgpt.com/g/g-p-68e9442f219c819194ca1a7b430a04c7-jp/c/6ace2a19-46c8-83e9-a889-8f27d2311c40).
+- [Chat de construção — fornecido pelo proprietário](https://chatgpt.com/share/6ace5036-066c-83e9-b0d3-5e354cafe70c).
+- [Chat de revisão — fornecido pelo proprietário](https://chatgpt.com/share/6ace546a-7aa0-83e9-aebf-378e7d694ae7).
 
-São links para conversas na conta do proprietário, sujeitos às permissões do ChatGPT; não foram verificados como compartilhamento público. O [índice do process log](README.md) e os arquivos do repositório consolidam a evidência escrita disponível à banca.
+São links de compartilhamento do ChatGPT fornecidos pelo proprietário, em substituição aos endereços internos das conversas. A disponibilidade e o conteúdo não foram verificados nesta atualização. O [índice do process log](README.md) e os arquivos do repositório consolidam a evidência escrita disponível à banca.
