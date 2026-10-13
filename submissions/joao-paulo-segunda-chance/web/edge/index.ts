@@ -61,7 +61,7 @@ Deno.serve(async(req:Request)=>{
    const prepared=normalizeRows(source,h,rows);if(prepared.errors.length)return response({accepted:false,errors:prepared.errors.slice(0,100),error_count:prepared.errors.length});
    const merged={...current.sources,[source]:prepared.raw};const audit=auditSources(merged);
    if(audit.blockers.length)return response({accepted:false,blockers:audit.blockers,errors:[]});
-   const reference=String(form.get('reference'));if(!/^\d{4}-\d{2}-\d{2}$/.test(reference)||new Date(reference).toISOString().slice(0,10)!==reference||!audit.reference_date||reference>audit.reference_date)throw Error('Data de referência inválida ou além das fontes observadas.');
+   const reference=String(form.get('reference'));if(!/^\d{4}-\d{2}-\d{2}$/.test(reference)||new Date(reference).toISOString().slice(0,10)!==reference||!audit.observed_fact_date||reference>audit.observed_fact_date)throw Error('Data de referência inválida ou além das fontes observadas.');
    const diff=compareSources(source,current.sources[source],prepared.raw),quality=audit.findings.filter((x:any)=>x.count>0);
    const preview={...diff,quality,reference_date:reference,parent_reference_date:current.run.reference_date,source_type:source,mapping,original_headers:parsed.headers,sheet:String(form.get('sheet')??''),warnings:['Substitui esta fonte inteira. As outras quatro fontes são reutilizadas.','Ausência de registros não confirma ausência de uso.']};
    const packed=prepared.raw.map((r:any,i:number)=>[i+1,h.map(k=>r[k]),h.map(k=>prepared.normalized[i][k]==null?null:String(prepared.normalized[i][k])),[]]);

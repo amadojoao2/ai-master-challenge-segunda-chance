@@ -120,5 +120,6 @@ export function auditSources(data) {
   let reference=null;for(const name of Object.keys(contracts))for(const r of f[name])for(const [k,field]of Object.entries(contracts[name]))if((field.kind==='date'||field.kind==='timestamp')&&r[k]&&(!reference||r[k]>reference))reference=r[k];
   const cutoff=reference?.slice(0,10),opened=new Set(s.filter(r=>r.start_date<=cutoff&&(!r.end_date||r.end_date>cutoff)).map(r=>r.account_id));
   add('churn.flag_true_with_open_contract_at_source_end',a,r=>r.churn_flag&&opened.has(r.account_id),'Flag cadastral com contrato aberto no corte observado.','Distinguir cadastro e carteira contratual.','reconciliation','account_id');
-  return {audit_version:'web-1.0.0',findings,blockers,reference_date:cutoff};
+  let observed=null;for(const [name,col]of [['accounts','signup_date'],['subscriptions','start_date'],['usage','usage_date'],['support','submitted_at'],['churn','churn_date']])for(const r of f[name])if(r[col]&&(!observed||r[col].slice(0,10)>observed))observed=r[col].slice(0,10);
+  return {audit_version:'web-1.0.0',findings,blockers,reference_date:cutoff,observed_fact_date:observed};
 }

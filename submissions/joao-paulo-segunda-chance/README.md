@@ -9,7 +9,9 @@
 
 ## Executive Summary
 
-A segunda submissão propõe um site de diagnóstico e decisões, atualizado por CSV/Excel, com dados e histórico no Supabase. A prioridade é preservar e reconciliar as fontes antes de produzir recomendações. O produto deverá distinguir cadastro, eventos históricos e intervalos contratuais, com limitações explícitas. Modelos preditivos não serão o diferencial da entrega.
+A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso é livre, conforme decisão do usuário. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
+
+**[Acessar o site](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site)** · [Aplicação e reprodução](web/README.md) · [Status e limites](docs/web_status.md).
 
 ## Solução
 
@@ -19,11 +21,11 @@ Preservar DDD, TDD, Clean Architecture, Bounded Contexts e Specifications da pri
 
 ### Resultados / Findings
 
-Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. Resultados detalhados das fontes permanecem fora do repositório público. O site e o importador web ainda não estão implementados; o schema de decisões/ações está preparado.
+Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. O site está publicado: visão executiva, diagnóstico, contas, decisões/ações, dados/qualidade e metodologia. O importador aceita CSV/.xlsx, valida e publica versões completas após revisão; o teste integral de publicação foi executado em transação revertida. Foram aprovados também 12 testes web, equivalência de 89 resultados com Python, testes SQL de operações e testes HTTP. Fontes e relatórios por conta permanecem fora do repositório. Ver limites em `docs/web_status.md`.
 
 ### Recomendações
 
-A fundação de dados está implementada. A próxima fase é a interface de diagnóstico, atualização web e decisões. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
+Fundação e aplicação implementadas. Próxima fase: revisão visual pelo usuário, aprimoramentos necessários e evidências finais antes da submissão. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
 
 ### Limitações
 
@@ -47,10 +49,11 @@ Uma maior data observada não comprova completude da extração. Ausência de hi
 6. Implementar regras puras e auditoria exploratória; acrescentar testes de integração.
 7. Executar auditoria e suíte; documentar a arquitetura e versionar o código no fork, sem PR.
 8. Aplicar contratos e migrações, carregar fontes, testar permissões e publicar uma versão completa.
+9. Implementar acesso livre, site, importador e operações; comparar auditorias, validar publicação com rollback e publicar o site.
 
 ### Onde a IA errou e como corrigi
 
-O usuário reforçou a diferença entre ausência de qualquer evento e ausência de evento de cancelamento. A auditoria passou a distinguir essas populações, incluindo contas que possuem apenas reativação. Também evita classificar automaticamente divergência entre histórico e cadastro como erro da fonte.
+O usuário reforçou a diferença entre ausência de qualquer evento e ausência de evento de cancelamento. A auditoria passou a distinguir essas populações, incluindo contas que possuem apenas reativação. Também evita classificar automaticamente divergência entre histórico e cadastro como erro da fonte. Na fase web, o primeiro contrato de timestamp rejeitava datas sem horário presentes na fonte; foi alinhado ao contrato Python. O teste de nova versão revelou um plano SQL lento, corrigido com evidência de EXPLAIN e configuração restrita à função analítica.
 
 ### O que eu adicionei que a IA sozinha não faria
 
@@ -60,6 +63,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 
 - [Registro parcial desta sessão](process-log/session_2026-10-12.md).
 - [Implementação da fundação](process-log/foundation_2026-10-12.md).
+- [Implementação web e resultados de testes](process-log/web_2026-10-12.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Exports integrais e evidências visuais: pendentes para a entrega final. O registro escrito não se apresenta como export integral.
 

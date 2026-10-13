@@ -107,7 +107,7 @@ Próximos testes ANTES dos casos de uso correspondentes:
 
 ## Segurança
 
-Login e permissões por membership validada no servidor: administrador importa/publica, decisor registra decisões, executor atualiza ações autorizadas e leitor consulta. RLS/grants compatíveis com schema exposto; views respeitam autorização; Storage privado. Nenhum segredo privilegiado no frontend, Git ou relatório. Revalidar projeto de destino antes de migração. Aplicação e schema só serão alterados no projeto dedicado `challenge_g4_projeto`.
+Escopo atualizado após aprovação: acesso livre, sem login por e-mail/senha. Sessões anônimas autorizam operações limitadas ao workspace; autor/responsável declarados, sem confirmação de identidade. RPCs privilegiadas permanecem apenas no backend, RLS habilitado e arquivos originais privados em bytea no Postgres. Autenticação, papéis e Storage são evoluções futuras. Nenhum segredo privilegiado no frontend, Git ou relatório. Revalidar projeto de destino antes de migração. Aplicação e schema só serão alterados no projeto dedicado `challenge_g4_projeto`.
 
 ## Sequência e critérios de aceite
 
@@ -126,3 +126,7 @@ O site começa pelas perguntas do CEO: o que mudou, onde a perda se concentra, c
 
 Versionar mudanças concluídas e verificadas nesta branch, sem segredos e sem alterações fora da pasta. Preservar a PR #66 como histórico independente. Não criar issue, comentário, pedido de review ou PR como parte do desenvolvimento. A futura PR terá título `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e base `main` oficial quando o usuário determinar o envio.
 
+
+## Situação após a fase web
+
+Etapas 1–4 implementadas e verificadas, com limite de QA visual documentado. Diagnóstico, atualização por fonte e decisões estão no site publicado. A publicação do pipeline foi testada integralmente em transação revertida; painel ativo original preservado. Ver [status e limites da aplicação](web_status.md). Etapa 5 ainda pendente: revisão visual, evidências finais e autorização para a nova PR.

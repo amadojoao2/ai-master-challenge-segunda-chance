@@ -13,3 +13,7 @@ test('Comparação de fonte registra removidos e não faz upsert implícito',()=
 test('Churn cadastral sem eventos é indeterminado; uso conflitante preservado',()=>{const data={accounts:[account],subscriptions:[],usage:[],support:[],churn:[]};const result=auditSources(data);assert.equal(result.findings.find(x=>x.code==='churn.flag_true_without_any_event').count,1);assert.equal(result.blockers.length,0);assert.equal(result.findings.length,89);});
 test('Chave pai repetida e FK órfã impedem publicação',()=>{const d={accounts:[account,account],subscriptions:[{subscription_id:'s',account_id:'missing'}],usage:[],support:[],churn:[]};assert.ok(auditSources(d).blockers.some(x=>x.code==='accounts.repeated_key_rows'));assert.ok(auditSources(d).blockers.some(x=>x.code==='subscriptions.orphan'));});
 test('As cinco estruturas oficiais estão disponíveis',()=>{assert.deepEqual(Object.keys(contracts).sort(),['accounts','churn','subscriptions','support','usage']);});
+test('Término futuro de contrato não projeta cobertura factual para o futuro',()=>{
+ const a={...account,signup_date:'2024-01-01'},s={subscription_id:'s',account_id:'a',plan_tier:'pro',billing_frequency:'monthly',seats:'1',mrr_amount:'10',arr_amount:'120',is_trial:'false',upgrade_flag:'false',downgrade_flag:'false',churn_flag:'true',auto_renew_flag:'false',start_date:'2024-02-01',end_date:'2030-01-01'};
+ assert.equal(auditSources({accounts:[a],subscriptions:[s],usage:[],support:[],churn:[]}).observed_fact_date,'2024-02-01');
+});
