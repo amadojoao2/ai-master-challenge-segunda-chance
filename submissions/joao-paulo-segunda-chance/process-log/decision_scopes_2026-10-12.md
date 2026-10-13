@@ -37,3 +37,9 @@ TypeScript/builds portável e Vinext passaram. A interface foi sincronizada e em
 
 ## Estado final
 Migração e testes SQL concluídos. Formulário/lista/histórico e adaptador implementados. Adaptador JavaScript implantado, aceitação HTTP concluída e site atualizado. Revisão visual real continua pendente. Nenhuma PR, issue, review, ticket ou mensagem a avaliadores foi criada.
+
+## Orientação explícita no formulário
+
+Após usar o site, o usuário percebeu que o registro só fica disponível depois de “Revisar evidência” e pediu um alerta no formulário. Acrescentei um aviso visível junto ao registro, explicando a etapa e que mudança de seleção/contexto exige nova revisão. Depois da prévia, a mensagem muda para “Evidência revisada. Você já pode registrar a decisão e a ação.” O botão aponta para o aviso com aria-describedby, e a atualização usa aria-live polite. Proteção de registro e regras de negócio preservadas.
+
+Ampliei as verificações do teste de seleção existente para conferir aviso antes/depois da revisão e seu retorno ao trocar o escopo. Os 13 testes de componentes passaram em DOM emulado; TypeScript do frontend portável passou. QA visual real continua pendente. Alteração solicitada pelo usuário, sem PR.
