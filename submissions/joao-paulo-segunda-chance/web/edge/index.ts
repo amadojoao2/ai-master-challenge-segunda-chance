@@ -1,3 +1,4 @@
+import {authenticate} from './auth.ts';
 import ExcelJS from 'npm:exceljs@4.4.0';
 import { Buffer } from 'node:buffer';
 import { contracts } from '../domain/contracts.mjs';
@@ -5,7 +6,7 @@ import {parseCsv,normalizeRows,auditSources,compareSources} from '../domain/impo
 
 const url=Deno.env.get('SUPABASE_URL')!;
 const key=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!; // Built-in runtime secret. Never returned.
-const headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'content-type,x-challenge-session','Access-Control-Allow-Methods':'GET,POST,OPTIONS','Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
+const headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'content-type,authorization,apikey','Access-Control-Allow-Methods':'GET,POST,OPTIONS','Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
 const response=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers});
 const hash=async(bytes:Uint8Array)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(x=>x.toString(16).padStart(2,'0')).join('');
 const textHash=(s:string)=>hash(new TextEncoder().encode(s));
@@ -38,13 +39,10 @@ Deno.serve(async(req:Request)=>{
  if(req.method==='OPTIONS')return new Response(null,{status:204,headers});
  try{
   const path=new URL(req.url).pathname.split('/').pop();
-  if(path==='session'&&req.method==='POST'){
-   const token=crypto.randomUUID()+crypto.randomUUID();const ip=req.headers.get('x-forwarded-for')?.split(',')[0]??'unknown';
-   await rpc('challenge_web_session',{p_token:await textHash(token),p_peer:await textHash(ip)});return response({token,expires_in_days:7});
-  }
-  const token=req.headers.get('x-challenge-session');if(!token||token.length>200)return response({error:'Sessão ausente ou expirada.'},401);
-  const p_token=await textHash(token);
-  if(path==='dashboard'&&req.method==='GET')return response(await rpc('challenge_web_dashboard',{p_token}));
+  const {p_token,user}=await authenticate(req,rpc,url,key);
+  if(path==='session')return response({user});
+  if(path==='logout'&&req.method==='POST')return response(await rpc('challenge_web_logout',{p_token}));
+  if(path==='dashboard'&&req.method==='GET')return response({...await rpc('challenge_web_dashboard',{p_token}),user});
   if(path==='inspect'||path==='preview'){
    if(req.method!=='POST')return response({error:'Método não permitido.'},405);
    // Check capability before parsing untrusted uploads.
@@ -72,8 +70,8 @@ Deno.serve(async(req:Request)=>{
   const body=await req.json();
   if(path==='detail')return response(await rpc('challenge_web_detail',{p_token,p_snapshot:body.id}));
   if(path==='begin'||path==='advance')return response(await rpc(`challenge_web_${path}`,{p_token,p_upload:body.id}));
-  if(path==='decide')return response(await rpc('challenge_web_decide',{p_token,p_request:body.request_key,p_evidence:body.evidence_id??null,p_snapshot:body.snapshot_id??null,p_title:body.title,p_rationale:body.rationale,p_actor:body.actor,p_action:body.action,p_responsible:body.responsible,p_due:body.due}));
+  if(path==='decide')return response(await rpc('challenge_web_decide',{p_token,p_request:body.request_key,p_evidence:body.evidence_id??null,p_snapshot:body.snapshot_id??null,p_title:body.title,p_rationale:body.rationale,p_actor:user.name,p_action:body.action,p_responsible:body.responsible,p_due:body.due}));
   if(path==='transition')return response(await rpc('challenge_web_transition',{p_token,p_action:body.id,p_revision:body.revision,p_status:body.status,p_result:body.result??null}));
   return response({error:'Operação desconhecida.'},404);
- }catch(e){return response({error:(e as Error).message},(e as any).code==='28000'?401:(e as any).code==='PT409'?409:400);}
+ }catch(e){return response({error:(e as Error).message},(e as any).code==='28000'?401:(e as any).code==='PT409'?409:(e as any).code==='PT403'?403:(e as any).code==='PT503'?503:400);}
 });
