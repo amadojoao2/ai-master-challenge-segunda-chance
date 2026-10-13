@@ -1,0 +1,61 @@
+# Login — identidade e ativação
+
+## Estado atual
+Implementados login e-mail/senha, mostrar senha, erros, sessão persistente/renovação, saída local e identificação do usuário. Adaptadores `challenge-auth-web` e `challenge-auth-decisions` ACTIVE v1, verify_jwt=true. Migrações aplicadas; **ativação desligada e site público v5 preservado; próxima versão v6 salva sem publicação**, pois ainda existem zero contas Auth e zero memberships. Login efetivo dos dois perfis, autoria real e publicação da tela aguardam contas reais. Não afirmar que o site já exige login.
+
+## Modelo
+- Supabase Auth administra credenciais. Aplicação não tem tabela de senha nem credenciais no código.
+- `access.memberships`: usuário, workspace, papel, ativo e nome de exibição. `administrator` aparece como Administrador; `decision_maker` como Usuário. Ambos usam todas as funções atuais do painel; perfil não vem de user_metadata nem de campo do formulário.
+- `access.web_sessions`: vínculo ao usuário/sessão Auth/workspace, validade e revogação. Sem FK para auth.sessions porque logout remove a sessão e o histórico deve continuar.
+- Novo autor em decisões, histórico de ações e uploads preenchido pelo backend/trigger; import_batches registra ator da atualização. Registro anterior não recebe usuário fictício/retroativo.
+- Upload autenticado pertence ao usuário, permitindo retomada após novo login. Jobs anônimos anteriores não são atribuídos automaticamente a alguém.
+
+## Acesso
+SDK @supabase/supabase-js **2.117.2**, pin e package-lock. Chave publishable pública no cliente. SDK mantém/renova sessão no navegador; frontend não renderiza dados protegidos no servidor nem compartilha cliente Auth entre requests SSR.
+
+Toda chamada aos novos adaptadores envia JWT do usuário. Além do verify_jwt da plataforma, o gateway verifica usuário pelo Auth, confere sujeito/sessão/expiração, exige sessão Auth existente e associação ativa. HMAC com segredo interno deriva sessão operacional estável durante refresh; nunca é entregue ao navegador. RPCs e tabelas da aplicação ficam exclusivamente no backend, inclusive os antigos caminhos de leitura preparados, para não contornar revogação. Não usar security definer para resolver permissões.
+
+Logout revoga a sessão operacional e encerra a sessão Auth local, preservando outras sessões do usuário. Revogação/associação inativa impedem novas chamadas. API só tenta um refresh diante de 401; não recria capacidade anônima nem entra em loop. Autor do formulário é somente leitura; o backend ignora a autoria informada pelo browser e identifica a conta. Isso identifica a conta autenticada, não verifica identidade civil.
+
+## Migrações e pacotes
+Depois das migrações anteriores:
+1. `db/authentication.sql`
+2. `db/authenticated_upload_ownership.sql`
+3. `db/authentication_api_boundary.sql`
+
+```sh
+cd web/frontend
+npm ci
+npm run check
+npm run test:ui
+npm run build
+cd ../..
+node scripts/build_web_edge.mjs --output .work/auth-web/index.js
+node scripts/build_decision_edge.mjs --output .work/auth-decision/index.js
+```
+
+Implantar os dois arquivos gerados como `index.js`, nos nomes `challenge-auth-web` e `challenge-auth-decisions`, verify_jwt=true. As regras canônicas são reutilizadas, isolando módulos e preservando imports npm do leitor Excel. runtime usa SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY internos; não copiar chave privilegiada para o frontend.
+
+## Concluir configuração
+1. Usuário escolhe os dois e-mails e configura as duas contas/senhas diretamente no painel Auth do Supabase. Nenhuma senha pelo chat/Git. Contas devem estar confirmadas e ativas.
+2. Vincular os dois usuários reais ao workspace RavenStack em access.memberships, com nome e os papéis acima, por operação administrativa. Não é cadastro público no site. Antes de ativar, revisar/desativar self-signup no Auth do projeto; nenhuma conta sem membership ganha acesso mesmo se Auth aceitar cadastro externo.
+3. Validar os dois acessos com os novos adaptadores. O script abaixo pede senha por getpass local e não grava credenciais. Não enviar senha como argumento, variável compartilhada ou arquivo.
+
+```sh
+python web/tests/http_auth.py --email EMAIL_ADMIN --expect-role administrator
+python web/tests/http_auth.py --email EMAIL_USUARIO --expect-role user
+```
+
+4. O Site já foi preparado/buildado com o SDK fixado e mesmas telas/API; publicar a versão salva e ativar `public.challenge_enable_auth()` na janela de transição. A função recusa ativação sem exatamente um administrador e um usuário com nome, conta confirmada/ativa e papel correto. Guardar a versão anterior para recuperação. Se publicação falhar, desfazer somente a ativação de acesso, preservando dados/histórico; não deixar tela pública apontando a backend aberto por engano.
+5. Conferir login, ambos os perfis, upload/prévia, autoria, logout e bloqueio dos endpoints antigos. Após activation, antigos testes HTTP anônimos são apenas evidência histórica: não devem voltar a passar para acessar o painel.
+
+## Verificação realizada / limites
+- 20 testes de domínio web, incluindo identidade e comparação dos 89 resultados com Python: aprovados, zero skips.
+- 17 componentes em Happy DOM com API/Auth simulados; seis adaptadores com fetch simulado: aprovados.
+- TypeScript/build Vite aprovados; pacotes Edge passam node --check e foram implantados.
+- Guardas SQL reais com rollback, sem Auth fictício: identidade/sessão desconhecida rejeitadas, ativação incompleta rejeitada e sem efeito, privilégios exclusivos e caminhos alternativos de leitura fechados.
+- HTTP real de novos endpoints: leitura/decisões sem JWT, capacidade antiga e JWT inválido rejeitados com 401.
+- Advisor segurança sem findings.
+- Teste compartilhado que criaria identidades sintéticas foi recusado pela revisão automática, sem motivo. `tests/local_db_auth_access.sql` é SOMENTE LOCAL ISOLADO, não executado/aprovado nesta rodada. Nada foi criado no Auth.
+- Login/autoria/retomada/logout reais com duas contas ainda não verificados. TypeScript/build Vinext da nova versão aprovados; QA visual real pendente. Ainda não ativado nem publicado no site.
+- Nenhuma PR/review/issue/mensagem a avaliadores.

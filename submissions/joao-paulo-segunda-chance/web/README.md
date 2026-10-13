@@ -64,3 +64,10 @@ O formulário novo permite conta, segmento por setor/país, carteira e qualidade
 Implantar também `challenge-decisions`: os fontes são `web/decisions/index.ts` e `web/domain/decision_scope.mjs`; o pacote utilizado com sucesso é gerado com `node scripts/build_decision_edge.mjs --output .work/decision-edge/index.js`, após instalar dependências em `web/frontend`. Usar `index.js` gerado como entrada. O frontend roteia três operações para esse adaptador e mantém a sessão/importação/leitura no `challenge-web`. Os dois usam a mesma capacidade própria e runtime secreto, sem chave privilegiada no frontend. O empacotador usa as regras canônicas sem cópia manual nem segredos.
 
 Depois de implantar, `python web/tests/http_scopes.py` valida quatro escopos, agregações e bloqueios, sem gravar decisão. `--write-qa` persiste um registro de QA e conclui sua ação. Os testes de leitura e `--write-qa` passaram em 12/10/2026; a ação QA foi concluída e a interface publicada após a aceitação.
+
+
+## Login — ativação pendente
+
+O frontend desta branch agora usa @supabase/supabase-js 2.117.2 e os adaptadores `challenge-auth-web`/`challenge-auth-decisions`. `npm ci` usa o lockfile. Ele é a próxima versão; o site publicado v5 continua no acesso anterior até configurar/testar as duas contas reais. Migrações, pacotes e sequência de ativação em [authentication.md](../docs/authentication.md).
+
+`python web/tests/http_auth.py --guards-only` testa rejeições por HTTP, sem cadastrar/gravar dados de negócio. Login de conta real é interativo por getpass, conforme o documento. Não confundir testes com Auth simulado com login real aprovado. `local_db_auth_access.sql` é apenas fixture local isolada, não executada aqui. Testes HTTP anônimos antigos são evidência histórica e devem falhar após ativação.

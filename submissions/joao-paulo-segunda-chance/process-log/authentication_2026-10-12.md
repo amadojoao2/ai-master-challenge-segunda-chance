@@ -1,6 +1,6 @@
 # Process Log — login e identidade (em preparação)
 
-O usuário aprovou e-mail/senha pelo Supabase Auth, com duas contas individuais, administrador e usuário, ambas com todas as funcionalidades. Não definiu ainda os e-mails. Conferidos Supabase Changelog e documentação de Auth, sessões e headers; SDK oficial 2.117.3 consultado no registro npm e fixado com lockfile.
+O usuário aprovou e-mail/senha pelo Supabase Auth, com duas contas individuais, administrador e usuário, ambas com todas as funcionalidades. Não definiu ainda os e-mails. Conferidos Supabase Changelog e documentação de Auth, sessões e headers; SDK oficial 2.117.2 consultado no registro npm e fixado com lockfile.
 
 Escrevi testes de identidade antes do módulo: vermelho por módulo ausente; depois dois casos aprovados. O teste SQL inicial sem alterações no Auth falhou por RPC ausente; migração `authenticated_identity_and_controlled_activation` aplicada, ativação desligada; guardas SQL passaram com rollback. Nenhum usuário foi criado. A ativação exige exatamente um administrador e um usuário comum configurados e confirmados.
 
@@ -15,3 +15,18 @@ Dois adaptadores protegidos foram implantados em paralelo aos antigos: `challeng
 Ao perguntar quem eram os registros antigos, o usuário recebeu a conferência real: três decisões QA, autor declarado “QA automatizado (sessão declarada)”, sem usuário autenticado, todas concluídas. Não são decisões do CEO.
 
 Pendências: duas contas reais, vínculos de perfil, teste de login/autoria/logout por HTTP, ativação e atualização do site. Nenhuma PR, review, issue ou mensagem a avaliadores.
+
+
+Verificações finais de preparo: 20 testes de domínio web (incluindo comparação de 89 resultados), 17 componentes e seis adaptadores aprovados; TypeScript/build Vite e sintaxe dos dois pacotes aprovados. HTTP real bloqueou pedidos sem JWT, capacidade anônima antiga e JWT inválido nos novos endpoints. Login válido não foi tentado: não há contas. Advisor de segurança sem findings.
+
+Foi necessário fechar os antigos RPCs de leitura direta e grants de tabelas ao browser: caso contrário, um JWT ainda válido após logout poderia contornar a checagem de sessão do gateway. Migração `authenticated_api_boundary_and_live_session_guards` aplicada; teste de privilégios passou. Origem/histórico permanecem acessíveis pelo backend. Retomada de upload usa usuário autenticado, preservando responsabilidade entre sessões, sem reivindicar jobs anônimos.
+
+Checkpoint do código salvo em `904a888f07cbf612af6be77a91164c25d934f115`, sem PR. O estágio final mantém ativação false, zero contas/memberships e três decisões QA anônimas intactas. Senhas serão configuradas no Auth pelo usuário, fora da conversa. Nova tela ainda não foi publicada.
+
+Também acrescentei um teste de troca de conta: o painel anterior é removido enquanto o novo perfil é conferido, evitando mostrar identidade/dados anteriores na transição. Passaram 17 componentes + seis adaptadores. Mensagem de falha de conexão no login é distinta de credenciais inválidas.
+
+A primeira tentativa de dependência no Sites foi recusada pela política minimumReleaseAge: SDK 2.117.3 publicado há cinco dias. Não alterei/desativei a política. Conferi timestamps no registro npm e escolhi 2.117.2, de 25/09/2026; pin/lockfiles foram atualizados e verificações repetidas. A ausência da dependência impediu o primeiro build Vinext; isso é recuperado após instalação da versão aceita.
+
+Após fixar SDK 2.117.2, os 17 componentes e seis adaptadores passaram novamente, assim como TypeScript e build Vite. TypeScript/build Vinext também passaram. Nova versão do Site será salva sem publicação enquanto as contas reais estiverem pendentes; o acesso público atual permanece ativo.
+
+Fonte Sites do login sincronizado em `2c4ce3c9c12dbffb147db533b44fb6d6690fcf2e`; versão 6 salva sem deploy. Versão 5 continua no ar. Esta pausa depende dos e-mails/contas reais, não de nova aprovação do plano. Nenhum usuário/senha foi inventado.

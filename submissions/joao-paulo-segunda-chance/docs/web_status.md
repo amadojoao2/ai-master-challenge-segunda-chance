@@ -68,3 +68,8 @@ Conta, setor/país, carteira e qualidade implementados no código, com prévia c
 O Supabase recusou atualizações Edge em TypeScript com erro interno. O pacote convertido para JavaScript, gerado das mesmas regras canônicas, foi aceito: `challenge-decisions` ACTIVE na versão 1; `challenge-web` permanece na versão 4. A causa interna do erro não foi confirmada.
 
 HTTP real confirmou os quatro escopos, agregações, validações e uma decisão QA idempotente com evidência congelada. A ação QA foi concluída com histórico de três entradas; são três QA concluídas no conjunto, nenhuma aberta. O banco confirmou 79 membros/3 destaques na nova decisão. Dois registros antigos continuam intactos. Site publicado na versão 4 após aceitação, com TypeScript/builds aprovados. QA visual real permanece pendente.
+
+
+## Login em preparação
+
+A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Configuração de ativação permanece false, com zero contas/memberships, e o site v5 continua público. Testes simulados e bloqueios HTTP/SQL passaram; login real e atualização do site aguardam contas. [Detalhes](authentication.md).
