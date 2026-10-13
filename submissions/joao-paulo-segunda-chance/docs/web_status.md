@@ -3,11 +3,11 @@
 Site: https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site
 
 ## Escopo autorizado
-Acesso livre, sem e-mail/senha, sobre o Supabase dedicado. Qualquer visitante pode ler o diagnóstico, importar uma fonte e registrar decisões/ações. Nome de autor e responsável é declarado, não verificado. Não existem papéis de usuário ativos nesta modalidade. Membership fica disponível para uma evolução futura, sem ser apresentado como proteção do acesso livre.
+Acesso com e-mail/senha sobre o Supabase dedicado. Dois perfis ativos, administrador e usuário comum, com todas as funções atuais. Novas decisões e uploads registram o usuário autenticado; responsável continua sendo informação de negócio declarada. As três decisões QA anteriores preservam autoria declarada. A fase inicial de acesso livre, descrita nas evidências históricas abaixo, foi substituída pela autenticação.
 
 ## Acesso e limites
 - Frontend nunca recebe service_role. Edge obtém a chave apenas do ambiente Supabase.
-- Capacidade aleatória de sete dias no localStorage; banco guarda apenas SHA-256. Autoriza sessão, não identidade.
+- JWT do Supabase no cliente; backend verifica usuário, sessão Auth ativa e membership protegido. Sessão operacional derivada exclusivamente no servidor; capacidades anônimas antigas não permitem acessar o painel.
 - RLS em todas as tabelas; RPCs web executáveis exclusivamente pelo backend. Adaptador fixa o workspace RavenStack; não aceita SQL arbitrário, CRUD genérico ou workspace informado pelo navegador.
 - Até 30 decisões e 10 arquivos/dia por sessão, 80 arquivos e 500 novas sessões/dia no conjunto. Proteção básica para o challenge, não defesa completa contra abuso distribuído.
 - Toda sessão válida pode acompanhar/encerrar ações do workspace. Decisão/história imutáveis. Revisão otimista e fechamento/cancelamento com resultado/motivo.
@@ -26,7 +26,7 @@ Substitui a fonte inteira; não é append/upsert. Nesta fase não há atualizaç
 ## Arquivos
 Até 8 MB, 50.000 linhas, 128 colunas no Excel; expansão ZIP até 64 MB/1.500 entradas. Fórmulas rejeitadas: exportar valores. Um arquivo com os mesmos bytes não é reutilizado se outra aba/mapeamento produzir linhas diferentes; exportar essa aba em arquivo separado para preservar a linhagem. Datas ISO; booleanos true/false. Originais pequenos preservados em chunks `bytea` no Postgres; Storage é evolução futura. O conteúdo raw projetado pelo mapeamento conserva valores da fonte; nomes/colunas originais continuam no arquivo e metadados do mapeamento.
 
-Não existe limpeza automática de previews/candidatos abandonados; monitorar volume. Capacidades expiradas impedem retomada de jobs da sessão antiga. Checkpoints podem ser retomados pela mesma sessão válida, inclusive depois de fechar/reabrir o site.
+Não existe limpeza automática de previews/candidatos abandonados; monitorar volume. Upload autenticado pertence ao usuário e pode ser retomado após novo login; jobs anônimos anteriores não são atribuídos automaticamente. A retomada real entre logins ainda aguarda aceitação.
 
 ## Diagnóstico
 Recortes por setor/país, pesquisa e ordenação explícita por nome, MRR ou ressalvas. Exploração, sem fila automática de retenção, ML, previsão de perda ou alegação causal de drivers. Referência histórica exibida; recebimento não se confunde com atualização factual.
@@ -48,7 +48,7 @@ A revisão automática bloqueou o teste HTTP com `--publish`, por alterar o pont
 Ver `web/README.md`. Migrações desta fase: `web_application.sql`, `web_account_detail.sql` e `analysis_materialized.sql` e `web_parse_reuse_guard.sql`, depois da fundação. A última contém a versão final das duas iterações de planejamento de consulta aplicadas no ambiente.
 
 ## Evoluções
-Autenticação/papéis, lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento, auditoria de identidade e testes visuais. Evidências finais e submissão para avaliação permanecem pendentes.
+Lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento e testes visuais. Autenticação/papéis implementados e ativos; aceitação com senha pendente. Evidências finais e submissão para avaliação permanecem pendentes.
 
 ## Aceitação posterior — 12/10/2026
 
@@ -70,6 +70,6 @@ O Supabase recusou atualizações Edge em TypeScript com erro interno. O pacote 
 HTTP real confirmou os quatro escopos, agregações, validações e uma decisão QA idempotente com evidência congelada. A ação QA foi concluída com histórico de três entradas; são três QA concluídas no conjunto, nenhuma aberta. O banco confirmou 79 membros/3 destaques na nova decisão. Dois registros antigos continuam intactos. Site publicado na versão 4 após aceitação, com TypeScript/builds aprovados. QA visual real permanece pendente.
 
 
-## Login em preparação
+## Login ativo — 12/10/2026
 
-A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Configuração de ativação permanece false, com zero contas/memberships, e o site v5 continua público. Testes simulados e bloqueios HTTP/SQL passaram; login real e atualização do site aguardam contas. [Detalhes](authentication.md).
+A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Duas contas confirmadas e dois memberships ativos; autenticação exigida e site v6 publicado. Testes simulados e bloqueios HTTP/SQL passaram; entrada com senha, autoria, renovação, retomada e logout reais aguardam aceitação pelo proprietário. Nenhuma senha no chat/Git e nenhuma PR criada. [Detalhes](authentication.md).

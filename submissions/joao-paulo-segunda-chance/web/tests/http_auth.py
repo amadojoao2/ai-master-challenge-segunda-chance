@@ -11,12 +11,19 @@ def reject(url,body=None,jwt=None,extra=None,expected=401):
  try:call(url,body,jwt,extra);raise AssertionError('Unprotected request accepted')
  except urllib.error.HTTPError as e:assert e.code==expected,(e.code,url);e.close()
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--guards-only',action='store_true');p.add_argument('--email');p.add_argument('--expect-role',choices=['administrator','user']);args=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--guards-only',action='store_true');p.add_argument('--legacy-blocks',action='store_true',help='Verify old endpoints after login activation; no business writes.');p.add_argument('--email');p.add_argument('--expect-role',choices=['administrator','user']);args=p.parse_args()
  reject('/functions/v1/challenge-auth-web/dashboard')
  reject('/functions/v1/challenge-auth-decisions/scope-options',{'run_id':'synthetic'})
  reject('/functions/v1/challenge-auth-web/session',{},extra={'x-challenge-session':'obsolete-capability'})
  reject('/functions/v1/challenge-auth-web/dashboard',jwt='invalid.jwt.signature')
- if args.guards_only:print(json.dumps({'anonymous_read':'blocked','anonymous_decision_route':'blocked','legacy_capability':'blocked','invalid_jwt':'blocked','valid_account_login':'not_attempted'}));return
+ if args.legacy_blocks:
+  reject('/functions/v1/challenge-web/session',{})
+  reject('/functions/v1/challenge-web/dashboard')
+  reject('/functions/v1/challenge-decisions/scope-options',{'run_id':'synthetic'})
+ if args.guards_only:
+  result={'anonymous_read':'blocked','anonymous_decision_route':'blocked','legacy_capability':'blocked','invalid_jwt':'blocked','valid_account_login':'not_attempted'}
+  if args.legacy_blocks:result.update({'legacy_session_creation':'blocked','legacy_dashboard':'blocked','legacy_decisions':'blocked'})
+  print(json.dumps(result));return
  if not args.email or not args.expect_role:p.error('--email and --expect-role are required without --guards-only')
  password=getpass.getpass('Supabase account password (not saved): ')
  tokens=call('/auth/v1/token?grant_type=password',{'email':args.email,'password':password});password=None;jwt=tokens['access_token']

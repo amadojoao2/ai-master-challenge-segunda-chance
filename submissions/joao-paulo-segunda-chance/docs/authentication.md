@@ -1,7 +1,7 @@
 # Login — identidade e ativação
 
 ## Estado atual
-Implementados login e-mail/senha, mostrar senha, erros, sessão persistente/renovação, saída local e identificação do usuário. Adaptadores `challenge-auth-web` e `challenge-auth-decisions` ACTIVE v1, verify_jwt=true. Migrações aplicadas; **ativação desligada e site público v5 preservado; próxima versão v6 salva sem publicação**, pois ainda existem zero contas Auth e zero memberships. Login efetivo dos dois perfis, autoria real e publicação da tela aguardam contas reais. Não afirmar que o site já exige login.
+Implementados login e-mail/senha, mostrar senha, erros, sessão persistente/renovação, saída local e identificação do usuário. Adaptadores `challenge-auth-web` e `challenge-auth-decisions` ACTIVE v1, verify_jwt=true. **Site v6 publicado e autenticação ativada em 12/10/2026 (BRT)** após confirmar as duas contas criadas pelo usuário e associar administrador e usuário ao workspace. Ambos acessam todas as funções. As duas versões de dados e três decisões QA anteriores foram preservadas. Bloqueios HTTP e SQL verificados; entrada com senha, autoria, renovação, retomada de upload e logout reais ainda aguardam aceitação. Nenhuma senha foi solicitada, lida ou versionada. Ver [evidência da ativação](../process-log/authentication_activation_2026-10-12.md).
 
 ## Modelo
 - Supabase Auth administra credenciais. Aplicação não tem tabela de senha nem credenciais no código.
@@ -36,9 +36,11 @@ node scripts/build_decision_edge.mjs --output .work/auth-decision/index.js
 
 Implantar os dois arquivos gerados como `index.js`, nos nomes `challenge-auth-web` e `challenge-auth-decisions`, verify_jwt=true. As regras canônicas são reutilizadas, isolando módulos e preservando imports npm do leitor Excel. runtime usa SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY internos; não copiar chave privilegiada para o frontend.
 
-## Concluir configuração
+## Configuração e aceitação
+As etapas de cadastro, associação e publicação abaixo já foram executadas neste projeto. O proprietário deve concluir a aceitação com senha. Não inventar sessão nem substituir essa aceitação por alteração direta no Auth. O estado de self-signup do serviço Auth ainda não foi verificado; não há ferramenta de configuração Auth disponível nesta conexão. Nenhuma conta sem membership ganha acesso ao painel.
+
 1. Usuário escolhe os dois e-mails e configura as duas contas/senhas diretamente no painel Auth do Supabase. Nenhuma senha pelo chat/Git. Contas devem estar confirmadas e ativas.
-2. Vincular os dois usuários reais ao workspace RavenStack em access.memberships, com nome e os papéis acima, por operação administrativa. Não é cadastro público no site. Antes de ativar, revisar/desativar self-signup no Auth do projeto; nenhuma conta sem membership ganha acesso mesmo se Auth aceitar cadastro externo.
+2. Vincular os dois usuários reais ao workspace RavenStack em access.memberships, com nome e os papéis acima, por operação administrativa. Não é cadastro público no site. Revisar/desativar self-signup no Auth do projeto; nenhuma conta sem membership ganha acesso mesmo se Auth aceitar cadastro externo.
 3. Validar os dois acessos com os novos adaptadores. O script abaixo pede senha por getpass local e não grava credenciais. Não enviar senha como argumento, variável compartilhada ou arquivo.
 
 ```sh
@@ -46,7 +48,7 @@ python web/tests/http_auth.py --email EMAIL_ADMIN --expect-role administrator
 python web/tests/http_auth.py --email EMAIL_USUARIO --expect-role user
 ```
 
-4. O Site já foi preparado/buildado com o SDK fixado e mesmas telas/API; publicar a versão salva e ativar `public.challenge_enable_auth()` na janela de transição. A função recusa ativação sem exatamente um administrador e um usuário com nome, conta confirmada/ativa e papel correto. Guardar a versão anterior para recuperação. Se publicação falhar, desfazer somente a ativação de acesso, preservando dados/histórico; não deixar tela pública apontando a backend aberto por engano.
+4. Publicar a versão salva e ativar `public.challenge_enable_auth()` na janela de transição. A função verifica exatamente um administrador e um usuário com nome, conta confirmada/ativa e papel correto; não comprova entrada com senha. Neste projeto, as contas foram criadas pelo proprietário e a autenticação foi ativada após publicação para permitir sua aceitação no site, sem solicitar credenciais no chat. Conservar a versão anterior para recuperação. Recuperação deve preservar dados/histórico e avaliar explicitamente o acesso, sem reabrir APIs por consequência de uma falha de interface.
 5. Conferir login, ambos os perfis, upload/prévia, autoria, logout e bloqueio dos endpoints antigos. Após activation, antigos testes HTTP anônimos são apenas evidência histórica: não devem voltar a passar para acessar o painel.
 
 ## Verificação realizada / limites
@@ -55,7 +57,7 @@ python web/tests/http_auth.py --email EMAIL_USUARIO --expect-role user
 - TypeScript/build Vite aprovados; pacotes Edge passam node --check e foram implantados.
 - Guardas SQL reais com rollback, sem Auth fictício: identidade/sessão desconhecida rejeitadas, ativação incompleta rejeitada e sem efeito, privilégios exclusivos e caminhos alternativos de leitura fechados.
 - HTTP real de novos endpoints: leitura/decisões sem JWT, capacidade antiga e JWT inválido rejeitados com 401.
-- Advisor segurança sem findings.
+- Advisor anterior à criação das contas sem findings. Após configuração: uma advertência Auth sobre proteção contra senhas vazadas desativada; nenhuma alteração de plano/configuração foi realizada. [Orientação oficial](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 - Teste compartilhado que criaria identidades sintéticas foi recusado pela revisão automática, sem motivo. `tests/local_db_auth_access.sql` é SOMENTE LOCAL ISOLADO, não executado/aprovado nesta rodada. Nada foi criado no Auth.
-- Login/autoria/retomada/logout reais com duas contas ainda não verificados. TypeScript/build Vinext da nova versão aprovados; QA visual real pendente. Ainda não ativado nem publicado no site.
+- Login/autoria/renovação/retomada/logout reais com duas contas ainda não verificados. TypeScript/build Vinext da versão publicada aprovados na preparação; QA visual real pendente. Site v6 publicado; ativação e bloqueios posteriores verificados em SQL/HTTP. `tests/db_auth_guards.sql` contém uma pré-condição de configuração incompleta e representa a preparação; não reexecutar no projeto já configurado. Após ativar, usar `tests/db_auth_activation_guards.sql` e `python web/tests/http_auth.py --guards-only --legacy-blocks`.
 - Nenhuma PR/review/issue/mensagem a avaliadores.

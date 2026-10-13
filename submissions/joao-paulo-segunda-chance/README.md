@@ -5,11 +5,11 @@
 - **Nome:** João Paulo
 - **LinkedIn:** https://www.linkedin.com/in/joao-pauloborges
 - **Challenge escolhido:** Challenge 001 — Diagnóstico de Churn
-- **Estado:** aplicação publicada; login preparado com ativação e validação de contas reais pendentes; revisão visual real pendente; não enviado para avaliação.
+- **Estado:** aplicação publicada com login ativo; dois perfis configurados; aceitação com senha e revisão visual real pendentes; não enviado para avaliação.
 
 ## Executive Summary
 
-A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso é livre, conforme decisão do usuário. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
+A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso exige login, com administrador e usuário comum usando todas as funcionalidades atuais. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
 
 **[Acessar o site](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site)** · [Aplicação e reprodução](web/README.md) · [Status e limites](docs/web_status.md) · [Diagnóstico executivo](solution/diagnostico_executivo.md).
 
@@ -35,9 +35,9 @@ Uma maior data observada não comprova completude da extração. Ausência de hi
 
 Implementados conta, segmento por setor/país, carteira e qualidade com prévia obrigatória, dado principal e população/evidência congeladas. Migração e testes aprovados; adaptador publicado após resolver o empacotamento que provocava erro interno no Supabase. Aceitação HTTP concluída e interface atualizada no site. [Estado, arquitetura e validação](docs/decision_scopes.md).
 
-### Login em preparação
+### Login ativo
 
-Implementado acesso pelo Supabase Auth com administrador e usuário comum, ambos com todas as funções. Novos adaptadores protegidos foram implantados e guardas/testes aprovados; faltam as duas contas reais e aceitação do login antes da ativação e atualização do site. O site público atual segue ativo. [Configuração e estado](docs/authentication.md).
+Implementado acesso pelo Supabase Auth com administrador e usuário comum, ambos com todas as funções. Duas contas criadas pelo usuário confirmadas e vinculadas a perfis protegidos. Site v6 publicado e autenticação exigida no backend; criação de sessão e acesso pelos endpoints antigos bloqueados. As três decisões QA anteriores e as duas versões de dados foram preservadas. Entrada com senha, autoria, renovação, retomada de upload e logout reais ainda aguardam aceitação; testes simulados não substituem essa verificação. [Configuração e estado](docs/authentication.md).
 
 ## Process Log — Como usei IA
 
@@ -75,6 +75,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Aceitação efetiva, correções e evidências](process-log/acceptance_2026-10-12.md).
 - [Implementação e aceitação dos escopos](process-log/decision_scopes_2026-10-12.md).
 - [Implementação do login e limites de validação](process-log/authentication_2026-10-12.md).
+- [Ativação do login e verificação dos bloqueios](process-log/authentication_activation_2026-10-12.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.
