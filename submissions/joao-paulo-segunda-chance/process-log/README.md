@@ -33,6 +33,7 @@ São links de compartilhamento do ChatGPT fornecidos pelo proprietário para a b
 | 10 | Revisão geral | Recuperação de conexão, exploração de evidências, tickets, leitura executiva, legibilidade e diagnóstico; Site v9. [Revisão](review_2026-10-13.md). |
 | 11 | Usuários e permissões | Superadministrador protegido, administrador, permissões, senha inicial e troca obrigatória; Site v10. [Gestão de usuários](user_management_2026-10-13.md). |
 | 12 | Consolidação documental | Índice, decisões de autenticação/modelos, links das conversas e notas posteriores sobre login e formatos de evidência. Este índice e [decisões](decisions_2026-10-13.md). |
+| 13 | Transferência para o fork oficial | Importação do histórico para o fork diretamente ligado à G4; referências aos commits originais e conteúdo conferido, conforme registro abaixo. |
 
 ## Problemas encontrados e correções
 
@@ -79,3 +80,15 @@ Componentes em Happy DOM e adaptadores com API simulada não equivalem a navegad
 O proprietário aprovou as mudanças documentais e forneceu os links das conversas de construção e revisão. A atualização acrescenta este índice e o registro das decisões, completa o README e anota desdobramentos nos registros históricos sem substituir resultados observados na época. A comparação de eficiência entre modelos é atribuída ao relato do proprietário, sem benchmark inventado ou medição retroativa de tokens.
 
 A conferência desta rodada é documental: referências locais, consistência de estados e escopo dos arquivos no GitHub. Não representa nova execução dos testes de aplicação ou alteração da plataforma.
+
+## Transferência para o fork oficial — 13/10/2026
+
+O GitHub identificou o repositório anterior, `amadojoao2/ai-master-challenge`, como fork de `BarryBits/ai-master-challenge`. Sua base coincidia com a main oficial, mas a comparação entre redes retornava 404. O proprietário criou [amadojoao2/ai-master-challenge-segunda-chance](https://github.com/amadojoao2/ai-master-challenge-segunda-chance) diretamente de [Gestao-Quatro-Ponto-Zero/ai-master-challenge](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge) e incluiu o novo fork no acesso da conexão GitHub.
+
+A branch `submission/joao-paulo-segunda-chance` foi importada em 19 etapas. A API não aceitava referenciar os IDs do histórico anterior na nova rede; as etapas foram recriadas com IDs e datas de commit novos. Cada mensagem mantém referência ao commit original, autoria original e data original. Os commits originais continuam disponíveis no repositório anterior. Isso preserva a sequência de conteúdo sem apresentar os novos IDs como commits originais.
+
+A primeira tentativa foi interrompida por limite de uso durante a revisão automática, antes da criação da branch. Na retomada, os arquivos já importados foram recuperados e o encadeamento foi reconstruído, com progresso salvo a cada etapa e publicação gradual da branch. Não houve alteração da aplicação ou do banco nesta transferência.
+
+Antes deste registro documental, a árvore final de arquivos da importação, `03184a0412479399d2459b1ffcbee89249e1a99c`, era idêntica à do [último commit original](https://github.com/amadojoao2/ai-master-challenge/commit/0f75b87000594b5a3409df6ef5e75da6015ad6e4). Todas as 19 etapas usam as mesmas árvores de arquivos das etapas originais. A comparação real com a main oficial passou: 19 commits à frente, zero atrás e 144 arquivos exclusivamente em `submissions/joao-paulo-segunda-chance/`.
+
+Este registro acrescenta um commit documental após as 19 etapas importadas. A [branch no fork oficial](https://github.com/amadojoao2/ai-master-challenge-segunda-chance/tree/submission/joao-paulo-segunda-chance) é o ponto de continuidade da segunda chance. A main dos repositórios e a PR anterior permanecem preservadas. Nenhuma nova PR foi aberta; o título planejado é `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e sua abertura depende da aprovação do proprietário.
