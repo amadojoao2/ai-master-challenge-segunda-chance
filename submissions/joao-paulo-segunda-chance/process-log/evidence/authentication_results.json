@@ -68,5 +68,13 @@
   "hosted_typescript": "passed",
   "saved_site_source_commit": "2c4ce3c9c12dbffb147db533b44fb6d6690fcf2e",
   "site_version_saved": 6,
-  "site_version_deployed": 5
+  "site_version_deployed": 5,
+  "subsequent_update_2026_10_13": {
+    "scope": "later_progress_preserves_original_preparation_results",
+    "login_activated": true,
+    "existing_account_login_acceptance": "completed_reported_by_owner",
+    "acceptance_observed_by_agent": false,
+    "record": "../authentication_activation_2026-10-12.md",
+    "current_process_index": "../README.md"
+  }
 }

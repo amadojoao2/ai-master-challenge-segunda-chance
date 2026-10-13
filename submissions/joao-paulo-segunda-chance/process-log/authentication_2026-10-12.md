@@ -30,3 +30,7 @@ A primeira tentativa de dependência no Sites foi recusada pela política minimu
 Após fixar SDK 2.117.2, os 17 componentes e seis adaptadores passaram novamente, assim como TypeScript e build Vite. TypeScript/build Vinext também passaram. Nova versão do Site será salva sem publicação enquanto as contas reais estiverem pendentes; o acesso público atual permanece ativo.
 
 Fonte Sites do login sincronizado em `2c4ce3c9c12dbffb147db533b44fb6d6690fcf2e`; versão 6 salva sem deploy. Versão 5 continua no ar. Esta pausa depende dos e-mails/contas reais, não de nova aprovação do plano. Nenhum usuário/senha foi inventado.
+
+## Atualização posterior — 13/10/2026
+
+As pendências descritas acima pertencem à preparação de 12/10/2026. As duas contas reais foram posteriormente associadas e o login foi ativado, conforme [registro de ativação](authentication_activation_2026-10-12.md). Em 13/10/2026, o proprietário confirmou que concluiu a aceitação completa do login. Essa confirmação é uma declaração do proprietário, não uma nova execução observada pelo agente. O login não permanece pendente. Ver [estado consolidado](README.md) e [gestão de usuários](user_management_2026-10-13.md) para a evolução seguinte.

@@ -17,7 +17,8 @@ A segunda submissão implementa uma mesa de decisão com diagnóstico, atualiza�
 
 1. [Diagnóstico executivo](solution/diagnostico_executivo.md): achados, motivos declarados, prioridades e limites.
 2. [Roteiro de demonstração e reprodução](docs/reproduction.md): comandos, dependências, ordem de implantação e limites dos testes.
-3. [Implementação da revisão](process-log/review_2026-10-13.md): mudanças e verificação desta rodada.
+3. [Índice do process log](process-log/README.md): decisões, conversas de construção/revisão, evolução e evidências por etapa.
+4. [Implementação da revisão](process-log/review_2026-10-13.md): mudanças e verificação desta rodada.
 
 ## Solução
 
@@ -61,6 +62,12 @@ Implementado e publicado módulo de perguntas com GPT-6 Luna, consultas tipadas 
 |---|---|
 | ChatGPT / Codex | Revisão da PR anterior, planejamento, auditoria reproduzível, testes e documentação |
 
+### Decisões sobre autenticação e modelos
+
+A proposta inicial de login Google evoluiu para e-mail/senha pelo Supabase Auth, com provisionamento administrativo e permissões, permitindo cadastrar avaliadores de diferentes provedores. A evolução inclui uma fase intermediária de acesso livre, posteriormente encerrada. Cadastro sem convites por e-mail e permanência no plano Free foram decisões do proprietário.
+
+Segundo seu relato, GPT-6.1 Sol Ultra foi priorizado em grande parte do desenvolvimento pela eficiência percebida em projetos anteriores e pelos limites disponíveis em sua conta ChatGPT Plus; Astra foi reservado para revisões finais e auditorias gerais. Não se trata de benchmark ou contabilidade completa de tokens. O assistente integrado à aplicação usa GPT-6 Luna. [Contexto e consequências das decisões](process-log/decisions_2026-10-13.md).
+
 ### Workflow
 
 1. Ler a PR #66, comentários e critérios oficiais.
@@ -71,7 +78,11 @@ Implementado e publicado módulo de perguntas com GPT-6 Luna, consultas tipadas 
 6. Implementar regras puras e auditoria exploratória; acrescentar testes de integração.
 7. Executar auditoria e suíte; documentar a arquitetura e versionar o código no fork, sem PR.
 8. Aplicar contratos e migrações, carregar fontes, testar permissões e publicar uma versão completa.
-9. Implementar acesso livre, site, importador e operações; comparar auditorias, validar publicação com rollback e publicar o site.
+9. Implementar a fase inicial de acesso livre, site, importador e operações; comparar auditorias, validar publicação com rollback e publicar o site.
+10. Ampliar escopos de decisão e substituir acesso livre por login autenticado, posteriormente aceito pelo proprietário.
+11. Reorganizar a visão executiva e integrar o assistente de consultas com histórico e evidências.
+12. Revisar funcionamento, dados e UX/UI; implementar gestão de usuários e permissões.
+13. Consolidar decisões, resultados e limites no process log antes da futura submissão.
 
 ### Onde a IA errou e como corrigi
 
@@ -83,6 +94,8 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 
 ## Evidências
 
+- [Índice, conversas e validação por etapa](process-log/README.md).
+- [Decisões de autenticação e utilização dos modelos](process-log/decisions_2026-10-13.md).
 - [Registro parcial desta sessão](process-log/session_2026-10-12.md).
 - [Implementação da fundação](process-log/foundation_2026-10-12.md).
 - [Implementação web e resultados de testes](process-log/web_2026-10-12.md).
@@ -92,6 +105,8 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Ativação do login e verificação dos bloqueios](process-log/authentication_activation_2026-10-12.md).
 - [Reorganização do contexto da visão executiva](process-log/executive_layout_2026-10-12.md).
 - [Implementação e validação do assistente](process-log/assistant_2026-10-12.md).
+- [Revisão geral e correções](process-log/review_2026-10-13.md).
+- [Gestão de usuários, permissões e senhas iniciais](process-log/user_management_2026-10-13.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.

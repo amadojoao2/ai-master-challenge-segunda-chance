@@ -25,3 +25,7 @@ O proprietário precisa entrar no site com as duas senhas, conferir painel/decis
 O estado de self-signup no serviço Auth não foi verificado: não há ferramenta de configuração Auth disponível nesta conexão. Não existe cadastro público na interface e uma conta sem membership não acessa o painel. Testes HTTP antigos sem JWT são evidência histórica e devem falhar após ativação. O teste SQL de preparação que pressupõe associações incompletas não deve ser reexecutado no projeto já configurado.
 
 README e documentação atualizados, sem reescrever o resumo histórico de preparação. Continuidade do versionamento no fork, alterações restritas à pasta de submissão, sem PR/review/issue/mensagem aos avaliadores.
+
+## Aceitação posterior informada pelo proprietário — 13/10/2026
+
+O proprietário confirmou que concluiu a aceitação completa do login das contas existentes. A solicitação de entrar e testar, descrita em “Limites e próximo passo”, foi atendida por esse aceite posterior e não representa pendência atual. A confirmação é registrada como declaração humana; o agente não recebeu senhas nem executou novamente esses fluxos. O novo módulo de cadastro/redefinição tem sua própria validação pendente, conforme [gestão de usuários](user_management_2026-10-13.md). Ver [índice atualizado](README.md).
