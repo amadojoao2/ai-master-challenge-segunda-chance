@@ -16,12 +16,24 @@ Foram aprovados seis testes do escopo, 13 de componentes, quatro de adaptadores,
 
 Consultas reais conferiram o recorte FinTech (112 contas e 12 casos sem cancelamento), notas ponderadas/cobertura, MRR e uso. Advisor de segurança retornou zero findings; performance apenas índices sem uso. Capacidade/token/chaves e dados por conta não entram no GitHub.
 
-## Bloqueio observado na publicação
+## Falha de publicação e recuperação
 A atualização do `challenge-web` retornou `InternalServerErrorException`, “Function deploy failed due to an internal error”, em duas tentativas. A versão 4 permaneceu ACTIVE. Não atribuí causa sem evidência: consulta de logs também falhou no backend.
 
 Separei o adaptador de decisões do importador Excel: três operações fixas, sem pacote externo, usando a mesma capacidade e RPCs restritas. A implantação da nova `challenge-decisions` também falhou. Consultei a documentação oficial e gerei um pacote de arquivo único a partir do mesmo módulo, sem dependências relativas; a tentativa também teve o mesmo erro. Isso não prova indisponibilidade global, erro de sintaxe ou limite de tamanho.
 
-[Guia oficial para esse erro](https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy) recomenda CLI com debug/método de bundle alternativo ou suporte. CLI autenticada não está disponível nesta execução. Não extraí credenciais, abri ticket ou afrouxei RLS para contornar o bloqueio. O código e o empacotador ficam revisáveis no fork. Não publiquei uma interface que exigiria um backend ainda indisponível.
+[Guia oficial para esse erro](https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy) recomenda CLI com debug/método de bundle alternativo ou suporte. CLI autenticada não está disponível nesta execução. Não extraí credenciais, abri ticket ou afrouxei RLS para contornar o bloqueio. O código e o empacotador ficaram revisáveis no fork no commit de checkpoint `e79ed860f61b76b4a6be11bbf709f1a39c002f81`, ainda com publicação pendente.
 
-## Estado honesto
-Migração e testes SQL concluídos. Formulário/lista/histórico e adaptador implementados. Publicação e HTTP efetivo do novo fluxo pendentes; site público anterior continua ativo. Revisão visual real continua pendente. Nenhuma PR, issue, review, ticket ou mensagem a avaliadores foi criada.
+Depois do checkpoint, converti o pacote canônico para JavaScript com TypeScript 5.9.3, sem imports relativos ou tipos no artefato. Essa estratégia diferente foi aceita: `challenge-decisions` ACTIVE, versão 1. Isso identifica um caminho de implantação funcional, mas não prova a causa interna das falhas anteriores. O empacotador final `scripts/build_decision_edge.mjs` substitui o gerador intermediário Python/TypeScript, mantém um único conjunto de regras e não acessa credenciais/rede.
+
+O adaptador mantém validação, hash da capacidade, RPCs fixas e PT409/401. Não usei endpoint anônimo privilegiado nem enfraqueci RLS. A publicação do frontend fica condicionada à aceitação HTTP do backend efetivo.
+
+## Aceitação e publicação efetivas
+
+`http_scopes.py` passou por HTTP real em modo de leitura: conta, segmento, carteira e qualidade; média ponderada confrontada com os snapshots; escopos inválidos e falta de capacidade bloqueados. Depois, a execução explícita com `--write-qa` confirmou hash inválido/409, criação, replay idempotente, conteúdo conflitante/409, ação iniciada/concluída e igualdade da evidência preservada com a prévia.
+
+Verificação SQL posterior encontrou 79 membros e três destaques na decisão de segmento. São um registro com escopo e dois registros anteriores; três ações QA concluídas, zero abertas. Nenhuma fonte ou ponteiro analítico foi modificado nesta etapa.
+
+TypeScript/builds portável e Vinext passaram. A interface foi sincronizada e empacotada no fonte Sites `c784e3af17183aa3e8be20ab1e2edc866e2f817a`; versão 4 publicada com status `succeeded` em 12/10/2026. Navegador real/QA visual continuam indisponíveis, conforme limite já documentado. Não fabrico screenshots.
+
+## Estado final
+Migração e testes SQL concluídos. Formulário/lista/histórico e adaptador implementados. Adaptador JavaScript implantado, aceitação HTTP concluída e site atualizado. Revisão visual real continua pendente. Nenhuma PR, issue, review, ticket ou mensagem a avaliadores foi criada.

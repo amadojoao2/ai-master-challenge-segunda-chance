@@ -57,10 +57,10 @@ O ciclo efetivo `http_import.py --accounts-csv /caminho/original.csv --publish` 
 A revisão concorrente usa SQLSTATE PT409/HTTP 409. Não usar 40001 para erro de negócio: a aceitação real mostrou retries/timeout que não apareciam no teste SQL isolado. Ver Process Log de aceitação.
 
 
-## Escopo das decisões — implantação pendente
+## Escopo das decisões
 
-O formulário novo permite conta, segmento por setor/país, carteira e qualidade, com dado principal, prévia de backend e evidência/membros congelados. Ver [contrato e estado](../docs/decision_scopes.md). Migração aplicada; publicação Edge bloqueada por erro interno do Supabase em 12/10/2026. Site público permanece na interface anterior.
+O formulário novo permite conta, segmento por setor/país, carteira e qualidade, com dado principal, prévia de backend e evidência/membros congelados. Ver [contrato e estado](../docs/decision_scopes.md). Migração aplicada e adaptador publicado como JavaScript gerado em 12/10/2026, após erros internos no empacotamento TypeScript.
 
-Implantar também `challenge-decisions` com `web/decisions/index.ts`, seu `deno.json` e `web/domain/decision_scope.mjs`. O frontend roteia três operações para esse adaptador e mantém a sessão/importação/leitura no `challenge-web`. Os dois usam a mesma capacidade própria e runtime secreto, sem chave privilegiada no frontend. `scripts/build_decision_edge.py` permite gerar pacote de arquivo único a partir das regras canônicas.
+Implantar também `challenge-decisions`: os fontes são `web/decisions/index.ts` e `web/domain/decision_scope.mjs`; o pacote utilizado com sucesso é gerado com `node scripts/build_decision_edge.mjs --output .work/decision-edge/index.js`, após instalar dependências em `web/frontend`. Usar `index.js` gerado como entrada. O frontend roteia três operações para esse adaptador e mantém a sessão/importação/leitura no `challenge-web`. Os dois usam a mesma capacidade própria e runtime secreto, sem chave privilegiada no frontend. O empacotador usa as regras canônicas sem cópia manual nem segredos.
 
-Depois de implantar, `python web/tests/http_scopes.py` valida quatro escopos, agregações e bloqueios, sem gravar decisão. `--write-qa` persiste um registro de QA e conclui sua ação. Esse teste HTTP novo ainda não passou no ambiente, porque a função não foi implantada.
+Depois de implantar, `python web/tests/http_scopes.py` valida quatro escopos, agregações e bloqueios, sem gravar decisão. `--write-qa` persiste um registro de QA e conclui sua ação. Os testes de leitura e `--write-qa` passaram em 12/10/2026; a ação QA foi concluída e a interface publicada após a aceitação.

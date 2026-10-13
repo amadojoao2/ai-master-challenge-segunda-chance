@@ -63,6 +63,8 @@ As narrativas e Git history atendem ao formato de evidência aceito pelo guia. C
 
 ## Escopo explícito — 12/10/2026
 
-Conta, setor/país, carteira e qualidade implementados no código, com prévia calculada no banco e membros/evidência congelados. Migração aplicada e testes SQL aprovados, sem persistir novas decisões QA. 18 testes de domínio web (incluindo 89 verificações comparadas), 13 de componentes e quatro de adaptadores passaram. [Detalhes](decision_scopes.md).
+Conta, setor/país, carteira e qualidade implementados no código, com prévia calculada no banco e membros/evidência congelados. Migração aplicada e testes SQL aprovados, com rollback dos fixtures. 18 testes de domínio web (incluindo 89 verificações comparadas), 13 de componentes e quatro de adaptadores passaram. [Detalhes](decision_scopes.md).
 
-O Supabase recusou atualizações Edge com erro interno, inclusive um adaptador pequeno independente e seu pacote de arquivo único. `challenge-web` continua ACTIVE na versão 4; `challenge-decisions` não foi implantada. O site público anterior permanece ativo. Publicação/HTTP real do novo fluxo pendentes; não se apresenta teste simulado como aceitação em produção.
+O Supabase recusou atualizações Edge em TypeScript com erro interno. O pacote convertido para JavaScript, gerado das mesmas regras canônicas, foi aceito: `challenge-decisions` ACTIVE na versão 1; `challenge-web` permanece na versão 4. A causa interna do erro não foi confirmada.
+
+HTTP real confirmou os quatro escopos, agregações, validações e uma decisão QA idempotente com evidência congelada. A ação QA foi concluída com histórico de três entradas; são três QA concluídas no conjunto, nenhuma aberta. O banco confirmou 79 membros/3 destaques na nova decisão. Dois registros antigos continuam intactos. Site publicado na versão 4 após aceitação, com TypeScript/builds aprovados. QA visual real permanece pendente.

@@ -1,7 +1,7 @@
 # Decisões com escopo explícito
 
 ## Estado em 12/10/2026
-Código implementado e testes de domínio, componentes, adaptadores e SQL aprovados. Migração aplicada ao Supabase dedicado. **Publicação do novo adaptador Edge bloqueada por erro interno do Supabase.** O site público continua na versão anterior; o novo formulário ainda não está disponível nele. HTTP efetivo do novo fluxo e QA visual real permanecem pendentes.
+Código implementado e testes de domínio, componentes, adaptadores e SQL aprovados. Migração aplicada ao Supabase dedicado. O erro interno de implantação foi resolvido usando pacote JavaScript gerado a partir dos fontes canônicos. `challenge-decisions` está ACTIVE na versão 1. Aceitação HTTP concluída e interface publicada na versão 4 do site. QA visual real permanece pendente.
 
 ## Contrato de negócio
 
@@ -46,14 +46,15 @@ Mesma capacidade anônima criada por `challenge-web/session`, hash no banco, RPC
 - Quatro testes de adaptadores com fetch simulado: capacidade, dispatch fixo, hash, status de conflito/sessão e roteamento frontend. Não comprovam execução no Supabase.
 - SQL real em transação revertida com service_role: segmento 2 contas/MRR 400; satisfação ponderada 2,5 com 4 respostas/5 tickets; uso ausente NULL; qualidade 2/5 sem membros; critérios incompatíveis, hash inválido e versão antiga bloqueados; idempotência, imutabilidade e FKs.
 - Leitura real de FinTech: 112 contas, 12 flags sem cancelamento, satisfação 3,923076923 com 13 respondentes/22 tickets fechados, MRR contratual 2.416.050 na unidade da fonte; uso qualificado 1.928 com registros em 87/112 contas. Não são previsões de churn/perda.
-- TypeScript e build do frontend portável aprovados. Advisor de segurança sem findings; performance só informa índices ainda sem uso.
+- HTTP real passou para os quatro escopos, ponderação e validações. Uma decisão `[QA]` de segmento foi criada, repetida sem duplicação e sua ação concluída com três entradas de histórico. O banco confirmou 79 membros congelados e três destaques; dois registros antigos continuam intactos. Há três ações QA concluídas, nenhuma aberta.
+- TypeScript e builds do frontend portável e hospedado aprovados. Advisor de segurança sem findings; performance só informa índices ainda sem uso.
 
-## Desbloqueio e aceitação restante
+## Empacotamento e aceitação
 
-Implantar `challenge-decisions` usando `web/decisions/index.ts`, `web/decisions/deno.json` e `web/domain/decision_scope.mjs`. Alternativa de pacote único gerado, sem duplicação manual de regras:
+Fontes canônicos: `web/decisions/index.ts` e `web/domain/decision_scope.mjs`. O método que funcionou no ambiente foi pacote JavaScript único gerado, sem duplicação manual de regras. Após instalar dependências em `web/frontend`:
 
 ```sh
-python scripts/build_decision_edge.py --output .work/decision-edge/index.ts
+node scripts/build_decision_edge.mjs --output .work/decision-edge/index.js
 ```
 
-A função exige a capacidade própria e usa os segredos internos padrão do runtime; verify_jwt=false acompanha o acesso livre autorizado. Depois da implantação, executar `python web/tests/http_scopes.py` (sem escrita por padrão), validar uma decisão `[QA]` com `--write-qa` quando houver intenção de persistir o teste, e publicar o frontend somente após êxito. O script de empacotamento foi executado; o teste HTTP novo ainda não passou. Nenhuma PR/review foi aberta.
+Implantar o arquivo gerado como entrada `index.js` da função `challenge-decisions`. A função exige a capacidade própria e usa os segredos internos padrão do runtime; verify_jwt=false acompanha o acesso livre autorizado. Depois da implantação, executar `python web/tests/http_scopes.py` (sem escrita por padrão), validar uma decisão `[QA]` com `--write-qa` quando houver intenção de persistir o teste, e publicar o frontend somente após êxito. O empacotador foi executado, o pacote JavaScript foi aceito e ambos os testes HTTP (leitura e QA explícito) passaram. Site publicado após a aceitação. Nenhuma PR/review foi aberta.
