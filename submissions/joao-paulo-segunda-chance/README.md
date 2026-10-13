@@ -41,7 +41,7 @@ Implementado acesso pelo Supabase Auth com administrador e usuário comum, ambos
 
 ### Assistente executivo
 
-Implementado e publicado módulo de perguntas com GPT-6 Luna, consultas tipadas calculadas no banco, evidências por versão e histórico privado por usuário. MRR/ARR, contas, segmentos, qualidade, reconciliação, uso e satisfação têm contratos explícitos; cálculo sem regra e perguntas ambíguas recebem limitação/esclarecimento. Histórico permite busca, retomada, renomear e arquivar. Testes JS/SQL e bloqueios HTTP aprovados; configuração da chave e chamada real OpenAI ainda aguardam aceitação, assim como QA visual. [Arquitetura, Secret e reprodução](docs/assistant.md).
+Implementado e publicado módulo de perguntas com GPT-6 Luna, consultas tipadas calculadas no banco, evidências por versão e histórico privado por usuário. MRR/ARR, contas, segmentos, qualidade, reconciliação, uso e satisfação têm contratos explícitos; cálculo sem regra e perguntas ambíguas recebem limitação/esclarecimento. Histórico permite busca, retomada, renomear e arquivar. Testes JS/SQL e bloqueios HTTP aprovados; chave e acesso ao GPT-6 Luna validados pelo servidor com fixture sintético. Conversa pelo login do usuário e QA visual ainda aguardam aceitação. [Arquitetura, Secret e reprodução](docs/assistant.md).
 
 ## Process Log — Como usei IA
 

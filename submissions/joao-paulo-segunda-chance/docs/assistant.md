@@ -1,7 +1,7 @@
 # Assistente executivo — contrato e operação
 
 ## Estado
-Site v8 publicado; Edge `challenge-assistant` ACTIVE v5, verify_jwt=true. Modelo aprovado: `gpt-6-luna`, Responses API, reasoning none. Estrutura, consultas e interface implementadas; chamada real OpenAI e aceitação visual aguardam configuração/verificação da chave e teste pelo proprietário. Não confundir mocks com integração real aprovada. Ver [Process Log](../process-log/assistant_2026-10-12.md).
+Site v8 publicado; Edge `challenge-assistant` ACTIVE v5, verify_jwt=true. Modelo aprovado: `gpt-6-luna`, Responses API, reasoning none. Estrutura, consultas e interface implementadas. Chave e acesso ao modelo verificados em chamada real pelo servidor, com fixture sintético: consulta de contas, esclarecimento de MRR anual e recusa de previsão sem regra. Aceitação visual e conversa completa pelo login do proprietário continuam pendentes. Não confundir mocks com integração real aprovada. Ver [Process Log](../process-log/assistant_2026-10-12.md).
 
 ## Contextos e responsabilidades
 - Domínio: `web/domain/assistant.mjs`, catálogo tipado, validação de chamadas, limites e composição determinística da resposta numérica.
@@ -53,3 +53,11 @@ Após fundação, web, escopos e autenticação, aplicar `db/assistant.sql`, dep
 `tests/db_assistant.sql` usa uma sessão real já existente, sob service_role, e rollback; não cria Auth.users/Auth.sessions. Testa catálogo, equivalência de MRR, anualização, contas distintas, replay, acesso privado e privilégios. Não executar sem sessão real ou interpretar falha de pré-condição como teste aprovado. `python web/tests/http_assistant.py` verifica três bloqueios HTTP anônimos, sem gravações. DOM/API/provedor nos testes JS são simulados; nenhum desses testes comprova chamada real OpenAI.
 
 Documentação consultada: [function calling](https://developers.openai.com/api/docs/guides/function-calling), [GPT-6 Luna](https://developers.openai.com/api/docs/models/gpt-6-luna), [controles de dados](https://developers.openai.com/api/docs/guides/your-data), [Secrets Supabase](https://supabase.com/docs/guides/functions/secrets).
+
+## Verificação real da integração — após cadastro do Secret
+
+O proprietário confirmou o cadastro. Uma verificação separada chamou o mesmo executeQuestion canônico e a Responses API real, sem usar conversa, identidade Auth fictícia ou dados da carteira. Fixture explícito com três cadastros de teste. Passaram consulta factual, esclarecimento de MRR anual e recusa de forecast sem regra. Quatro respostas reais da OpenAI; 2.539 tokens de entrada e 198 de saída observados. Isso comprova chave/modelo/protocolo e os três exemplos, não aceitação de toda pergunta de negócio nem de interação no navegador.
+
+Verificação temporária protegida por nonce aleatório de 256 bits, mantido só na memória do processo CLI. Somente SHA-256 armazenado na tabela privada assistant.integration_checks; validade de dez minutos, consumo atômico antes de chamadas e perguntas fixas. Sem prompt arbitrário ou acesso a dados de usuários. Chave OpenAI permaneceu no runtime. Ao terminar, challenge-assistant-probe foi substituída por resposta 410 incondicional, verify_jwt=true. A invocação anônima observada também retornou 410, sem acesso a dados ou chamadas ao provedor; a função permanece implantada, com o comportamento de diagnóstico retirado. Reuso, nonce desconhecido e sobrescrita de evidência bloqueados em teste SQL. Nenhum caminho de autenticação do assistente de produção foi alterado.
+
+A migração auxiliar db/assistant_integration_checks.sql mantém apenas metadados privados da verificação. scripts/run_assistant_probe.py gera nonce na memória e imprime só hash; scripts/build_assistant_probe.mjs usa o módulo canônico. Esse procedimento é administrativo e opcional, exige nonce novo e retirada do endpoint após a verificação; não faz parte da aplicação pública. tests/db_assistant_integration_checks.sql verifica os controles com rollback, sem ler valores de Secrets.

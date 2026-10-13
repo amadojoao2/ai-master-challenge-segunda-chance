@@ -80,4 +80,4 @@ Site v7 publicado: versão/data e comparação do workspace completo agrupadas a
 
 ## Assistente executivo — 12/10/2026
 
-Site v8 publicado com histórico privado, contextos e evidências. Banco e consultas validados; gateway challenge-assistant ACTIVE v5, verify_jwt=true. Trinta e seis testes JS e teste SQL real com rollback aprovados; três bloqueios HTTP reais aprovados. OpenAI real/configuração e QA visual ainda não verificados. [Estado e operação](assistant.md).
+Site v8 publicado com histórico privado, contextos e evidências. Banco e consultas validados; gateway challenge-assistant ACTIVE v5, verify_jwt=true. Trinta e seis testes JS e teste SQL real com rollback aprovados; três bloqueios HTTP reais aprovados. Chave e chamada real GPT-6 Luna validadas pelo servidor com fixture sintético; conversa no navegador pelo usuário e QA visual ainda pendentes. [Estado e operação](assistant.md).

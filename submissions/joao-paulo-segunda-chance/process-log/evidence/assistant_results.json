@@ -32,12 +32,32 @@
   "conversations_at_verification": 0,
   "completed_executions_at_verification": 0,
   "executions_with_provider_response_at_verification": 0,
-  "key_configuration_and_real_openai": "not_verified_pending_owner_configuration_and_acceptance",
+  "key_configuration_and_real_openai": "verified_server_side_synthetic_fixture",
   "key_read_printed_or_versioned": false,
   "real_browser_qa": "not_performed",
   "security_advisor_new_assistant_findings": 0,
   "existing_auth_warnings": [
     "auth_leaked_password_protection"
   ],
-  "pull_request": "not_created"
+  "pull_request": "not_created",
+  "openai_live_check": {
+    "passed": true,
+    "fixture": "synthetic_only",
+    "tests_passed": [
+      "accounts",
+      "ambiguous_mrr",
+      "unsupported_forecast"
+    ],
+    "provider_responses": 4,
+    "input_tokens": 2539,
+    "output_tokens": 198,
+    "user_business_data_sent": false,
+    "user_conversations_created": 0,
+    "diagnostic_one_use_guards": "passed",
+    "diagnostic_retired": true,
+    "retired_verify_jwt": true,
+    "retired_version": 2,
+    "retired_anonymous_http_status": 410
+  },
+  "browser_end_to_end_user_conversation": "pending_owner_acceptance"
 }
