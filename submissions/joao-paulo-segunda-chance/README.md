@@ -5,13 +5,13 @@
 - **Nome:** João Paulo
 - **LinkedIn:** https://www.linkedin.com/in/joao-pauloborges
 - **Challenge escolhido:** Challenge 001 — Diagnóstico de Churn
-- **Estado:** em desenvolvimento; não enviado para avaliação.
+- **Estado:** implementação e aceitação técnica verificadas; revisão visual real pendente; não enviado para avaliação.
 
 ## Executive Summary
 
 A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso é livre, conforme decisão do usuário. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
 
-**[Acessar o site](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site)** · [Aplicação e reprodução](web/README.md) · [Status e limites](docs/web_status.md).
+**[Acessar o site](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site)** · [Aplicação e reprodução](web/README.md) · [Status e limites](docs/web_status.md) · [Diagnóstico executivo](solution/diagnostico_executivo.md).
 
 ## Solução
 
@@ -21,11 +21,11 @@ Preservar DDD, TDD, Clean Architecture, Bounded Contexts e Specifications da pri
 
 ### Resultados / Findings
 
-Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. O site está publicado: visão executiva, diagnóstico, contas, decisões/ações, dados/qualidade e metodologia. O importador aceita CSV/.xlsx, valida e publica versões completas após revisão; o teste integral de publicação foi executado em transação revertida. Foram aprovados também 12 testes web, equivalência de 89 resultados com Python, testes SQL de operações e testes HTTP. Fontes e relatórios por conta permanecem fora do repositório. Ver limites em `docs/web_status.md`.
+Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. O site está publicado: visão executiva, diagnóstico, contas, decisões/ações, dados/qualidade e metodologia. O importador aceita CSV/.xlsx, valida e publica versões completas após revisão; o teste integral foi primeiro executado com rollback e depois por HTTP com publicação efetiva de uma segunda versão com os mesmos fatos, métricas idênticas e histórico preservado. Foram aprovados também 12 testes de domínio web, oito testes de componentes em DOM emulado, equivalência de 89 resultados com Python, testes SQL e testes HTTP de publicação e decisões. A aceitação encontrou e corrigiu duas mensagens de erro ocultas e um código SQL que provocava retries na API. Fontes e relatórios por conta permanecem fora do repositório. Ver limites em `docs/web_status.md`.
 
 ### Recomendações
 
-Fundação e aplicação implementadas. Próxima fase: revisão visual pelo usuário, aprimoramentos necessários e evidências finais antes da submissão. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
+Fundação e aplicação implementadas. Próxima fase: revisão visual em navegador/celular reais e eventuais ajustes antes da submissão. O diagnóstico traz ações priorizadas, exposição contratual observada e cenário de capacidade; não atribui receita recuperável ou causa raiz sem evidência. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
 
 ### Limitações
 
@@ -64,8 +64,10 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Registro parcial desta sessão](process-log/session_2026-10-12.md).
 - [Implementação da fundação](process-log/foundation_2026-10-12.md).
 - [Implementação web e resultados de testes](process-log/web_2026-10-12.md).
+- [Aceitação efetiva, correções e evidências](process-log/acceptance_2026-10-12.md).
+- [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
-- Exports integrais e evidências visuais: pendentes para a entrega final. O registro escrito não se apresenta como export integral.
+- Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.
 
 ## Reproduzir a auditoria
 

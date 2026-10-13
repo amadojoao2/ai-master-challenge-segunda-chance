@@ -49,3 +49,13 @@ Ver `web/README.md`. Migrações desta fase: `web_application.sql`, `web_account
 
 ## Evoluções
 Autenticação/papéis, lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento, auditoria de identidade e testes visuais. Evidências finais e submissão para avaliação permanecem pendentes.
+
+## Aceitação posterior — 12/10/2026
+
+O usuário autorizou continuar as validações, incluindo atualização efetiva. Uma segunda versão foi publicada por HTTP com as mesmas 500 contas e métricas; a versão anterior e seus snapshots continuam acessíveis. Há duas decisões `[QA]` concluídas, com três entradas de histórico cada; não são decisões do negócio.
+
+Oito testes de componentes passaram: seis áreas, filtros/paginação/busca, foco/Escape, decisão com erro, conclusão com erro visível, retry do detalhe, upload inválido e pausa/retomada. Esse DOM emulado não comprova renderização em navegador real.
+
+A aceitação HTTP encontrou que SQLSTATE 40001 provocava retries na revisão desatualizada. Nova migração `web_conflict_response.sql` usa PT409; Edge devolve HTTP 409. O teste SQL foi reforçado para exigir esse código e o teste HTTP confirmou revisão desatualizada, resultado ausente, idempotência e conclusão. Nenhum backend de teste em loop permaneceu na verificação final.
+
+As narrativas e Git history atendem ao formato de evidência aceito pelo guia. Capturas/export integral são opcionais; revisão visual real continua pendente. Ver `docs/submission_readiness.md`.

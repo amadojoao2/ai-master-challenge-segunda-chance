@@ -75,5 +75,5 @@ Deno.serve(async(req:Request)=>{
   if(path==='decide')return response(await rpc('challenge_web_decide',{p_token,p_request:body.request_key,p_evidence:body.evidence_id??null,p_snapshot:body.snapshot_id??null,p_title:body.title,p_rationale:body.rationale,p_actor:body.actor,p_action:body.action,p_responsible:body.responsible,p_due:body.due}));
   if(path==='transition')return response(await rpc('challenge_web_transition',{p_token,p_action:body.id,p_revision:body.revision,p_status:body.status,p_result:body.result??null}));
   return response({error:'Operação desconhecida.'},404);
- }catch(e){return response({error:(e as Error).message},(e as any).code==='28000'?401:400);}
+ }catch(e){return response({error:(e as Error).message},(e as any).code==='28000'?401:(e as any).code==='PT409'?409:400);}
 });

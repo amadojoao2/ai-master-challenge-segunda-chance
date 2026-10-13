@@ -129,4 +129,4 @@ Versionar mudanças concluídas e verificadas nesta branch, sem segredos e sem a
 
 ## Situação após a fase web
 
-Etapas 1–4 implementadas e verificadas, com limite de QA visual documentado. Diagnóstico, atualização por fonte e decisões estão no site publicado. A publicação do pipeline foi testada integralmente em transação revertida; painel ativo original preservado. Ver [status e limites da aplicação](web_status.md). Etapa 5 ainda pendente: revisão visual, evidências finais e autorização para a nova PR.
+Etapas 1–4 implementadas e verificadas, com limite de QA visual documentado. Diagnóstico, atualização por fonte e decisões estão no site publicado. A publicação do pipeline foi testada integralmente em transação revertida; painel ativo original preservado. Ver [status e limites da aplicação](web_status.md). A aceitação posterior publicou uma segunda versão por HTTP sem mudar fatos, testou componentes e decisões e corrigiu erros de UX/API. A etapa 5 tem narrativa/Git e README conferidos; revisão visual real e autorização para a nova PR continuam pendentes.

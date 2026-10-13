@@ -11,6 +11,7 @@ Node >=22.13.
 cd web/frontend
 npm install
 npm run check
+npm run test:ui
 npm run build
 npm run dev
 ```
@@ -24,6 +25,7 @@ Aplicar as migrações da fundação na ordem documentada em `docs/foundation_st
 2. `db/web_account_detail.sql`
 3. `db/analysis_materialized.sql`
 4. `db/web_parse_reuse_guard.sql`
+5. `db/web_conflict_response.sql`
 
 Implantar `web/edge/index.ts` com `web/domain/import.mjs`, `web/domain/contracts.mjs` e `web/edge/deno.json`. Nome: `challenge-web`. JWT do Supabase desativado nesta modalidade livre; o corpo exige a capacidade própria nas operações. `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` são segredos internos padrão do ambiente Edge, não parâmetros de navegador.
 
@@ -44,3 +46,11 @@ O teste HTTP de Excel requer `python -m pip install -r requirements-web-tests.tx
 
 ## Limites
 Ver `docs/web_status.md`: substituição completa de uma fonte por vez, limites de arquivo, identidade declarada, armazenamento de originais em Postgres e ausência de QA visual automatizado neste ambiente. Não há modelo de ML, alerta preditivo nem inferência causal.
+
+## Aceitação de componentes e HTTP
+
+`npm run test:ui` testa oito fluxos usando Happy DOM 21.0.1 e API simulada. Não executa navegador real nem valida CSS/viewport visualmente. Arquivos temporários em `tests/.generated` são ignorados.
+
+O ciclo efetivo `http_import.py --accounts-csv /caminho/original.csv --publish` foi autorizado e concluído em 12/10/2026, preservando os fatos e criando a segunda versão. `http_decisions.py --write-qa` grava uma decisão claramente marcada `[QA]` e conclui sua ação. Não rodar os testes de escrita sem intenção explícita de persistir esses registros.
+
+A revisão concorrente usa SQLSTATE PT409/HTTP 409. Não usar 40001 para erro de negócio: a aceitação real mostrou retries/timeout que não apareciam no teste SQL isolado. Ver Process Log de aceitação.

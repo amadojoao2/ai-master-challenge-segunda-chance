@@ -13,7 +13,7 @@ begin
  if not failed then raise exception 'Conclusão sem resultado deve falhar'; end if;
  perform public.challenge_web_transition(repeat('a',64),action,0,'in_progress',null);
  failed=false;
- begin perform public.challenge_web_transition(repeat('a',64),action,0,'completed','Resultado'); exception when others then failed=true; end;
+ begin perform public.challenge_web_transition(repeat('a',64),action,0,'completed','Resultado'); exception when sqlstate 'PT409' then failed=true; end;
  if not failed then raise exception 'Revisão desatualizada deve falhar'; end if;
  perform public.challenge_web_transition(repeat('a',64),action,1,'completed','Histórico verificado, sem inferir causalidade.');
  if (select count(*) from operations.action_history where action_id=action)<>3 then raise exception 'Histórico deve ser completo'; end if;
