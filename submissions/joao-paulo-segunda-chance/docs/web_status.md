@@ -73,3 +73,7 @@ HTTP real confirmou os quatro escopos, agregações, validações e uma decisão
 ## Login ativo — 12/10/2026
 
 A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Duas contas confirmadas e dois memberships ativos; autenticação exigida e site v6 publicado. Testes simulados e bloqueios HTTP/SQL passaram; entrada com senha, autoria, renovação, retomada e logout reais aguardam aceitação pelo proprietário. Nenhuma senha no chat/Git e nenhuma PR criada. [Detalhes](authentication.md).
+
+## Contexto da visão executiva — 12/10/2026
+
+Site v7 publicado: versão/data e comparação do workspace completo agrupadas antes dos filtros. Espaçamento de 8px entre os dois blocos, sem alterar cálculos ou recortes. TypeScript, build e 23 testes existentes aprovados; QA visual real continua pendente. [Evidência](../process-log/executive_layout_2026-10-12.md).

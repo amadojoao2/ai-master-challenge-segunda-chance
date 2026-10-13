@@ -76,6 +76,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Implementação e aceitação dos escopos](process-log/decision_scopes_2026-10-12.md).
 - [Implementação do login e limites de validação](process-log/authentication_2026-10-12.md).
 - [Ativação do login e verificação dos bloqueios](process-log/authentication_activation_2026-10-12.md).
+- [Reorganização do contexto da visão executiva](process-log/executive_layout_2026-10-12.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.
