@@ -112,3 +112,27 @@ test('Dois perfis acessam sete áreas; sair remove dados e retorna ao login',asy
 test('Troca de conta limpa o painel enquanto o novo perfil é validado',async()=>{await setup();try{
  let finish;handler=async(name)=>{if(name==='session')return new Promise(resolve=>{finish=resolve;});};await act(async()=>globalThis.__authEvent('SIGNED_IN',{access_token:'other',user:{id:'other-user'}}));assert.equal(container.querySelector('nav'),null);assert.match(text(),/Verificando seu acesso/);state.user={...state.user,id:'other-user',name:'Outra pessoa',session_id:'other-session'};await act(async()=>finish({user:state.user}));assert.match(text(),/Outra pessoa/);assert.equal(container.querySelectorAll('nav button').length,7);
  }finally{await cleanup();}});
+
+test('Assistant exploration clears old search and reconciliation and preserves the evidence context',async()=>{await setup();try{
+ await nav('Contas');await input(container.querySelector('[aria-label="Buscar conta"]'),'no-match');await change(container.querySelector('[aria-label="Reconciliação"]'),'flag_without_event');
+ handler=async(name,body)=>{
+ if(name==='assistant-status')return {configured:true};
+ if(name==='assistant-list')return {conversations:[{id:'review-conv',title:'Review result'}],has_more:false};
+ if(name==='assistant-conversation')return {conversation:{id:'review-conv',title:'Review result',run_id:run.id,filters:{},archived:false},messages:[{seq:1,role:'assistant',content:'25 contas',result:{evidence:{metric:'accounts',label:'Contas cadastradas',value:'25',unit:'contas',run_id:run.id,filters:{},reference_date:run.reference_date,definition:'Todas as contas'}}}],turns:[],current_run_id:run.id};
+ };
+ await nav('Assistente IA');await click([...container.querySelectorAll('.assistant-conversations button')][0]);await click(button('Explorar contas deste recorte'));
+ assert.equal(container.querySelector('[aria-label="Buscar conta"]').value,'');assert.equal(container.querySelector('[aria-label="Reconciliação"]').value,'all');assert.equal(container.querySelectorAll('tbody tr').length,20);assert.match(text(),/Recorte vindo do assistente/);assert.match(text(),/Não é a lista de ocorrências da métrica/);
+ }finally{await cleanup();}});
+test('Account tickets expose satisfaction eligibility and keep absent notes distinct from zero',async()=>{await setup();try{
+ handler=async(name,body)=>name==='detail'?{snapshot:state.accounts[0],evidence:[],events:[],subscriptions:[],usage:[],support:[
+ {ticket_id:'T-OK',submitted_at:'2024-12-02 09:00:00',closed_at:'2024-12-03 09:00:00',satisfaction_score:3},
+ {ticket_id:'T-NONE',submitted_at:'2024-12-02',closed_at:'2024-12-03',satisfaction_score:null},
+ {ticket_id:'T-OUTSIDE',submitted_at:'2024-12-01',closed_at:'2024-12-03',satisfaction_score:5},
+ {ticket_id:'T-FUTURE',submitted_at:'2024-12-31',closed_at:'2025-01-01',satisfaction_score:5}]}:undefined;
+ await nav('Contas');await click(container.querySelector('tbody tr button'));const modal=container.querySelector('[role="dialog"]');assert.match(modal.textContent,/T-OK/);assert.match(modal.textContent,/Elegível para satisfação/);assert.match(modal.textContent,/Fechado elegível · sem nota/);assert.match(modal.textContent,/abertura fora da janela/);assert.match(modal.textContent,/não encerrado validamente até o corte/);assert.match(modal.textContent,/Sem nota/);
+ }finally{await cleanup();}});
+test('Executive investigation includes reactivation-only accounts and passive cards are not buttons',async()=>{await setup();try{
+ state.accounts[1].cadastral_churn=true;state.accounts[1].churn_events=0;state.accounts[1].reconciliation_state='flag_with_reactivation_only';
+ await click(container.querySelector('[aria-label="Atualizar dados"]'));await click(button('Investigar por exposição'));assert.equal(container.querySelectorAll('tbody tr').length,2);assert.equal(container.querySelector('[aria-label="Reconciliação"]').value,'missing_cancel');
+ await nav('Diagnóstico');assert.equal(container.querySelectorAll('button.stat').length,0);assert.equal(container.querySelectorAll('.stat').length,4);
+ }finally{await cleanup();}});

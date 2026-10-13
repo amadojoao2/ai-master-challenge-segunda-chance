@@ -2,6 +2,12 @@
 
 Site: https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site
 
+## Estado em 13/10/2026
+
+Site v9 publicado; builds e 89 testes aprovados, sem skips. Login integralmente aceito pelo proprietário. Revisão implementada: recuperação do assistente, exploração sem filtros residuais, tickets por conta, leitura executiva, legibilidade e autoria atualizada. Sem alteração de banco, fatos publicados ou funções Edge nesta rodada. [Registro de implementação](../process-log/review_2026-10-13.md) e [reprodução](reproduction.md). A validação visual em navegador real desta atualização permanece pendente.
+
+As seções datadas de 12/10 abaixo são evidências históricas; suas pendências de login foram superadas pela confirmação do proprietário em 13/10.
+
 ## Escopo autorizado
 Acesso com e-mail/senha sobre o Supabase dedicado. Dois perfis ativos, administrador e usuário comum, com todas as funções atuais. Novas decisões e uploads registram o usuário autenticado; responsável continua sendo informação de negócio declarada. As três decisões QA anteriores preservam autoria declarada. A fase inicial de acesso livre, descrita nas evidências históricas abaixo, foi substituída pela autenticação.
 
