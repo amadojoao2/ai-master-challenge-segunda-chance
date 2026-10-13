@@ -39,6 +39,10 @@ Implementados conta, segmento por setor/país, carteira e qualidade com prévia 
 
 Implementado acesso pelo Supabase Auth com administrador e usuário comum, ambos com todas as funções. Duas contas criadas pelo usuário confirmadas e vinculadas a perfis protegidos. Site v6 publicado e autenticação exigida no backend; criação de sessão e acesso pelos endpoints antigos bloqueados. As três decisões QA anteriores e as duas versões de dados foram preservadas. Entrada com senha, autoria, renovação, retomada de upload e logout reais ainda aguardam aceitação; testes simulados não substituem essa verificação. [Configuração e estado](docs/authentication.md).
 
+### Assistente executivo
+
+Implementado e publicado módulo de perguntas com GPT-6 Luna, consultas tipadas calculadas no banco, evidências por versão e histórico privado por usuário. MRR/ARR, contas, segmentos, qualidade, reconciliação, uso e satisfação têm contratos explícitos; cálculo sem regra e perguntas ambíguas recebem limitação/esclarecimento. Histórico permite busca, retomada, renomear e arquivar. Testes JS/SQL e bloqueios HTTP aprovados; configuração da chave e chamada real OpenAI ainda aguardam aceitação, assim como QA visual. [Arquitetura, Secret e reprodução](docs/assistant.md).
+
 ## Process Log — Como usei IA
 
 ### Ferramentas usadas
@@ -77,6 +81,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Implementação do login e limites de validação](process-log/authentication_2026-10-12.md).
 - [Ativação do login e verificação dos bloqueios](process-log/authentication_activation_2026-10-12.md).
 - [Reorganização do contexto da visão executiva](process-log/executive_layout_2026-10-12.md).
+- [Implementação e validação do assistente](process-log/assistant_2026-10-12.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.

@@ -1,5 +1,6 @@
 import {getAuthClient,SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from './auth';
 const BASE=SUPABASE_URL+'/functions/v1/challenge-auth-web';
+const ASSISTANT_BASE=SUPABASE_URL+'/functions/v1/challenge-assistant';
 const DECISIONS_BASE=SUPABASE_URL+'/functions/v1/challenge-auth-decisions';
 const scopedRoutes=new Set(['scope-options','scope-preview','decide-scoped']);
 export class ApiError extends Error{constructor(message:string,public status:number){super(message);}}
@@ -8,7 +9,7 @@ export async function api(path:string,body?:unknown,retry=true):Promise<any>{
  const client=getAuthClient();const {data,error}=await client.auth.getSession();
  if(error||!data.session?.access_token)throw expired();
  const multipart=body instanceof FormData;
- const r=await fetch((scopedRoutes.has(path)?DECISIONS_BASE:BASE)+'/'+path,{method:body===undefined?'GET':'POST',cache:'no-store',headers:{Authorization:'Bearer '+data.session.access_token,apikey:SUPABASE_PUBLISHABLE_KEY,...(multipart?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:multipart?body:JSON.stringify(body)});
+ const r=await fetch((path.startsWith('assistant-')?ASSISTANT_BASE:scopedRoutes.has(path)?DECISIONS_BASE:BASE)+'/'+path,{method:body===undefined?'GET':'POST',cache:'no-store',headers:{Authorization:'Bearer '+data.session.access_token,apikey:SUPABASE_PUBLISHABLE_KEY,...(multipart?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:multipart?body:JSON.stringify(body)});
  const d:any=await r.json();
  if(r.status===401){
   if(retry){const refreshed=await client.auth.refreshSession();if(!refreshed.error&&refreshed.data.session)return api(path,body,false);}

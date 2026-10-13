@@ -13,7 +13,8 @@ const {default:React,act}=await import('react');
 const {createRoot}=await import('react-dom/client');
 const folder=path.dirname(fileURLToPath(import.meta.url)),generated=path.join(folder,'.generated');await fs.mkdir(generated,{recursive:true});
 const source=await fs.readFile(process.env.TEST_PAGE_SOURCE??path.join(folder,'../app/page.tsx'),'utf8');
-const output=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText.replace("'../lib/api'","'./api.mjs'").replace("'../lib/auth'","'./auth.mjs'").replace("'../lib/contracts.mjs'","'../../lib/contracts.mjs'");
+const output=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText.replace("'../lib/api'","'./api.mjs'").replace("'../lib/auth'","'./auth.mjs'").replace("'../lib/contracts.mjs'","'../../lib/contracts.mjs'").replace("'./AssistantScreen'","'./AssistantScreen.mjs'");
+const assistantSource=await fs.readFile(path.join(folder,'../app/AssistantScreen.tsx'),'utf8');await fs.writeFile(path.join(generated,'AssistantScreen.mjs'),ts.transpileModule(assistantSource,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText.replace("'../lib/api'","'./api.mjs'"));
 await fs.writeFile(path.join(generated,'page.mjs'),output);await fs.writeFile(path.join(generated,'api.mjs'),'export const api=(...args)=>globalThis.__api(...args);\n');
 await fs.writeFile(path.join(generated,'auth.mjs'),'export const getAuthClient=()=>globalThis.__auth;\n');
 const {default:Dashboard}=await import('./.generated/page.mjs');
@@ -103,11 +104,11 @@ test('Login impede consulta do painel sem sessão e permite mostrar senha',async
 test('Senha incorreta mantém login com mensagem e não consulta dados',async()=>{await setup(false);try{
  await input(container.querySelector('[name="email"]'),'qa@example.invalid');await input(container.querySelector('[name="password"]'),'bad');await submit(container.querySelector('form'));assert.match(text(),/E-mail ou senha incorretos/);assert.equal(calls.filter(c=>c.name==='dashboard').length,0);assert.equal(container.querySelector('[name="email"]').value,'qa@example.invalid');
  }finally{await cleanup();}});
-test('Dois perfis acessam seis áreas; sair remove dados e retorna ao login',async()=>{for(const role of ['user','administrator']){await setup(false,role);try{
- await input(container.querySelector('[name="email"]'),'qa@example.invalid');await input(container.querySelector('[name="password"]'),'synthetic-password');await submit(container.querySelector('form'));assert.equal(container.querySelectorAll('nav button').length,6);assert.match(text(),/QA User/);assert.match(text(),role==='administrator'?/Administrador/:/Usuário/);await click(button('Sair'));assert.match(text(),/Entre na sua conta/);assert.equal(container.querySelector('nav'),null);assert.equal(calls.filter(c=>c.name==='logout').length,1);
+test('Dois perfis acessam sete áreas; sair remove dados e retorna ao login',async()=>{for(const role of ['user','administrator']){await setup(false,role);try{
+ await input(container.querySelector('[name="email"]'),'qa@example.invalid');await input(container.querySelector('[name="password"]'),'synthetic-password');await submit(container.querySelector('form'));assert.equal(container.querySelectorAll('nav button').length,7);assert.match(text(),/QA User/);assert.match(text(),role==='administrator'?/Administrador/:/Usuário/);await click(button('Sair'));assert.match(text(),/Entre na sua conta/);assert.equal(container.querySelector('nav'),null);assert.equal(calls.filter(c=>c.name==='logout').length,1);
  }finally{await cleanup();}}});
 
 
 test('Troca de conta limpa o painel enquanto o novo perfil é validado',async()=>{await setup();try{
- let finish;handler=async(name)=>{if(name==='session')return new Promise(resolve=>{finish=resolve;});};await act(async()=>globalThis.__authEvent('SIGNED_IN',{access_token:'other',user:{id:'other-user'}}));assert.equal(container.querySelector('nav'),null);assert.match(text(),/Verificando seu acesso/);state.user={...state.user,id:'other-user',name:'Outra pessoa',session_id:'other-session'};await act(async()=>finish({user:state.user}));assert.match(text(),/Outra pessoa/);assert.equal(container.querySelectorAll('nav button').length,6);
+ let finish;handler=async(name)=>{if(name==='session')return new Promise(resolve=>{finish=resolve;});};await act(async()=>globalThis.__authEvent('SIGNED_IN',{access_token:'other',user:{id:'other-user'}}));assert.equal(container.querySelector('nav'),null);assert.match(text(),/Verificando seu acesso/);state.user={...state.user,id:'other-user',name:'Outra pessoa',session_id:'other-session'};await act(async()=>finish({user:state.user}));assert.match(text(),/Outra pessoa/);assert.equal(container.querySelectorAll('nav button').length,7);
  }finally{await cleanup();}});

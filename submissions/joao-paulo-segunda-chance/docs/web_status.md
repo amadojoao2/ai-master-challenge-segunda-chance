@@ -77,3 +77,7 @@ A nova orientação do usuário substitui o requisito anterior de acesso livre: 
 ## Contexto da visão executiva — 12/10/2026
 
 Site v7 publicado: versão/data e comparação do workspace completo agrupadas antes dos filtros. Espaçamento de 8px entre os dois blocos, sem alterar cálculos ou recortes. TypeScript, build e 23 testes existentes aprovados; QA visual real continua pendente. [Evidência](../process-log/executive_layout_2026-10-12.md).
+
+## Assistente executivo — 12/10/2026
+
+Site v8 publicado com histórico privado, contextos e evidências. Banco e consultas validados; gateway challenge-assistant ACTIVE v5, verify_jwt=true. Trinta e seis testes JS e teste SQL real com rollback aprovados; três bloqueios HTTP reais aprovados. OpenAI real/configuração e QA visual ainda não verificados. [Estado e operação](assistant.md).
