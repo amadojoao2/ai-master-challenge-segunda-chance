@@ -11,7 +11,7 @@ def reject(url,body=None,jwt=None,extra=None,expected=401):
  try:call(url,body,jwt,extra);raise AssertionError('Unprotected request accepted')
  except urllib.error.HTTPError as e:assert e.code==expected,(e.code,url);e.close()
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--guards-only',action='store_true');p.add_argument('--legacy-blocks',action='store_true',help='Verify old endpoints after login activation; no business writes.');p.add_argument('--email');p.add_argument('--expect-role',choices=['administrator','user']);args=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--guards-only',action='store_true');p.add_argument('--legacy-blocks',action='store_true',help='Verify old endpoints after login activation; no business writes.');p.add_argument('--email');p.add_argument('--expect-role',choices=['super_admin','administrator','user']);args=p.parse_args()
  reject('/functions/v1/challenge-auth-web/dashboard')
  reject('/functions/v1/challenge-auth-decisions/scope-options',{'run_id':'synthetic'})
  reject('/functions/v1/challenge-auth-web/session',{},extra={'x-challenge-session':'obsolete-capability'})

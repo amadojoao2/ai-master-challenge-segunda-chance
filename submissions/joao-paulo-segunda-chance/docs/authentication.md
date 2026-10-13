@@ -1,11 +1,13 @@
 # Login — identidade e ativação
 
 ## Estado atual
-Implementados login e-mail/senha, mostrar senha, erros, sessão persistente/renovação, saída local e identificação do usuário. Adaptadores `challenge-auth-web` e `challenge-auth-decisions` ACTIVE v2, verify_jwt=true. **Site v6 publicado e autenticação ativada em 12/10/2026 (BRT)** após confirmar as duas contas criadas pelo usuário e associar administrador e usuário ao workspace. Ambos acessam todas as funções. As duas versões de dados e três decisões QA anteriores foram preservadas. Bloqueios HTTP e SQL verificados. Em 13/10/2026 o proprietário informou que concluiu a aceitação completa do login; não está pendente. A revisão não repetiu essa aceitação. Nenhuma senha foi solicitada, lida ou versionada. Ver [evidência da ativação](../process-log/authentication_activation_2026-10-12.md).
+Site v10: [gestão de usuários](user_management.md) ativa, `amadojoaoborges@gmail.com` superadministrador protegido e `email@raven.com` administrador. Novos usuários têm permissões explícitas, cadastro sem e-mail e senha pessoal obrigatória. Senhas existentes preservadas. O histórico abaixo documenta a ativação original.
+
+Implementados login e-mail/senha, mostrar senha, erros, sessão persistente/renovação, saída local e identificação do usuário. Adaptadores `challenge-auth-web` e `challenge-auth-decisions` ACTIVE v2, verify_jwt=true. **Site v6 publicado e autenticação ativada em 12/10/2026 (BRT)** após confirmar as duas contas criadas pelo usuário e associar administrador e usuário ao workspace. Na ativação original, ambos acessavam todas as funções. As duas versões de dados e três decisões QA anteriores foram preservadas. Bloqueios HTTP e SQL verificados. Em 13/10/2026 o proprietário informou que concluiu a aceitação completa do login; não está pendente. A revisão não repetiu essa aceitação. Nenhuma senha foi solicitada, lida ou versionada. Ver [evidência da ativação](../process-log/authentication_activation_2026-10-12.md).
 
 ## Modelo
 - Supabase Auth administra credenciais. Aplicação não tem tabela de senha nem credenciais no código.
-- `access.memberships`: usuário, workspace, papel, ativo e nome de exibição. `administrator` aparece como Administrador; `decision_maker` como Usuário. Ambos usam todas as funções atuais do painel; perfil não vem de user_metadata nem de campo do formulário.
+- `access.memberships`: usuário, workspace, papel, ativo, nome de exibição, permissões, revisão e obrigação de trocar senha. `administrator` aparece como Administrador; `decision_maker` como Usuário com permissões explícitas. O proprietário é identificado por `access.super_admins` e retorna `super_admin`. O perfil é verificado no servidor, não vem de user_metadata.
 - `access.web_sessions`: vínculo ao usuário/sessão Auth/workspace, validade e revogação. Sem FK para auth.sessions porque logout remove a sessão e o histórico deve continuar.
 - Novo autor em decisões, histórico de ações e uploads preenchido pelo backend/trigger; import_batches registra ator da atualização. Registro anterior não recebe usuário fictício/retroativo.
 - Upload autenticado pertence ao usuário, permitindo retomada após novo login. Jobs anônimos anteriores não são atribuídos automaticamente a alguém.
@@ -22,6 +24,7 @@ Depois das migrações anteriores:
 1. `db/authentication.sql`
 2. `db/authenticated_upload_ownership.sql`
 3. `db/authentication_api_boundary.sql`
+4. Depois de todas as migrações do assistente: `supabase/migrations/20261013140604_user_management.sql`, conforme [guia atual](user_management.md).
 
 ```sh
 cd web/frontend
@@ -36,8 +39,8 @@ node scripts/build_decision_edge.mjs --output .work/auth-decision/index.js
 
 Implantar os dois arquivos gerados como `index.js`, nos nomes `challenge-auth-web` e `challenge-auth-decisions`, verify_jwt=true. As regras canônicas são reutilizadas, isolando módulos e preservando imports npm do leitor Excel. runtime usa SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY internos; não copiar chave privilegiada para o frontend.
 
-## Configuração e aceitação
-As etapas de cadastro, associação e publicação abaixo já foram executadas neste projeto. A aceitação completa do login foi concluída pelo proprietário, conforme sua confirmação de 13/10/2026. A sequência a seguir é referência para uma instalação nova. Não inventar sessão nem substituir essa aceitação por alteração direta no Auth. O estado de self-signup do serviço Auth ainda não foi verificado; não há ferramenta de configuração Auth disponível nesta conexão. Nenhuma conta sem membership ganha acesso ao painel.
+## Configuração e aceitação da ativação original
+As etapas de cadastro, associação e publicação abaixo já foram executadas neste projeto. A aceitação completa do login foi concluída pelo proprietário, conforme sua confirmação de 13/10/2026. A sequência a seguir registra o bootstrap original; para uma instalação nova, seguir também a migração e o modelo atuais de [gestão de usuários](user_management.md). Não inventar sessão nem substituir essa aceitação por alteração direta no Auth. O estado de self-signup do serviço Auth ainda não foi verificado; não há ferramenta de configuração Auth disponível nesta conexão. Nenhuma conta sem membership ganha acesso ao painel.
 
 1. Usuário escolhe os dois e-mails e configura as duas contas/senhas diretamente no painel Auth do Supabase. Nenhuma senha pelo chat/Git. Contas devem estar confirmadas e ativas.
 2. Vincular os dois usuários reais ao workspace RavenStack em access.memberships, com nome e os papéis acima, por operação administrativa. Não é cadastro público no site. Revisar/desativar self-signup no Auth do projeto; nenhuma conta sem membership ganha acesso mesmo se Auth aceitar cadastro externo.
@@ -48,16 +51,16 @@ python web/tests/http_auth.py --email EMAIL_ADMIN --expect-role administrator
 python web/tests/http_auth.py --email EMAIL_USUARIO --expect-role user
 ```
 
-4. Publicar a versão salva e ativar `public.challenge_enable_auth()` na janela de transição. A função verifica exatamente um administrador e um usuário com nome, conta confirmada/ativa e papel correto; não comprova entrada com senha. Neste projeto, as contas foram criadas pelo proprietário e a autenticação foi ativada após publicação para permitir sua aceitação no site, sem solicitar credenciais no chat. Conservar a versão anterior para recuperação. Recuperação deve preservar dados/histórico e avaliar explicitamente o acesso, sem reabrir APIs por consequência de uma falha de interface.
+4. Publicar a versão salva e ativar `public.challenge_enable_auth()` na janela de transição. A função original verificava exatamente um administrador e um usuário; após a migração de gestão, exige a conta proprietária protegida ativa e confirmada; não comprova entrada com senha. Neste projeto, as contas foram criadas pelo proprietário e a autenticação foi ativada após publicação para permitir sua aceitação no site, sem solicitar credenciais no chat. Conservar a versão anterior para recuperação. Recuperação deve preservar dados/histórico e avaliar explicitamente o acesso, sem reabrir APIs por consequência de uma falha de interface.
 5. Conferir login, ambos os perfis, upload/prévia, autoria, logout e bloqueio dos endpoints antigos. Após activation, antigos testes HTTP anônimos são apenas evidência histórica: não devem voltar a passar para acessar o painel.
 
-## Verificação realizada / limites
+## Verificação da ativação original / limites
 - 20 testes de domínio web, incluindo identidade e comparação dos 89 resultados com Python: aprovados, zero skips.
 - 17 componentes em Happy DOM com API/Auth simulados; seis adaptadores com fetch simulado: aprovados.
 - TypeScript/build Vite aprovados; pacotes Edge passam node --check e foram implantados.
 - Guardas SQL reais com rollback, sem Auth fictício: identidade/sessão desconhecida rejeitadas, ativação incompleta rejeitada e sem efeito, privilégios exclusivos e caminhos alternativos de leitura fechados.
 - HTTP real de novos endpoints: leitura/decisões sem JWT, capacidade antiga e JWT inválido rejeitados com 401.
-- Advisor anterior à criação das contas sem findings. Após configuração: uma advertência Auth sobre proteção contra senhas vazadas desativada; nenhuma alteração de plano/configuração foi realizada. A documentação oficial consultada em 13/10/2026 restringe a proteção contra senhas vazadas aos planos Pro ou superiores. O plano atual não foi confirmado; eventual mudança de plano/custo depende de decisão separada. [Orientação oficial](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+- Advisor anterior à criação das contas sem findings. Após configuração: uma advertência Auth sobre proteção contra senhas vazadas desativada; nenhuma alteração de plano/configuração foi realizada. A documentação oficial consultada em 13/10/2026 restringe a proteção contra senhas vazadas aos planos Pro ou superiores. O proprietário confirmou que permanecerá no plano Free; nenhuma mudança de plano foi realizada. [Orientação oficial](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 - Teste compartilhado que criaria identidades sintéticas foi recusado pela revisão automática, sem motivo. `tests/local_db_auth_access.sql` é SOMENTE LOCAL ISOLADO, não executado/aprovado nesta rodada. Nada foi criado no Auth.
 - Login integralmente aceito pelo proprietário em 13/10/2026. Não se trata de uma nova execução observada pelo agente. TypeScript/build Vinext da versão publicada aprovados na preparação; QA visual real pendente. Site v6 publicado; ativação e bloqueios posteriores verificados em SQL/HTTP. `tests/db_auth_guards.sql` contém uma pré-condição de configuração incompleta e representa a preparação; não reexecutar no projeto já configurado. Após ativar, usar `tests/db_auth_activation_guards.sql` e `python web/tests/http_auth.py --guards-only --legacy-blocks`.
 - Nenhuma PR/review/issue/mensagem a avaliadores.

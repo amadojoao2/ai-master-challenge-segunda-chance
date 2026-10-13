@@ -4,12 +4,12 @@ Site: https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site
 
 ## Estado em 13/10/2026
 
-Site v9 publicado; builds e 89 testes aprovados, sem skips. Login integralmente aceito pelo proprietário. Revisão implementada: recuperação do assistente, exploração sem filtros residuais, tickets por conta, leitura executiva, legibilidade e autoria atualizada. Sem alteração de banco, fatos publicados ou funções Edge nesta rodada. [Registro de implementação](../process-log/review_2026-10-13.md) e [reprodução](reproduction.md). A validação visual em navegador real desta atualização permanece pendente.
+Site v10 publicado com gestão de usuários, permissões e troca obrigatória de senha inicial. Nesta etapa: 47 testes de interface/adaptadores, SQL isolado e quatro guardas HTTP aprovados. [Registro](../process-log/user_management_2026-10-13.md). A revisão anterior aprovou 89 testes, sem skips. Login integralmente aceito pelo proprietário. Revisão implementada: recuperação do assistente, exploração sem filtros residuais, tickets por conta, leitura executiva, legibilidade e autoria atualizada. A etapa de usuários aplicou migração de acesso e publicou os adaptadores de usuários/assistente; fatos e versões de dados foram preservados. [Registro de implementação](../process-log/review_2026-10-13.md) e [reprodução](reproduction.md). A validação visual em navegador real desta atualização permanece pendente.
 
 As seções datadas de 12/10 abaixo são evidências históricas; suas pendências de login foram superadas pela confirmação do proprietário em 13/10.
 
 ## Escopo autorizado
-Acesso com e-mail/senha sobre o Supabase dedicado. Dois perfis ativos, administrador e usuário comum, com todas as funções atuais. Novas decisões e uploads registram o usuário autenticado; responsável continua sendo informação de negócio declarada. As três decisões QA anteriores preservam autoria declarada. A fase inicial de acesso livre, descrita nas evidências históricas abaixo, foi substituída pela autenticação.
+Acesso com e-mail/senha sobre o Supabase dedicado. Duas contas existentes ativas, superadministrador protegido e administrador, com acesso completo. O novo módulo cadastra usuários com permissões explícitas, sem e-mail, mantendo o plano Free. [Modelo atual](user_management.md). Novas decisões e uploads registram o usuário autenticado; responsável continua sendo informação de negócio declarada. As três decisões QA anteriores preservam autoria declarada. A fase inicial de acesso livre, descrita nas evidências históricas abaixo, foi substituída pela autenticação.
 
 ## Acesso e limites
 - Frontend nunca recebe service_role. Edge obtém a chave apenas do ambiente Supabase.
@@ -54,7 +54,7 @@ A revisão automática bloqueou o teste HTTP com `--publish`, por alterar o pont
 Ver `web/README.md`. Migrações desta fase: `web_application.sql`, `web_account_detail.sql` e `analysis_materialized.sql` e `web_parse_reuse_guard.sql`, depois da fundação. A última contém a versão final das duas iterações de planejamento de consulta aplicadas no ambiente.
 
 ## Evoluções
-Lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento e testes visuais. Autenticação/papéis implementados e ativos; aceitação com senha pendente. Evidências finais e submissão para avaliação permanecem pendentes.
+Lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento e testes visuais. Autenticação/papéis implementados e ativos; login integralmente aceito pelo proprietário em 13/10/2026. Evidências finais e submissão para avaliação permanecem pendentes.
 
 ## Aceitação posterior — 12/10/2026
 
@@ -78,7 +78,7 @@ HTTP real confirmou os quatro escopos, agregações, validações e uma decisão
 
 ## Login ativo — 12/10/2026
 
-A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Duas contas confirmadas e dois memberships ativos; autenticação exigida e site v6 publicado. Testes simulados e bloqueios HTTP/SQL passaram; entrada com senha, autoria, renovação, retomada e logout reais aguardam aceitação pelo proprietário. Nenhuma senha no chat/Git e nenhuma PR criada. [Detalhes](authentication.md).
+A nova orientação do usuário substitui o requisito anterior de acesso livre: duas contas, administrador e usuário, com todas as funcionalidades. Migrações de identidade e autoria aplicadas; novos adaptadores `challenge-auth-web`/`challenge-auth-decisions` exigem JWT. Duas contas confirmadas e dois memberships ativos; autenticação exigida e site v6 publicado. Testes simulados e bloqueios HTTP/SQL passaram; entrada com senha, autoria, renovação, retomada e logout foram posteriormente aceitos pelo proprietário em 13/10/2026. Nenhuma senha no chat/Git e nenhuma PR criada. [Detalhes](authentication.md).
 
 ## Contexto da visão executiva — 12/10/2026
 

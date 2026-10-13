@@ -5,11 +5,11 @@
 - **Nome:** João Paulo
 - **LinkedIn:** https://www.linkedin.com/in/joao-pauloborges
 - **Challenge escolhido:** Challenge 001 — Diagnóstico de Churn
-- **Estado:** aplicação publicada com login ativo; dois perfis configurados; login integralmente aceito pelo proprietário em 13/10/2026; revisão visual real desta atualização pendente; não enviado para avaliação.
+- **Estado:** Site v10 publicado com login ativo, superadministrador protegido e gestão de usuários/permissões; login integralmente aceito pelo proprietário em 13/10/2026; revisão visual real desta atualização pendente; não enviado para avaliação.
 
 ## Executive Summary
 
-A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso exige login, com administrador e usuário comum usando todas as funcionalidades atuais. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
+A segunda submissão implementa uma mesa de decisão com diagnóstico, atualização por CSV/Excel e ações rastreáveis sobre o Supabase. O acesso exige login. Administradores gerenciam usuários e permissões; a conta proprietária é protegida. Novos usuários recebem senha inicial diretamente, sem convite por e-mail, e devem trocá-la no primeiro acesso. Cadastro, eventos históricos e contratos são tratados como observações distintas, com limitações explícitas. A entrega prioriza engenharia de dados e critérios defendíveis.
 
 **[Acessar o site](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site)** · [Aplicação e reprodução](web/README.md) · [Status e limites](docs/web_status.md) · [Diagnóstico executivo](solution/diagnostico_executivo.md).
 
@@ -27,7 +27,9 @@ Preservar DDD, TDD, Clean Architecture, Bounded Contexts e Specifications da pri
 
 ### Resultados / Findings
 
-Revisão de 13/10/2026: 26 testes Python, 27 testes de domínio/referência web e 36 testes de interface/adaptadores aprovados (89 testes, zero skips). Os 89 resultados de qualidade — uma contagem diferente da quantidade de testes — coincidem entre Python e JavaScript; a revisão também os conferiu no banco. TypeScript e builds portátil/hospedado aprovados; Site v9 publicado. [Registro desta rodada](process-log/review_2026-10-13.md).
+Gestão de usuários de 13/10/2026: Site v10 publicado, 47 testes de interface/adaptadores, SQL isolado e quatro guardas HTTP aprovados. Cadastro e redefinição reais no navegador ainda não exercitados. [Guia](docs/user_management.md) e [registro](process-log/user_management_2026-10-13.md).
+
+Revisão anterior de 13/10/2026: 26 testes Python, 27 testes de domínio/referência web e 36 testes de interface/adaptadores aprovados (89 testes, zero skips). Os 89 resultados de qualidade — uma contagem diferente da quantidade de testes — coincidem entre Python e JavaScript; a revisão também os conferiu no banco. TypeScript e builds portátil/hospedado aprovados; Site v9 publicado. [Registro desta rodada](process-log/review_2026-10-13.md).
 
 Histórico das etapas anteriores: Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. O site está publicado: visão executiva, diagnóstico, contas, decisões/ações, dados/qualidade e metodologia. O importador aceita CSV/.xlsx, valida e publica versões completas após revisão; o teste integral foi primeiro executado com rollback e depois por HTTP com publicação efetiva de uma segunda versão com os mesmos fatos, métricas idênticas e histórico preservado. Foram aprovados também 12 testes de domínio web, oito testes de componentes em DOM emulado, equivalência de 89 resultados com Python, testes SQL e testes HTTP de publicação e decisões. A aceitação encontrou e corrigiu duas mensagens de erro ocultas e um código SQL que provocava retries na API. Fontes e relatórios por conta permanecem fora do repositório. Ver limites em `docs/web_status.md`.
 
@@ -45,7 +47,7 @@ Implementados conta, segmento por setor/país, carteira e qualidade com prévia 
 
 ### Login ativo
 
-Implementado acesso pelo Supabase Auth com administrador e usuário comum, ambos com todas as funções. Duas contas criadas pelo usuário confirmadas e vinculadas a perfis protegidos. Site v6 publicado e autenticação exigida no backend; criação de sessão e acesso pelos endpoints antigos bloqueados. As três decisões QA anteriores e as duas versões de dados foram preservadas. O proprietário informou em 13/10/2026 que concluiu a aceitação completa do login. Essa aceitação é registrada como declaração do proprietário; a revisão não solicitou senha nem repetiu esses fluxos. [Configuração e estado](docs/authentication.md).
+Implementado acesso pelo Supabase Auth. Atualmente, `amadojoaoborges@gmail.com` é superadministrador protegido e `email@raven.com` é administrador; novos usuários têm permissões configuráveis. Cadastro direto e senha inicial visível somente durante a definição, sem SMTP e mantendo o plano Free. [Gestão de usuários](docs/user_management.md). As duas contas existentes permanecem confirmadas e vinculadas ao workspace. Site v6 publicado e autenticação exigida no backend; criação de sessão e acesso pelos endpoints antigos bloqueados. As três decisões QA anteriores e as duas versões de dados foram preservadas. O proprietário informou em 13/10/2026 que concluiu a aceitação completa do login. Essa aceitação é registrada como declaração do proprietário; a revisão não solicitou senha nem repetiu esses fluxos. [Configuração e estado](docs/authentication.md).
 
 ### Assistente executivo
 

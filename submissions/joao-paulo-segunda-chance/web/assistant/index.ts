@@ -7,7 +7,7 @@ async function rpc(name:string,args:Record<string,unknown>){const r=await fetch(
 Deno.serve(async(req:Request)=>{
  if(req.method==='OPTIONS')return new Response(null,{status:204,headers});
  try{
-  const {p_token}=await authenticate(req,rpc,url,key);const path=new URL(req.url).pathname.split('/').pop();
+  const {p_token}=await authenticate(req,rpc,url,key);await rpc('challenge_access_check',{p_token,p_permission:'assistant.use'});const path=new URL(req.url).pathname.split('/').pop();
   if(path==='assistant-status'&&req.method==='GET')return reply({configured:!!Deno.env.get('OPENAI_API_KEY')?.trim(),model:'gpt-6-luna',version:assistantVersion});
   if(req.method!=='POST')return reply({error:'Método não permitido.'},405);
   if(Number(req.headers.get('content-length')??0)>16000)return reply({error:'Solicitação muito grande.'},413);

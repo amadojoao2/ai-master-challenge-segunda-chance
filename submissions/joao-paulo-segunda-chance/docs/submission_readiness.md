@@ -17,6 +17,7 @@ Conferido no repositório oficial em 12/10/2026:
 | README oficial / setup | Seções do template e instruções Python, frontend, banco e Edge. |
 | Alterações só na pasta | Conferir diff antes de qualquer PR; nenhum arquivo externo deve ser incluído. |
 | Login | Aceitação completa informada pelo proprietário em 13/10/2026. |
+| Gestão de usuários | Site v10, permissões e proteção do proprietário implementados. Testes automatizados aprovados; cadastro/redefinição reais no navegador ainda não exercitados. [Guia](user_management.md). |
 | Revisão geral | Correções funcionais e documentação: [registro](../process-log/review_2026-10-13.md). |
 | Reprodução e demonstração | [Guia consolidado](reproduction.md), com testes locais separados das operações que gravam no ambiente. |
 | Validação visual em navegador real | Pendente. DOM emulado e builds não substituem navegador/viewport reais. |

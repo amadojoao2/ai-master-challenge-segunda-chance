@@ -48,7 +48,7 @@ node --test web/tests/*.test.mjs
 python web/tests/http_auth.py --guards-only --legacy-blocks
 ```
 
-O teste de referência requer `CHALLENGE_DATA_DIR` com CSVs originais e `CHALLENGE_AUDIT_REPORT` com o relatório do auditor Python. Dados não são incluídos no GitHub. `--legacy-blocks` exige autenticação já ativada. Os scripts HTTP antigos de importação, decisões e leitura abaixo representam a aceitação anterior ao login; não estão adaptados para JWT e devem falhar contra o acesso antigo após ativação. Para leitura/opções/logout com uma conta real, usar `http_auth.py --email EMAIL --expect-role administrator` (ou `user`), com senha solicitada localmente por getpass. O proprietário informou aceitação completa do login em 13/10/2026; os scripts antigos continuam sendo evidência histórica, não uma suíte JWT atual.
+O teste de referência requer `CHALLENGE_DATA_DIR` com CSVs originais e `CHALLENGE_AUDIT_REPORT` com o relatório do auditor Python. Dados não são incluídos no GitHub. `--legacy-blocks` exige autenticação já ativada. Os scripts HTTP antigos de importação, decisões e leitura abaixo representam a aceitação anterior ao login; não estão adaptados para JWT e devem falhar contra o acesso antigo após ativação. Para leitura/opções/logout com uma conta real, usar `http_auth.py --email EMAIL --expect-role administrator` (ou `super_admin`/`user`), com senha solicitada localmente por getpass. O proprietário informou aceitação completa do login em 13/10/2026; os scripts antigos continuam sendo evidência histórica, não uma suíte JWT atual.
 
 O teste HTTP de Excel requer `python -m pip install -r requirements-web-tests.txt`.
 
@@ -77,10 +77,14 @@ Na fase anterior ao login, `python web/tests/http_scopes.py` validava quatro esc
 
 ## Login — ativo
 
-O frontend usa @supabase/supabase-js 2.117.2 e os adaptadores `challenge-auth-web`/`challenge-auth-decisions`. `npm ci` usa o lockfile. Site v6 publicado e login exigido; duas contas confirmadas vinculadas aos perfis de administrador e usuário, ambos com todas as funções. Migrações, pacotes e registro de aceitação em [authentication.md](../docs/authentication.md).
+O frontend usa @supabase/supabase-js 2.117.2 e os adaptadores `challenge-auth-web`/`challenge-auth-decisions`. `npm ci` usa o lockfile. Site v10 publicado e login exigido; duas contas existentes vinculadas a superadministrador protegido e administrador. Novos usuários recebem permissões explícitas, senha inicial direta e troca obrigatória. O módulo usa `challenge-users`, sem SMTP, mantendo o plano Free. [Guia de gestão](../docs/user_management.md), incluindo migração posterior ao assistente, empacotador e testes SQL locais. Migrações, pacotes e registro de aceitação em [authentication.md](../docs/authentication.md).
 
 `python web/tests/http_auth.py --guards-only --legacy-blocks` testa sete rejeições HTTP, sem cadastrar/gravar dados de negócio. `tests/db_auth_activation_guards.sql` verifica ativação, elegibilidade dos dois perfis, bloqueio da criação de sessão antiga e privilégios administrativos com rollback. Login de conta real é interativo por getpass. O proprietário confirmou a aceitação completa do login em 13/10/2026. A revisão não repetiu esses fluxos; testes com Auth simulado têm escopo separado. `local_db_auth_access.sql` é fixture local isolada, não executada aqui. Testes HTTP anônimos antigos são evidência histórica.
 
 ## Assistente executivo
 
 Sétima área, com histórico privado e consultas calculadas no banco. Migrações `db/assistant.sql` e `db/assistant_context_catalog.sql`; pacote `scripts/build_assistant_edge.mjs`; gateway challenge-assistant com JWT exigido. `node --test web/tests/assistant.test.mjs` testa Specs; suíte frontend tem 36 casos de componentes e adaptadores simulados. `tests/db_assistant.sql` requer sessão real existente e usa rollback, sem Auth fictício. `python web/tests/http_assistant.py` testa bloqueios anônimos. [Contratos, limites, Secret e validação](../docs/assistant.md).
+
+## Gestão de usuários
+
+`web/users/index.ts` + `web/domain/permissions.mjs`, pacote `node scripts/build_users_edge.mjs --output .work/users/index.js`, função `challenge-users` com JWT. Aplicar `supabase/migrations/20261013140604_user_management.sql` após todas as migrações anteriores e republicar o assistente. `python web/tests/http_users.py` confere quatro bloqueios HTTP sem mutação autenticada. Ver [modelo, operação e reprodução](../docs/user_management.md).
