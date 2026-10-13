@@ -26,6 +26,7 @@ Aplicar as migrações da fundação na ordem documentada em `docs/foundation_st
 3. `db/analysis_materialized.sql`
 4. `db/web_parse_reuse_guard.sql`
 5. `db/web_conflict_response.sql`
+6. `db/decision_scopes.sql`
 
 Implantar `web/edge/index.ts` com `web/domain/import.mjs`, `web/domain/contracts.mjs` e `web/edge/deno.json`. Nome: `challenge-web`. JWT do Supabase desativado nesta modalidade livre; o corpo exige a capacidade própria nas operações. `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` são segredos internos padrão do ambiente Edge, não parâmetros de navegador.
 
@@ -49,8 +50,17 @@ Ver `docs/web_status.md`: substituição completa de uma fonte por vez, limites 
 
 ## Aceitação de componentes e HTTP
 
-`npm run test:ui` testa oito fluxos usando Happy DOM 21.0.1 e API simulada. Não executa navegador real nem valida CSS/viewport visualmente. Arquivos temporários em `tests/.generated` são ignorados.
+`npm run test:ui` testa 13 fluxos de componentes e quatro contratos de adaptadores usando Happy DOM 21.0.1 e API simulada. Não executa navegador real nem valida CSS/viewport visualmente. Arquivos temporários em `tests/.generated` são ignorados.
 
 O ciclo efetivo `http_import.py --accounts-csv /caminho/original.csv --publish` foi autorizado e concluído em 12/10/2026, preservando os fatos e criando a segunda versão. `http_decisions.py --write-qa` grava uma decisão claramente marcada `[QA]` e conclui sua ação. Não rodar os testes de escrita sem intenção explícita de persistir esses registros.
 
 A revisão concorrente usa SQLSTATE PT409/HTTP 409. Não usar 40001 para erro de negócio: a aceitação real mostrou retries/timeout que não apareciam no teste SQL isolado. Ver Process Log de aceitação.
+
+
+## Escopo das decisões — implantação pendente
+
+O formulário novo permite conta, segmento por setor/país, carteira e qualidade, com dado principal, prévia de backend e evidência/membros congelados. Ver [contrato e estado](../docs/decision_scopes.md). Migração aplicada; publicação Edge bloqueada por erro interno do Supabase em 12/10/2026. Site público permanece na interface anterior.
+
+Implantar também `challenge-decisions` com `web/decisions/index.ts`, seu `deno.json` e `web/domain/decision_scope.mjs`. O frontend roteia três operações para esse adaptador e mantém a sessão/importação/leitura no `challenge-web`. Os dois usam a mesma capacidade própria e runtime secreto, sem chave privilegiada no frontend. `scripts/build_decision_edge.py` permite gerar pacote de arquivo único a partir das regras canônicas.
+
+Depois de implantar, `python web/tests/http_scopes.py` valida quatro escopos, agregações e bloqueios, sem gravar decisão. `--write-qa` persiste um registro de QA e conclui sua ação. Esse teste HTTP novo ainda não passou no ambiente, porque a função não foi implantada.

@@ -59,3 +59,10 @@ Oito testes de componentes passaram: seis áreas, filtros/paginação/busca, foc
 A aceitação HTTP encontrou que SQLSTATE 40001 provocava retries na revisão desatualizada. Nova migração `web_conflict_response.sql` usa PT409; Edge devolve HTTP 409. O teste SQL foi reforçado para exigir esse código e o teste HTTP confirmou revisão desatualizada, resultado ausente, idempotência e conclusão. Nenhum backend de teste em loop permaneceu na verificação final.
 
 As narrativas e Git history atendem ao formato de evidência aceito pelo guia. Capturas/export integral são opcionais; revisão visual real continua pendente. Ver `docs/submission_readiness.md`.
+
+
+## Escopo explícito — 12/10/2026
+
+Conta, setor/país, carteira e qualidade implementados no código, com prévia calculada no banco e membros/evidência congelados. Migração aplicada e testes SQL aprovados, sem persistir novas decisões QA. 18 testes de domínio web (incluindo 89 verificações comparadas), 13 de componentes e quatro de adaptadores passaram. [Detalhes](decision_scopes.md).
+
+O Supabase recusou atualizações Edge com erro interno, inclusive um adaptador pequeno independente e seu pacote de arquivo único. `challenge-web` continua ACTIVE na versão 4; `challenge-decisions` não foi implantada. O site público anterior permanece ativo. Publicação/HTTP real do novo fluxo pendentes; não se apresenta teste simulado como aceitação em produção.

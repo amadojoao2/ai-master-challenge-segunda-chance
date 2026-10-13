@@ -31,6 +31,10 @@ Fundação e aplicação implementadas. Próxima fase: revisão visual em navega
 
 Uma maior data observada não comprova completude da extração. Ausência de histórico de mudança impede retroprojetar atributos, e ausência de vínculo entre churn e assinatura limita a atribuição de perda financeira. A auditoria é investigação inicial, não garantia de ausência de outros problemas.
 
+### Evolução de decisões com escopo
+
+Implementados conta, segmento por setor/país, carteira e qualidade com prévia obrigatória, dado principal e população/evidência congeladas. Migração e testes aprovados; **publicação do novo fluxo bloqueada por erro interno do Supabase**. O site permanece na versão anterior. [Estado, arquitetura e validação](docs/decision_scopes.md).
+
 ## Process Log — Como usei IA
 
 ### Ferramentas usadas
@@ -65,6 +69,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 - [Implementação da fundação](process-log/foundation_2026-10-12.md).
 - [Implementação web e resultados de testes](process-log/web_2026-10-12.md).
 - [Aceitação efetiva, correções e evidências](process-log/acceptance_2026-10-12.md).
+- [Implementação e bloqueio de publicação dos escopos](process-log/decision_scopes_2026-10-12.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita e histórico Git fornecidos, formatos aceitos pelo guia oficial. Screenshots/gravação/export não foram fornecidos, são alternativas opcionais e não são simulados.
