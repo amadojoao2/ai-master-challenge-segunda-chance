@@ -24,7 +24,7 @@ Acesso livre, sem e-mail/senha, sobre o Supabase dedicado. Qualquer visitante po
 Substitui a fonte inteira; não é append/upsert. Nesta fase não há atualização conjunta de múltiplas fontes. A nova fonte precisa manter os vínculos com as outras quatro. Referência não pode ultrapassar o maior fato observado; término contratual futuro não comprova cobertura futura.
 
 ## Arquivos
-Até 8 MB, 50.000 linhas, 128 colunas no Excel; expansão ZIP até 64 MB/1.500 entradas. Fórmulas rejeitadas: exportar valores. Datas ISO; booleanos true/false. Originais pequenos preservados em chunks `bytea` no Postgres; Storage é evolução futura. O conteúdo raw projetado pelo mapeamento conserva valores da fonte; nomes/colunas originais continuam no arquivo e metadados do mapeamento.
+Até 8 MB, 50.000 linhas, 128 colunas no Excel; expansão ZIP até 64 MB/1.500 entradas. Fórmulas rejeitadas: exportar valores. Um arquivo com os mesmos bytes não é reutilizado se outra aba/mapeamento produzir linhas diferentes; exportar essa aba em arquivo separado para preservar a linhagem. Datas ISO; booleanos true/false. Originais pequenos preservados em chunks `bytea` no Postgres; Storage é evolução futura. O conteúdo raw projetado pelo mapeamento conserva valores da fonte; nomes/colunas originais continuam no arquivo e metadados do mapeamento.
 
 Não existe limpeza automática de previews/candidatos abandonados; monitorar volume. Capacidades expiradas impedem retomada de jobs da sessão antiga. Checkpoints podem ser retomados pela mesma sessão válida, inclusive depois de fechar/reabrir o site.
 
@@ -45,7 +45,7 @@ Recortes por setor/país, pesquisa e ordenação explícita por nome, MRR ou res
 A revisão automática bloqueou o teste HTTP com `--publish`, por alterar o ponteiro ativo no ambiente compartilhado. Foi substituído por validação completa em transação com rollback. O painel continua na versão original. A publicação real do site foi autorizada e concluída. Nenhuma PR foi criada.
 
 ## Reproduzir
-Ver `web/README.md`. Migrações desta fase: `web_application.sql`, `web_account_detail.sql` e `analysis_materialized.sql`, depois da fundação. A última contém a versão final das duas iterações de planejamento de consulta aplicadas no ambiente.
+Ver `web/README.md`. Migrações desta fase: `web_application.sql`, `web_account_detail.sql` e `analysis_materialized.sql` e `web_parse_reuse_guard.sql`, depois da fundação. A última contém a versão final das duas iterações de planejamento de consulta aplicadas no ambiente.
 
 ## Evoluções
 Autenticação/papéis, lote com múltiplas fontes, Storage/filas para grandes arquivos, limpeza/monitoramento, auditoria de identidade e testes visuais. Evidências finais e submissão para avaliação permanecem pendentes.
