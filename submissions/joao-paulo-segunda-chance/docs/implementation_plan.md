@@ -1,4 +1,6 @@
-# Plano de implementação — para aprovação
+# Plano de implementação — aprovado
+
+Fundação executada: ver [estado da implementação](foundation_status.md). As fases de site/importador web/decisões permanecem seguintes.
 
 ## Escopo e destino
 
@@ -9,7 +11,7 @@
 - Todo arquivo de entrega permanece em `submissions/joao-paulo-segunda-chance/`.
 - Não abrir PR nem solicitar revisão até a entrega estar completa e o usuário determinar o envio.
 - Supabase de destino: `challenge_g4_projeto`, conexão `challenge_g4`.
-- Nesta etapa: somente auditoria, testes de referência e documentação. Nenhum schema, dado ou política foi criado no Supabase.
+- Estado atualizado: auditoria e fundação implementadas no projeto dedicado, com dados preservados e primeira versão publicada no banco. Site e importador web ainda pendentes.
 
 ## Arquitetura: monólito modular
 

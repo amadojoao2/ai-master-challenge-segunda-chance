@@ -15,15 +15,15 @@ A segunda submissão propõe um site de diagnóstico e decisões, atualizado por
 
 ### Abordagem
 
-Preservar DDD, TDD, Clean Architecture, Bounded Contexts e Specifications da primeira entrega. Implementar contratos de dados, versões imutáveis, regras com estado indeterminado e decisões vinculadas a evidências. Ver [plano de implementação](docs/implementation_plan.md) e [contratos de dados](docs/data_contracts.md).
+Preservar DDD, TDD, Clean Architecture, Bounded Contexts e Specifications da primeira entrega. Implementar contratos de dados, versões imutáveis, regras com estado indeterminado e decisões vinculadas a evidências. Ver [plano de implementação](docs/implementation_plan.md), [contratos de dados](docs/data_contracts.md) e [fundação implementada](docs/foundation_status.md).
 
 ### Resultados / Findings
 
-Nesta etapa foram preparados um auditor somente leitura, regras puras de referência e 17 testes executados com sucesso. Resultados detalhados das fontes foram entregues separadamente ao usuário; não são publicados nesta branch. O site e a ingestão Supabase ainda não estão implementados. Findings de negócio serão incorporados à entrega final após validação e autorização apropriada de divulgação.
+Fundação aplicada no Supabase dedicado: contratos, preservação de fontes, normalização, versões, snapshots, reconciliação e evidências. A primeira versão foi publicada no banco após validação de hashes e contagens. Foram aprovados 26 testes Python e verificações SQL de acesso, imutabilidade, idempotência e falha de publicação. Resultados detalhados das fontes permanecem fora do repositório público. O site e o importador web ainda não estão implementados; o schema de decisões/ações está preparado.
 
 ### Recomendações
 
-Primeiro implementar a fundação de dados e validar os indicadores. Depois construir diagnóstico, decisões e acompanhamento. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
+A fundação de dados está implementada. A próxima fase é a interface de diagnóstico, atualização web e decisões. Não publicar alertas sustentados por evidências insuficientes nem tratar ausência de evento como ausência comprovada de churn.
 
 ### Limitações
 
@@ -46,6 +46,7 @@ Uma maior data observada não comprova completude da extração. Ausência de hi
 5. Escrever testes de domínio antes da implementação; observar falha inicial.
 6. Implementar regras puras e auditoria exploratória; acrescentar testes de integração.
 7. Executar auditoria e suíte; documentar a arquitetura e versionar o código no fork, sem PR.
+8. Aplicar contratos e migrações, carregar fontes, testar permissões e publicar uma versão completa.
 
 ### Onde a IA errou e como corrigi
 
@@ -58,6 +59,7 @@ O usuário definiu que o site permita decisões e atualizações, retirou ML com
 ## Evidências
 
 - [Registro parcial desta sessão](process-log/session_2026-10-12.md).
+- [Implementação da fundação](process-log/foundation_2026-10-12.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Exports integrais e evidências visuais: pendentes para a entrega final. O registro escrito não se apresenta como export integral.
 
