@@ -13,7 +13,7 @@ As decisões sobre autenticação e distribuição dos modelos de IA estão em [
 Links fornecidos por mim em 13/10/2026:
 
 - [Conversa de construção do projeto](https://chatgpt.com/share/6ace5036-066c-83e9-b0d3-5e354cafe70c).
-- [Conversa de revisão do projeto](https://chatgpt.com/share/6ace546a-7aa0-83e9-aebf-378e7d694ae7).
+- [Conversa de revisão do projeto](https://chatgpt.com/share/6acee7f6-8718-83ea-8307-90efcbc8dd47).
 
 São links de compartilhamento do ChatGPT fornecidos por mim para a banca, substituindo os endereços internos das conversas. A disponibilidade e o conteúdo dos links não foram verificados nesta atualização. A narrativa e as evidências presentes no repositório permitem acompanhar o processo independentemente dos links; não se apresentam como export integral do chat.
 
@@ -77,7 +77,7 @@ Componentes em Happy DOM e adaptadores com API simulada não equivalem a navegad
 - Concluí a revisão visual em navegador/celular em 13/10/2026, incluindo o assistente. Os registros de testes automatizados mantêm o escopo de cada rodada; a revisão visual não amplia retroativamente a cobertura desses testes.
 - Ausência de eventos ou telemetria não é automaticamente zero; exposição contratual não é perda prevista ou caixa; causa raiz e receita recuperável não são afirmadas sem evidência.
 - Narrativa escrita e histórico Git são os formatos de evidência adotados. Screenshots, gravação e export integral são alternativas opcionais, conforme [conferência do guia](../docs/submission_readiness.md).
-- Alterações restritas à pasta e branch da segunda chance. A PR continua não aberta por minha orientação.
+- Alterações restritas à pasta e branch da segunda chance. Aprovei a abertura da nova PR, com destino à `main` de `Gestao-Quatro-Ponto-Zero/ai-master-challenge`.
 
 ## Consolidação de 13/10/2026
 

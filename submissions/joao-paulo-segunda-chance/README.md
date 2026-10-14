@@ -5,7 +5,7 @@
 - **Nome:** João Paulo
 - **LinkedIn:** https://www.linkedin.com/in/joao-pauloborges
 - **Challenge escolhido:** Challenge 001 — Diagnóstico de Churn
-- **Estado:** Site v10 publicado com login, gestão de usuários e permissões; aceitação do login e revisão visual concluídas em 13/10/2026. Submissão ainda não enviada.
+- **Estado:** Site v10 publicado com login, gestão de usuários e permissões; aceitação do login e revisão visual concluídas em 13/10/2026. Entrega documentada nesta pasta.
 
 ## Executive Summary
 
@@ -64,7 +64,7 @@ Uma maior data observada não comprova completude da extração. Ausência de hi
 
 ### Estado da entrega
 
-Site v10 publicado. Concluí a aceitação completa do login e a revisão visual em navegador/celular, incluindo o assistente executivo, em 13/10/2026. O estado das verificações técnicas e os limites de cada rodada estão no [process log](process-log/README.md). A submissão aguarda minha autorização para abrir a PR.
+Site v10 publicado. Concluí a aceitação completa do login e a revisão visual em navegador/celular, incluindo o assistente executivo, em 13/10/2026. O estado das verificações técnicas e os limites de cada rodada estão no [process log](process-log/README.md). A nova PR da segunda chance parte do fork `amadojoao2/ai-master-challenge-segunda-chance`, branch `submission/joao-paulo-segunda-chance`, para a `main` de `Gestao-Quatro-Ponto-Zero/ai-master-challenge`.
 
 ## Process Log — Como usei IA
 
@@ -120,6 +120,7 @@ Defini que o site permitisse decisões e atualizações, retirei ML como diferen
 - [Revisão geral e correções](process-log/review_2026-10-13.md).
 - [Gestão de usuários, permissões e senhas iniciais](process-log/user_management_2026-10-13.md).
 - [Revisão documental para a banca](process-log/documentation_review_2026-10-13.md).
+- [Segurança do assistente contra prompt injection](process-log/assistant_security_2026-10-13.md) e [validação do recorte explícito](process-log/assistant_filter_guard_2026-10-14.md).
 - [Conferência dos requisitos oficiais](docs/submission_readiness.md).
 - Scripts, testes com dados sintéticos e histórico de commits desta branch.
 - Narrativa escrita, dados agregados, site publicado e histórico Git compõem as evidências da entrega.
@@ -136,5 +137,5 @@ python scripts/audit_data.py --data-dir /caminho/para/os/csv --output-dir report
 
 O adaptador de auditoria usa pandas; o domínio não depende de pandas. Os relatórios gerados são ignorados pelo Git para evitar publicação acidental de IDs, linhas de origem e dados derivados. O código não modifica os arquivos de entrada.
 
-_Atualizado em: 13/10/2026. Submissão ainda não enviada._
+_Atualizado em: 13/10/2026 (horário de Brasília)._
 

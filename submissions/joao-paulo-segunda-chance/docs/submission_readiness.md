@@ -21,8 +21,8 @@ Conferido no repositório oficial em 12/10/2026:
 | Revisão geral | Correções funcionais e documentação: [registro](../process-log/review_2026-10-13.md). |
 | Reprodução e demonstração | [Guia consolidado](reproduction.md), com testes locais separados das operações que gravam no ambiente. |
 | Validação visual em navegador real | Concluí a revisão em navegador/celular em 13/10/2026, incluindo o assistente. [Registro](../process-log/documentation_review_2026-10-13.md). |
-| Acesso da banca | [Comentário preparado](pr_access_comment.md), com site e login Raven; falta preencher a senha vigente antes de publicar. |
-| Nova PR da segunda chance | Não aberta; aguarda minha autorização. |
+| Acesso da banca | [Comentário preparado](pr_access_comment.md), com site e login Raven; a senha vigente será publicada apenas no comentário da PR, conforme autorizado, sem ser versionada. |
+| Nova PR da segunda chance | Abertura aprovada. Destino conferido: `Gestao-Quatro-Ponto-Zero/ai-master-challenge:main`, partindo de `amadojoao2/ai-master-challenge-segunda-chance:submission/joao-paulo-segunda-chance`; conferir o diff final. |
 
 O modelo preditivo é um diferencial opcional. O guia aceita narrativa escrita e Git history; screenshot, gravação e export completo são formatos alternativos, não exigências cumulativas. Os logs não alegam ser export integral.
 
