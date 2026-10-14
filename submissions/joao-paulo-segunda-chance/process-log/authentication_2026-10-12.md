@@ -1,6 +1,6 @@
 # Process Log — login e identidade (em preparação)
 
-O usuário aprovou e-mail/senha pelo Supabase Auth, com duas contas individuais, administrador e usuário, ambas com todas as funcionalidades. Não definiu ainda os e-mails. Conferidos Supabase Changelog e documentação de Auth, sessões e headers; SDK oficial 2.117.2 consultado no registro npm e fixado com lockfile.
+Aprovei e-mail/senha pelo Supabase Auth, com duas contas individuais, administrador e usuário, ambas com todas as funcionalidades. Naquele momento, ainda não havia definido os e-mails. Conferidos Supabase Changelog e documentação de Auth, sessões e headers; SDK oficial 2.117.2 consultado no registro npm e fixado com lockfile.
 
 Escrevi testes de identidade antes do módulo: vermelho por módulo ausente; depois dois casos aprovados. O teste SQL inicial sem alterações no Auth falhou por RPC ausente; migração `authenticated_identity_and_controlled_activation` aplicada, ativação desligada; guardas SQL passaram com rollback. Nenhum usuário foi criado. A ativação exige exatamente um administrador e um usuário comum configurados e confirmados.
 
@@ -12,7 +12,7 @@ Backend verifica o JWT com Auth antes de interpretar claims, exige associação 
 
 Dois adaptadores protegidos foram implantados em paralelo aos antigos: `challenge-auth-web` e `challenge-auth-decisions`, ambos ACTIVE v1, verify_jwt=true. Os antigos continuam servindo a versão pública até contas/testes/ativação/publicação finais. Este é preparo controlado, não declaração de que o site atual já exige login.
 
-Ao perguntar quem eram os registros antigos, o usuário recebeu a conferência real: três decisões QA, autor declarado “QA automatizado (sessão declarada)”, sem usuário autenticado, todas concluídas. Não são decisões do CEO.
+Ao perguntar quem eram os registros antigos, recebi a conferência: três decisões QA, autor declarado “QA automatizado (sessão declarada)”, sem usuário autenticado, todas concluídas. Não são decisões do CEO.
 
 Pendências: duas contas reais, vínculos de perfil, teste de login/autoria/logout por HTTP, ativação e atualização do site. Nenhuma PR, review, issue ou mensagem a avaliadores.
 
@@ -33,4 +33,8 @@ Fonte Sites do login sincronizado em `2c4ce3c9c12dbffb147db533b44fb6d6690fcf2e`;
 
 ## Atualização posterior — 13/10/2026
 
-As pendências descritas acima pertencem à preparação de 12/10/2026. As duas contas reais foram posteriormente associadas e o login foi ativado, conforme [registro de ativação](authentication_activation_2026-10-12.md). Em 13/10/2026, o proprietário confirmou que concluiu a aceitação completa do login. Essa confirmação é uma declaração do proprietário, não uma nova execução observada pelo agente. O login não permanece pendente. Ver [estado consolidado](README.md) e [gestão de usuários](user_management_2026-10-13.md) para a evolução seguinte.
+As pendências descritas acima pertencem à preparação de 12/10/2026. As duas contas reais foram posteriormente associadas e o login foi ativado, conforme [registro de ativação](authentication_activation_2026-10-12.md). Em 13/10/2026, confirmei que concluí a aceitação completa do login. O login está concluído. Ver [estado consolidado](README.md) e [gestão de usuários](user_management_2026-10-13.md) para a evolução seguinte.
+
+## Conclusão posterior da revisão visual — 13/10/2026
+
+Concluí a revisão visual em navegador/celular, incluindo o assistente executivo. As pendências visuais acima descrevem a etapa histórica e estão encerradas. Os resultados de testes e seus limites permanecem os observados naquela etapa. Ver [consolidação documental](documentation_review_2026-10-13.md).

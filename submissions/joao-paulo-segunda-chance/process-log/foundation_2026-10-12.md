@@ -4,7 +4,7 @@ Registro escrito da sessão; não se apresenta como export integral de conversa.
 
 ## Autorização
 
-O usuário aprovou avançar nas etapas da fundação, com Supabase dedicado e versionamento no fork. Mantida a orientação de não abrir PR ou pedir revisão antes da entrega estar pronta.
+Aprovei avançar nas etapas da fundação, com Supabase dedicado e versionamento no fork. Mantida a orientação de não abrir PR ou pedir revisão antes da entrega estar pronta.
 
 ## TDD e desenvolvimento
 

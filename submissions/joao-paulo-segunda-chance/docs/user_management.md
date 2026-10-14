@@ -68,6 +68,6 @@ PGLITE_MODULE="$(pwd)/.work/local-sql/node_modules/@electric-sql/pglite/dist/ind
 
 O runner cria roles/tabelas Auth e identidades sintéticas somente na memória do processo local. **Nunca aplique `tests/local_users_fixture.sql` ou `tests/local_user_management.sql` no Supabase compartilhado.** O teste cobre proteção do proprietário, dependências, negação de chamadas, descarte de dados proibidos, revisão concorrente, senha obrigatória, idempotência, desativação e grants. Não representa integração HTTP real com o serviço Auth.
 
-O cadastro/redefinição reais no navegador ainda precisam de validação com uma conta de uso legítimo. Não foram criados usuários fictícios no ambiente compartilhado, nem solicitadas senhas no chat. O login das contas existentes continua aceito pelo proprietário. QA visual real desta atualização não foi executado por indisponibilidade do navegador previsto no ambiente de Sites.
+O cadastro/redefinição reais no navegador ainda precisam de validação com uma conta de uso legítimo. O login das contas existentes e a revisão visual em navegador/celular foram concluídos por mim em 13/10/2026. A validação funcional de cadastro/redefinição é distinta dessa revisão visual.
 
 A proteção Supabase contra senhas vazadas continua indisponível no plano Free; não houve upgrade ou contratação. [Referência oficial](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).

@@ -48,7 +48,7 @@ node --test web/tests/*.test.mjs
 python web/tests/http_auth.py --guards-only --legacy-blocks
 ```
 
-O teste de referência requer `CHALLENGE_DATA_DIR` com CSVs originais e `CHALLENGE_AUDIT_REPORT` com o relatório do auditor Python. Dados não são incluídos no GitHub. `--legacy-blocks` exige autenticação já ativada. Os scripts HTTP antigos de importação, decisões e leitura abaixo representam a aceitação anterior ao login; não estão adaptados para JWT e devem falhar contra o acesso antigo após ativação. Para leitura/opções/logout com uma conta real, usar `http_auth.py --email EMAIL --expect-role administrator` (ou `super_admin`/`user`), com senha solicitada localmente por getpass. O proprietário informou aceitação completa do login em 13/10/2026; os scripts antigos continuam sendo evidência histórica, não uma suíte JWT atual.
+O teste de referência requer `CHALLENGE_DATA_DIR` com CSVs originais e `CHALLENGE_AUDIT_REPORT` com o relatório do auditor Python. Dados não são incluídos no GitHub. `--legacy-blocks` exige autenticação já ativada. Os scripts HTTP antigos de importação, decisões e leitura abaixo representam a aceitação anterior ao login; não estão adaptados para JWT e devem falhar contra o acesso antigo após ativação. Para leitura/opções/logout com uma conta real, usar `http_auth.py --email EMAIL --expect-role administrator` (ou `super_admin`/`user`), com senha solicitada localmente por getpass. Concluí a aceitação completa do login em 13/10/2026; os scripts antigos continuam sendo evidência histórica, não uma suíte JWT atual.
 
 O teste HTTP de Excel requer `python -m pip install -r requirements-web-tests.txt`.
 
@@ -59,7 +59,7 @@ Ver `docs/web_status.md`: substituição completa de uma fonte por vez, limites 
 
 ## Aceitação de componentes e HTTP
 
-`npm run test:ui` testa 36 casos de componentes e contratos de adaptadores usando Happy DOM 21.0.1 e API/Auth simulados. Não executa navegador real nem valida CSS/viewport visualmente. Arquivos temporários em `tests/.generated` são ignorados.
+`npm run test:ui` testa 47 casos de componentes e contratos de adaptadores usando Happy DOM 21.0.1 e API/Auth simulados. Não executa navegador real nem valida CSS/viewport visualmente. Arquivos temporários em `tests/.generated` são ignorados.
 
 O ciclo efetivo `http_import.py --accounts-csv /caminho/original.csv --publish` foi autorizado e concluído em 12/10/2026, preservando os fatos e criando a segunda versão. `http_decisions.py --write-qa` grava uma decisão claramente marcada `[QA]` e conclui sua ação. Não rodar os testes de escrita sem intenção explícita de persistir esses registros.
 
@@ -79,7 +79,7 @@ Na fase anterior ao login, `python web/tests/http_scopes.py` validava quatro esc
 
 O frontend usa @supabase/supabase-js 2.117.2 e os adaptadores `challenge-auth-web`/`challenge-auth-decisions`. `npm ci` usa o lockfile. Site v10 publicado e login exigido; duas contas existentes vinculadas a superadministrador protegido e administrador. Novos usuários recebem permissões explícitas, senha inicial direta e troca obrigatória. O módulo usa `challenge-users`, sem SMTP, mantendo o plano Free. [Guia de gestão](../docs/user_management.md), incluindo migração posterior ao assistente, empacotador e testes SQL locais. Migrações, pacotes e registro de aceitação em [authentication.md](../docs/authentication.md).
 
-`python web/tests/http_auth.py --guards-only --legacy-blocks` testa sete rejeições HTTP, sem cadastrar/gravar dados de negócio. `tests/db_auth_activation_guards.sql` verifica ativação, elegibilidade dos dois perfis, bloqueio da criação de sessão antiga e privilégios administrativos com rollback. Login de conta real é interativo por getpass. O proprietário confirmou a aceitação completa do login em 13/10/2026. A revisão não repetiu esses fluxos; testes com Auth simulado têm escopo separado. `local_db_auth_access.sql` é fixture local isolada, não executada aqui. Testes HTTP anônimos antigos são evidência histórica.
+`python web/tests/http_auth.py --guards-only --legacy-blocks` testa sete rejeições HTTP, sem cadastrar/gravar dados de negócio. `tests/db_auth_activation_guards.sql` verifica ativação, elegibilidade dos dois perfis, bloqueio da criação de sessão antiga e privilégios administrativos com rollback. Login de conta real é interativo por getpass. Concluí a aceitação completa do login e a revisão visual em 13/10/2026. Testes com Auth simulado têm escopo separado. `local_db_auth_access.sql` é fixture local isolada, não executada aqui. Testes HTTP anônimos antigos são evidência histórica.
 
 ## Assistente executivo
 

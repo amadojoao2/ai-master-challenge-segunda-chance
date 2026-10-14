@@ -1,7 +1,11 @@
 # Decisões com escopo explícito
 
-## Estado em 12/10/2026
-Código implementado e testes de domínio, componentes, adaptadores e SQL aprovados. Migração aplicada ao Supabase dedicado. O erro interno de implantação foi resolvido usando pacote JavaScript gerado a partir dos fontes canônicos. `challenge-decisions` está ACTIVE na versão 1. Aceitação HTTP concluída e interface publicada na versão 4 do site. QA visual real permanece pendente.
+## Estado atual — 13/10/2026
+
+Escopos implementados no Site v10, com login, permissões e revisão visual concluída. O acesso atual usa `challenge-auth-decisions` com JWT; reprodução e implantação atuais estão em [autenticação](authentication.md) e [gestão de usuários](user_management.md).
+
+## Registro da implantação original — 12/10/2026
+Código implementado e testes de domínio, componentes, adaptadores e SQL aprovados. Migração aplicada ao Supabase dedicado. O erro interno de implantação foi resolvido usando pacote JavaScript gerado a partir dos fontes canônicos. `challenge-decisions` está ACTIVE na versão 1. Aceitação HTTP concluída e interface publicada na versão 4 do site. A revisão visual foi concluída posteriormente, em 13/10/2026.
 
 ## Contrato de negócio
 
@@ -37,7 +41,7 @@ Decisões antigas continuam legíveis, sem retropreencher um escopo que não foi
 
 `decision_scope.mjs` contém o value object e as Specifications de formato/aplicabilidade, sem DOM/SQL. `analytics.decision_rules` registra definições de negócio. RPCs implementam casos de uso transacionais; `operations.decision_scopes` e `decision_scope_snapshots` preservam a evidência. React é apresentação; `challenge-decisions` é adaptador HTTP pequeno, independente do leitor Excel do contexto de ingestão. Regras analíticas existentes são reutilizadas através dos snapshots, sem refazer a engenharia temporal.
 
-Mesma capacidade anônima criada por `challenge-web/session`, hash no banco, RPCs exclusivamente service_role. Sem e-mail/senha, chave privilegiada no frontend, novo papel ou permissão anônima direta ao banco.
+Na implantação original de acesso livre, usava a mesma capacidade anônima criada por `challenge-web/session`, hash no banco, RPCs exclusivamente service_role. Sem e-mail/senha, chave privilegiada no frontend, novo papel ou permissão anônima direta ao banco.
 
 ## Validação
 
@@ -49,7 +53,7 @@ Mesma capacidade anônima criada por `challenge-web/session`, hash no banco, RPC
 - HTTP real passou para os quatro escopos, ponderação e validações. Uma decisão `[QA]` de segmento foi criada, repetida sem duplicação e sua ação concluída com três entradas de histórico. O banco confirmou 79 membros congelados e três destaques; dois registros antigos continuam intactos. Há três ações QA concluídas, nenhuma aberta.
 - TypeScript e builds do frontend portável e hospedado aprovados. Advisor de segurança sem findings; performance só informa índices ainda sem uso.
 
-## Empacotamento e aceitação
+## Empacotamento e aceitação da fase de acesso livre (histórico)
 
 Fontes canônicos: `web/decisions/index.ts` e `web/domain/decision_scope.mjs`. O método que funcionou no ambiente foi pacote JavaScript único gerado, sem duplicação manual de regras. Após instalar dependências em `web/frontend`:
 

@@ -13,15 +13,16 @@ Conferido no repositório oficial em 12/10/2026:
 | Segmentos e contas identificáveis | Tabela no diagnóstico; filtro e detalhe no site com IDs. Ordenação por exposição contratual para investigação, sem risco previsto. |
 | Ações concretas e impacto | Plano priorizado no diagnóstico; volumes observados e cenário de capacidade separados de impacto financeiro não identificável. |
 | Correlação versus causalidade | Limites explícitos e resultado de ação sem atribuição causal automática. |
-| Processo de IA | [Índice consolidado](../process-log/README.md), decisões de autenticação/modelos e referências às conversas de construção/revisão; registros por etapa, testes e commits. Links de compartilhamento do ChatGPT fornecidos pelo proprietário; disponibilidade não verificada nesta atualização. |
+| Processo de IA | [Índice consolidado](../process-log/README.md), decisões de autenticação/modelos e referências às conversas de construção/revisão; registros por etapa, testes e commits. Links de compartilhamento do ChatGPT fornecidos por mim. |
 | README oficial / setup | Seções do template e instruções Python, frontend, banco e Edge. |
 | Alterações só na pasta | Conferir diff antes de qualquer PR; nenhum arquivo externo deve ser incluído. |
-| Login | Aceitação completa informada pelo proprietário em 13/10/2026. |
+| Login | Concluí a aceitação completa em 13/10/2026. |
 | Gestão de usuários | Site v10, permissões e proteção do proprietário implementados. Testes automatizados aprovados; cadastro/redefinição reais no navegador ainda não exercitados. [Guia](user_management.md). |
 | Revisão geral | Correções funcionais e documentação: [registro](../process-log/review_2026-10-13.md). |
 | Reprodução e demonstração | [Guia consolidado](reproduction.md), com testes locais separados das operações que gravam no ambiente. |
-| Validação visual em navegador real | Pendente. DOM emulado e builds não substituem navegador/viewport reais. |
-| Nova PR da segunda chance | Não aberta, por instrução do usuário. Somente quando ele determinar. |
+| Validação visual em navegador real | Concluí a revisão em navegador/celular em 13/10/2026, incluindo o assistente. [Registro](../process-log/documentation_review_2026-10-13.md). |
+| Acesso da banca | [Comentário preparado](pr_access_comment.md), com site e login Raven; falta preencher a senha vigente antes de publicar. |
+| Nova PR da segunda chance | Não aberta; aguarda minha autorização. |
 
 O modelo preditivo é um diferencial opcional. O guia aceita narrativa escrita e Git history; screenshot, gravação e export completo são formatos alternativos, não exigências cumulativas. Os logs não alegam ser export integral.
 

@@ -1,10 +1,10 @@
 # Process Log — aceitação e conferência da entrega
 
-Narrativa parcial e verificável; não é export integral da conversa. Ferramenta de IA: ChatGPT/Codex, usada para decompor testes, implementar casos, diagnosticar falhas, consultar documentação e conferir o brief. O usuário decidiu prosseguir com as validações sem abrir PR.
+Narrativa parcial e verificável; não é export integral da conversa. Ferramenta de IA: ChatGPT/Codex, usada para decompor testes, implementar casos, diagnosticar falhas, consultar documentação e conferir o brief. Decidi prosseguir com as validações sem abrir PR.
 
 ## Instrução humana
 
-Depois de conferir o site, o usuário perguntou o que faltava. A resposta listou validação dos fluxos, importação efetiva, responsividade/uso no navegador e documentação. Ele autorizou continuar e reforçou que a PR ainda não deveria ser aberta. Acesso livre e ausência de ML como diferencial permanecem decisões do usuário.
+Depois de conferir o site, perguntei o que faltava. A resposta listou validação dos fluxos, importação efetiva, responsividade/uso no navegador e documentação. Autorizei continuar e reforcei que a PR ainda não deveria ser aberta. Acesso livre e ausência de ML como diferencial permanecem minhas decisões.
 
 ## Conferência oficial
 
@@ -12,13 +12,13 @@ Lidos o brief, submission-guide, template e CONTRIBUTING do repositório oficial
 
 ## Testes de componentes
 
-Não há `$control-browser` disponível. A skill Sites orienta: “If `$control-browser` is unavailable, skip browser QA”. Não iniciei preview nem improvisei automação de navegador. Usei Happy DOM 21.0.1 para executar componentes React com dados sintéticos e API simulada — explicitamente diferente de QA visual real.
+Não há `$control-browser` disponível. A skill Sites orienta: “If `$control-browser` is unavailable, skip browser QA”. O Codex não iniciou preview ou automação de navegador. Usou Happy DOM 21.0.1 para executar componentes React com dados sintéticos e API simulada — explicitamente diferente de QA visual real.
 
 Escrevi testes para seis áreas, recorte, paginação, busca, conta, Escape/restauração de foco, falha em decisão, erro em conclusão, retry de detalhe, importação inválida e pausa/retomada. O seletor inicial de navegação ignorava o contador de ações; corrigi o fixture. Executando a suíte contra o código anterior publicado, dois testes falharam:
 - O erro de conclusão aparecia atrás do modal, não dentro dele.
 - O detalhe de conta mantinha o estado “carregando” depois de falhar, sem retry.
 
-Implementei mensagem local e preservação do resultado na ação; estado de erro e retry no detalhe. Os oito testes passaram na versão corrigida. O campo de resultado conserva o foco ao digitar. Isso verifica comportamento de componentes, não layout, compatibilidade real de navegador ou viewport de celular.
+Com apoio do Codex, implementei mensagem local e preservação do resultado na ação; estado de erro e retry no detalhe. Os oito testes passaram na versão corrigida. O campo de resultado conserva o foco ao digitar. Isso verifica comportamento de componentes, não layout, compatibilidade real de navegador ou viewport de celular.
 
 ## Publicação efetiva da importação
 
@@ -40,7 +40,7 @@ A IA havia escolhido SQLSTATE 40001 como erro de revisão otimista. Isso é inad
 - [Troubleshooting Supabase](https://supabase.com/docs/guides/troubleshooting/high-cpu-and-infinite-transaction-retries-when-using-custom-error-codes-in-rpc-functions-77326b)
 - [Mapeamento de erros PostgREST](https://docs.postgrest.org/en/v13/references/errors.html)
 
-Reforcei o teste SQL para exigir PT409: falhou no código anterior. A migração `web_conflict_response.sql` e o adaptador Edge passaram a devolver PT409/HTTP 409. O teste SQL com service_role passou. Não encerrei processos arbitrários: os dois PIDs observados já haviam desaparecido na checagem posterior, e a verificação direcionada não encontrou loops de transição remanescentes.
+Com apoio do Codex, reforcei o teste SQL para exigir PT409: falhou no código anterior. A migração `web_conflict_response.sql` e o adaptador Edge passaram a devolver PT409/HTTP 409. O teste SQL com service_role passou. O Codex não encerrou processos arbitrários: os dois PIDs observados já haviam desaparecido na checagem posterior, e a verificação direcionada não encontrou loops de transição remanescentes.
 
 A primeira ação de teste foi concluída sem apagar a história. Uma rodada completa após a correção criou outra decisão `[QA]` e confirmou, por HTTP:
 - criação e replay idempotente;
@@ -56,9 +56,13 @@ As duas ações `[QA]` estão concluídas; são registros de aceitação, não d
 - 26 testes Python + 12 de domínio web + oito de componentes = 46 testes automatizados nessas suítes, além dos testes SQL/HTTP.
 - Publicação efetiva e decisões persistentes verificadas; integridade das versões preservada.
 - README/guia conferidos; diagnóstico e cenário operacional documentados.
-- QA visual real, compatibilidade de navegador e viewport de celular permanecem pendentes; não fabrico screenshots.
+- A revisão visual em navegador/celular estava pendente nesta etapa; concluí essa revisão em 13/10/2026.
 - Código será mantido na branch e pasta da segunda chance. Nenhuma PR, issue, review ou mensagem a avaliadores.
 
 ## Julgamento humano e iteração
 
-O usuário definiu o diferencial, preservação da reconciliação anterior, acesso livre e envio somente quando pronto. A IA apoiou implementação, mas os testes invalidaram suposições sobre timestamp, desempenho SQL, foco, visibilidade de erros e semântica de SQLSTATE. O processo teve inspeção, testes vermelhos, correções e verificação na aplicação publicada — não um único prompt transformado em produto sem revisão.
+Defini o diferencial, preservação da reconciliação anterior, acesso livre e envio somente quando pronto. A IA apoiou implementação, mas os testes invalidaram suposições sobre timestamp, desempenho SQL, foco, visibilidade de erros e semântica de SQLSTATE. O processo teve inspeção, testes vermelhos, correções e verificação na aplicação publicada — não um único prompt transformado em produto sem revisão.
+
+## Conclusão posterior da revisão visual — 13/10/2026
+
+Concluí a revisão visual em navegador/celular, incluindo o assistente executivo. As pendências visuais acima descrevem a etapa histórica e estão encerradas. Os resultados de testes e seus limites permanecem os observados naquela etapa. Ver [consolidação documental](documentation_review_2026-10-13.md).

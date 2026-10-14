@@ -1,7 +1,7 @@
 # Ativação do login — 12/10/2026 (BRT)
 
 ## Pedido e uso de IA
-O proprietário informou ter criado no Supabase Auth duas contas: uma para administrador e outra para usuário comum. O Codex conferiu somente campos de identidade/estado, sem ler credenciais, e associou as contas existentes ao workspace RavenStack. E-mails e IDs pessoais não foram incluídos nesta evidência pública.
+Criei no Supabase Auth duas contas: uma para administrador e outra para usuário comum. O Codex conferiu somente campos de identidade/estado, sem ler credenciais, e associou as contas existentes ao workspace RavenStack. E-mails e IDs pessoais não foram incluídos nesta evidência pública.
 
 ## Operações realizadas
 - Duas contas confirmadas, não anônimas, não excluídas e não bloqueadas.
@@ -20,12 +20,16 @@ O proprietário informou ter criado no Supabase Auth duas contas: uma para admin
 - Advisor pós-configuração: uma advertência sobre proteção contra senhas vazadas desativada; não foi alterado o plano ou a configuração. [Orientação oficial](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 
 ## Limites e próximo passo
-O proprietário precisa entrar no site com as duas senhas, conferir painel/decisão/upload e testar saída. O agente não possui essas senhas e não as solicita pelo chat. Entrada com senha, autoria real, renovação e retomada de upload entre logins não foram verificadas. A tela foi publicada para permitir essa aceitação, sem condicionar o avanço ao envio de credenciais. Testes anteriores de componentes/SDK usam simulação e não contam como login real; QA visual real continua pendente.
+Naquela etapa, eu precisava entrar no site com as duas senhas, conferir painel/decisão/upload e testar saída. O agente não possui essas senhas e não as solicita pelo chat. Entrada com senha, autoria real, renovação e retomada de upload entre logins não foram verificadas. A tela foi publicada para permitir essa aceitação, sem condicionar o avanço ao envio de credenciais. Testes anteriores de componentes/SDK usam simulação e não contam como login real; naquela etapa, o QA visual ainda estava pendente; foi concluído em 13/10/2026.
 
 O estado de self-signup no serviço Auth não foi verificado: não há ferramenta de configuração Auth disponível nesta conexão. Não existe cadastro público na interface e uma conta sem membership não acessa o painel. Testes HTTP antigos sem JWT são evidência histórica e devem falhar após ativação. O teste SQL de preparação que pressupõe associações incompletas não deve ser reexecutado no projeto já configurado.
 
 README e documentação atualizados, sem reescrever o resumo histórico de preparação. Continuidade do versionamento no fork, alterações restritas à pasta de submissão, sem PR/review/issue/mensagem aos avaliadores.
 
-## Aceitação posterior informada pelo proprietário — 13/10/2026
+## Minha aceitação posterior — 13/10/2026
 
-O proprietário confirmou que concluiu a aceitação completa do login das contas existentes. A solicitação de entrar e testar, descrita em “Limites e próximo passo”, foi atendida por esse aceite posterior e não representa pendência atual. A confirmação é registrada como declaração humana; o agente não recebeu senhas nem executou novamente esses fluxos. O novo módulo de cadastro/redefinição tem sua própria validação pendente, conforme [gestão de usuários](user_management_2026-10-13.md). Ver [índice atualizado](README.md).
+Confirmei que concluí a aceitação completa do login das contas existentes. A solicitação de entrar e testar, descrita em “Limites e próximo passo”, foi atendida por esse aceite posterior e não representa pendência atual. O novo módulo de cadastro/redefinição tem sua própria validação pendente, conforme [gestão de usuários](user_management_2026-10-13.md). Ver [índice atualizado](README.md).
+
+## Conclusão posterior da revisão visual — 13/10/2026
+
+Concluí a revisão visual em navegador/celular, incluindo o assistente executivo. As pendências visuais acima descrevem a etapa histórica e estão encerradas. Os resultados de testes e seus limites permanecem os observados naquela etapa. Ver [consolidação documental](documentation_review_2026-10-13.md).

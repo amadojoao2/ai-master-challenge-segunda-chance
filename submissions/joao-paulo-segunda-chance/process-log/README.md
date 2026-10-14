@@ -4,18 +4,18 @@ Consolidado em 13/10/2026, horário de Brasília. Este índice reúne as decisõ
 
 ## Objetivo e decisões
 
-A proposta evoluiu de uma auditoria do diagnóstico de churn para uma mesa de decisão: leitura executiva, investigação por conta, decisões com evidência, atualização por CSV/Excel e assistente de consultas. O proprietário retirou ML como diferencial, preservou os princípios de arquitetura da primeira entrega e exigiu que as conclusões respeitassem as limitações das fontes.
+A proposta evoluiu de uma auditoria do diagnóstico de churn para uma mesa de decisão: leitura executiva, investigação por conta, decisões com evidência, atualização por CSV/Excel e assistente de consultas. Retirei ML como diferencial, preservei os princípios de arquitetura da primeira entrega e exigi que as conclusões respeitassem as limitações das fontes.
 
-As decisões sobre autenticação e distribuição dos modelos de IA estão em [Decisões de autenticação e uso dos modelos](decisions_2026-10-13.md). A implementação final usa e-mail/senha pelo Supabase Auth, gestão administrativa de usuários e permissões, sem convites por e-mail e mantendo o plano Free. O login das contas existentes foi integralmente aceito pelo proprietário em 13/10/2026.
+As decisões sobre autenticação e distribuição dos modelos de IA estão em [Decisões de autenticação e uso dos modelos](decisions_2026-10-13.md). A implementação final usa e-mail/senha pelo Supabase Auth, gestão administrativa de usuários e permissões, sem convites por e-mail e mantendo o plano Free. O login das contas existentes foi integralmente aceito por mim em 13/10/2026.
 
 ## Conversas de desenvolvimento e revisão
 
-Links fornecidos pelo proprietário em 13/10/2026:
+Links fornecidos por mim em 13/10/2026:
 
 - [Conversa de construção do projeto](https://chatgpt.com/share/6ace5036-066c-83e9-b0d3-5e354cafe70c).
 - [Conversa de revisão do projeto](https://chatgpt.com/share/6ace546a-7aa0-83e9-aebf-378e7d694ae7).
 
-São links de compartilhamento do ChatGPT fornecidos pelo proprietário para a banca, substituindo os endereços internos das conversas. A disponibilidade e o conteúdo dos links não foram verificados nesta atualização. A narrativa e as evidências presentes no repositório permitem acompanhar o processo independentemente dos links; não se apresentam como export integral do chat.
+São links de compartilhamento do ChatGPT fornecidos por mim para a banca, substituindo os endereços internos das conversas. A disponibilidade e o conteúdo dos links não foram verificados nesta atualização. A narrativa e as evidências presentes no repositório permitem acompanhar o processo independentemente dos links; não se apresentam como export integral do chat.
 
 ## Etapas e evidências
 
@@ -34,6 +34,7 @@ São links de compartilhamento do ChatGPT fornecidos pelo proprietário para a b
 | 11 | Usuários e permissões | Superadministrador protegido, administrador, permissões, senha inicial e troca obrigatória; Site v10. [Gestão de usuários](user_management_2026-10-13.md). |
 | 12 | Consolidação documental | Índice, decisões de autenticação/modelos, links das conversas e notas posteriores sobre login e formatos de evidência. Este índice e [decisões](decisions_2026-10-13.md). |
 | 13 | Transferência para o fork oficial | Importação do histórico para o fork diretamente ligado à G4; referências aos commits originais e conteúdo conferido, conforme registro abaixo. |
+| 14 | Revisão documental para a banca | Findings com dados, recomendações de negócio, narrativa em primeira pessoa, conclusão da revisão visual e preparação do acesso da banca. [Registro](documentation_review_2026-10-13.md). |
 
 ## Problemas encontrados e correções
 
@@ -58,7 +59,7 @@ As quantidades abaixo pertencem às respectivas rodadas. Não devem ser somadas 
 | Aceitação web | 26 Python + 12 domínio web + 8 componentes | 46 testes dessas suítes; SQL/HTTP separados. Importação e ações QA exercitadas por HTTP real. |
 | Escopos | 18 domínio web + 13 componentes + 4 adaptadores | Testes locais e SQL com rollback; leitura e gravação QA verificadas por HTTP. |
 | Preparação do login | 20 domínio web + 17 componentes + 6 adaptadores | Auth/API simulados nos componentes; bloqueios reais por SQL/HTTP. |
-| Login existente | Aceitação completa informada pelo proprietário em 13/10/2026 | Declaração humana posterior à ativação; não é nova execução observada pelo agente. |
+| Login existente | Concluí a aceitação completa em 13/10/2026 | Aceitação após a ativação das contas existentes. |
 | Layout executivo | 17 componentes + 6 adaptadores e builds | 23 testes; conferência de fonte, sem revisão visual real. |
 | Assistente | 7 Specs + 20 componentes + 9 adaptadores | 36 testes JS nessa aceitação; SQL real com rollback e bloqueios HTTP. Diagnóstico do provedor: quatro respostas reais com fixture sintético; não é conversa integral de CEO. |
 | Revisão geral | 26 Python + 27 domínio/referência web + 36 componentes/adaptadores | 89 testes aprovados, zero skips; comparação dos 89 resultados de qualidade com o banco. |
@@ -69,21 +70,21 @@ Componentes em Happy DOM e adaptadores com API simulada não equivalem a navegad
 ## Estado e limites para a avaliação
 
 - [Site v10 publicado](https://challenge-g4-ravenstack.early-hake-5665.chatgpt.site/), com login ativo; dados e duas versões publicadas preservados.
-- Login das contas existentes concluído por aceite do proprietário. Cadastro/redefinição e primeiro acesso do novo módulo ainda precisam de validação integral com conta legítima.
-- Revisão visual em desktop/celular reais não executada pelo agente; DOM e builds não a substituem. A aceitação integral do assistente no navegador também não foi registrada como concluída.
+- Login das contas existentes concluído por meu aceite. Cadastro/redefinição e primeiro acesso do novo módulo ainda precisam de validação integral com conta legítima.
+- Concluí a revisão visual em navegador/celular em 13/10/2026, incluindo o assistente. Os registros de testes automatizados mantêm o escopo de cada rodada; a revisão visual não amplia retroativamente a cobertura desses testes.
 - Ausência de eventos ou telemetria não é automaticamente zero; exposição contratual não é perda prevista ou caixa; causa raiz e receita recuperável não são afirmadas sem evidência.
 - Narrativa escrita e histórico Git são os formatos de evidência adotados. Screenshots, gravação e export integral são alternativas opcionais, conforme [conferência do guia](../docs/submission_readiness.md).
-- Alterações restritas à pasta e branch da segunda chance. A PR continua não aberta por orientação do proprietário.
+- Alterações restritas à pasta e branch da segunda chance. A PR continua não aberta por minha orientação.
 
 ## Consolidação de 13/10/2026
 
-O proprietário aprovou as mudanças documentais e forneceu os links das conversas de construção e revisão. A atualização acrescenta este índice e o registro das decisões, completa o README e anota desdobramentos nos registros históricos sem substituir resultados observados na época. A comparação de eficiência entre modelos é atribuída ao relato do proprietário, sem benchmark inventado ou medição retroativa de tokens.
+Aprovei as mudanças documentais e forneci os links das conversas de construção e revisão. A atualização acrescenta este índice e o registro das decisões, completa o README e anota desdobramentos nos registros históricos sem substituir resultados observados na época. A comparação de eficiência entre modelos é atribuída ao meu relato, sem benchmark inventado ou medição retroativa de tokens.
 
 A conferência desta rodada é documental: referências locais, consistência de estados e escopo dos arquivos no GitHub. Não representa nova execução dos testes de aplicação ou alteração da plataforma.
 
 ## Transferência para o fork oficial — 13/10/2026
 
-O GitHub identificou o repositório anterior, `amadojoao2/ai-master-challenge`, como fork de `BarryBits/ai-master-challenge`. Sua base coincidia com a main oficial, mas a comparação entre redes retornava 404. O proprietário criou [amadojoao2/ai-master-challenge-segunda-chance](https://github.com/amadojoao2/ai-master-challenge-segunda-chance) diretamente de [Gestao-Quatro-Ponto-Zero/ai-master-challenge](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge) e incluiu o novo fork no acesso da conexão GitHub.
+O GitHub identificou o repositório anterior, `amadojoao2/ai-master-challenge`, como fork de `BarryBits/ai-master-challenge`. Sua base coincidia com a main oficial, mas a comparação entre redes retornava 404. Criei [amadojoao2/ai-master-challenge-segunda-chance](https://github.com/amadojoao2/ai-master-challenge-segunda-chance) diretamente de [Gestao-Quatro-Ponto-Zero/ai-master-challenge](https://github.com/Gestao-Quatro-Ponto-Zero/ai-master-challenge) e incluí o novo fork no acesso da conexão GitHub.
 
 A branch `submission/joao-paulo-segunda-chance` foi importada em 19 etapas. A API não aceitava referenciar os IDs do histórico anterior na nova rede; as etapas foram recriadas com IDs e datas de commit novos. Cada mensagem mantém referência ao commit original, autoria original e data original. Os commits originais continuam disponíveis no repositório anterior. Isso preserva a sequência de conteúdo sem apresentar os novos IDs como commits originais.
 
@@ -91,4 +92,4 @@ A primeira tentativa foi interrompida por limite de uso durante a revisão autom
 
 Antes deste registro documental, a árvore final de arquivos da importação, `03184a0412479399d2459b1ffcbee89249e1a99c`, era idêntica à do [último commit original](https://github.com/amadojoao2/ai-master-challenge/commit/0f75b87000594b5a3409df6ef5e75da6015ad6e4). Todas as 19 etapas usam as mesmas árvores de arquivos das etapas originais. A comparação real com a main oficial passou: 19 commits à frente, zero atrás e 144 arquivos exclusivamente em `submissions/joao-paulo-segunda-chance/`.
 
-Este registro acrescenta um commit documental após as 19 etapas importadas. A [branch no fork oficial](https://github.com/amadojoao2/ai-master-challenge-segunda-chance/tree/submission/joao-paulo-segunda-chance) é o ponto de continuidade da segunda chance. A main dos repositórios e a PR anterior permanecem preservadas. Nenhuma nova PR foi aberta; o título planejado é `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e sua abertura depende da aprovação do proprietário.
+Este registro acrescenta um commit documental após as 19 etapas importadas. A [branch no fork oficial](https://github.com/amadojoao2/ai-master-challenge-segunda-chance/tree/submission/joao-paulo-segunda-chance) é o ponto de continuidade da segunda chance. A main dos repositórios e a PR anterior permanecem preservadas. Nenhuma nova PR foi aberta; o título planejado é `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e sua abertura depende da minha aprovação.

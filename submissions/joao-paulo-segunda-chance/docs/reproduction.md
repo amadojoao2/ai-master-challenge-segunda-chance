@@ -1,6 +1,6 @@
 # Reprodução e roteiro da banca
 
-Estado em 13/10/2026. O proprietário concluiu a aceitação completa do login. A etapa de usuários atualizou o banco de acesso e os adaptadores de usuários/assistente, preservando os contratos e fatos de negócio. [Guia de usuários](user_management.md). Os números do diagnóstico escrito referem-se à base original, corte 31/12/2024; o painel calcula a versão e o recorte ativos.
+Estado em 13/10/2026. Concluí a aceitação completa do login e a revisão visual em navegador/celular em 13/10/2026. A etapa de usuários atualizou o banco de acesso e os adaptadores de usuários/assistente, preservando os contratos e fatos de negócio. [Guia de usuários](user_management.md). Os números do diagnóstico escrito referem-se à base original, corte 31/12/2024; o painel calcula a versão e o recorte ativos.
 
 ## Leitura e demonstração (aproximadamente 8 minutos)
 
@@ -37,7 +37,7 @@ São necessárias as cinco fontes exatas do manifesto para comparar os 89 result
 2. Aplicar as migrações web, escopos, autenticação e assistente na ordem de [web/README.md](../web/README.md). Aplicar também a migração de [gestão de usuários](user_management.md). Gerar os quatro pacotes pelos scripts canônicos e implantar com verificação JWT.
 3. Configurar Supabase Auth, contas e memberships protegidos conforme [authentication.md](authentication.md); configurar o Secret OpenAI no servidor conforme [assistant.md](assistant.md). Não reutilizar identidades ou segredos do ambiente original.
 4. Ajustar URL/chave pública do frontend para o próprio projeto. A chave privilegiada permanece exclusivamente no backend. Vite é a distribuição portátil; o site usa Vinext com as mesmas telas, estilos e adaptadores.
-5. Validar login/perfis, erros, escrita, refresh e logout no novo ambiente. A aceitação do proprietário no ambiente original não se transfere automaticamente à nova instalação.
+5. Validar login/perfis, erros, escrita, refresh e logout no novo ambiente. Minha aceitação no ambiente original não se transfere automaticamente à nova instalação.
 
 Migrações não são um script indiscriminado de reset. Os testes SQL têm pré-condições e alguns representam fases anteriores à ativação. Ler cada arquivo antes de executá-lo; fixtures locais isoladas não devem ser aplicadas no projeto compartilhado.
 
@@ -47,4 +47,4 @@ Migrações não são um script indiscriminado de reset. Os testes SQL têm pré
 
 `python web/tests/http_users.py` verifica quatro bloqueios sem autenticação válida. O guia de usuários inclui o teste SQL em banco local isolado; suas fixtures nunca devem ser aplicadas no ambiente compartilhado. Cadastro e redefinição reais ainda precisam de validação com uma conta legítima.
 
-Os scripts `http_import.py`, `http_decisions.py`, `http_scopes.py` e `http_smoke.py` documentam a fase anterior ao login; não constituem uma suíte autenticada atual. Seus modos de publicação/escrita não fazem parte da rotina acima. Happy DOM usa APIs simuladas: comprova comportamento dos componentes, não aparência no navegador, latência real ou integração com o modelo. A revisão visual em desktop/celular reais desta atualização continua necessária antes da banca.
+Os scripts `http_import.py`, `http_decisions.py`, `http_scopes.py` e `http_smoke.py` documentam a fase anterior ao login; não constituem uma suíte autenticada atual. Seus modos de publicação/escrita não fazem parte da rotina acima. Happy DOM usa APIs simuladas: comprova comportamento dos componentes, não aparência no navegador, latência real ou integração com o modelo. A revisão visual em desktop/celular foi concluída em 13/10/2026 e está registrada no [process log](../process-log/documentation_review_2026-10-13.md).

@@ -3,7 +3,7 @@
 Registro parcial e verificável de uso de ChatGPT/Codex; não é export integral da conversa.
 
 ## Orientação humana
-O usuário pediu que “Registrar decisão” permita escolher sobre qual dado decidir, por exemplo conta ou setor. Após o planejamento, autorizou implementar. Mantidos DDD, TDD, Clean Architecture, Bounded Contexts e Specifications, acesso livre, GitHub contínuo e nenhuma PR antes de nova autorização.
+Pedi que “Registrar decisão” permita escolher sobre qual dado decidir, por exemplo conta ou setor. Após o planejamento, autorizei a implementação. Mantidos DDD, TDD, Clean Architecture, Bounded Contexts e Specifications, acesso livre, GitHub contínuo e nenhuma PR antes de nova autorização.
 
 ## Desenvolvimento e testes
 Escrevi testes de escopo antes do módulo: falharam por módulo ausente; implementei o value object. Testes SQL sintéticos falharam antes da migração por função inexistente. Após aplicar `explicit_decision_scopes_and_frozen_evidence`, passaram, com rollback para não mudar painel/dados nem persistir QA. Testes do formulário anterior falharam para o fluxo novo; foram satisfeitos pela implementação.
@@ -21,7 +21,7 @@ A atualização do `challenge-web` retornou `InternalServerErrorException`, “F
 
 Separei o adaptador de decisões do importador Excel: três operações fixas, sem pacote externo, usando a mesma capacidade e RPCs restritas. A implantação da nova `challenge-decisions` também falhou. Consultei a documentação oficial e gerei um pacote de arquivo único a partir do mesmo módulo, sem dependências relativas; a tentativa também teve o mesmo erro. Isso não prova indisponibilidade global, erro de sintaxe ou limite de tamanho.
 
-[Guia oficial para esse erro](https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy) recomenda CLI com debug/método de bundle alternativo ou suporte. CLI autenticada não está disponível nesta execução. Não extraí credenciais, abri ticket ou afrouxei RLS para contornar o bloqueio. O código e o empacotador ficaram revisáveis no fork no commit de checkpoint `e79ed860f61b76b4a6be11bbf709f1a39c002f81`, ainda com publicação pendente.
+[Guia oficial para esse erro](https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy) recomenda CLI com debug/método de bundle alternativo ou suporte. CLI autenticada não está disponível nesta execução. O Codex não extraiu credenciais, abriu ticket ou afrouxou RLS para contornar o bloqueio. O código e o empacotador ficaram revisáveis no fork no commit de checkpoint `e79ed860f61b76b4a6be11bbf709f1a39c002f81`, ainda com publicação pendente.
 
 Depois do checkpoint, converti o pacote canônico para JavaScript com TypeScript 5.9.3, sem imports relativos ou tipos no artefato. Essa estratégia diferente foi aceita: `challenge-decisions` ACTIVE, versão 1. Isso identifica um caminho de implantação funcional, mas não prova a causa interna das falhas anteriores. O empacotador final `scripts/build_decision_edge.mjs` substitui o gerador intermediário Python/TypeScript, mantém um único conjunto de regras e não acessa credenciais/rede.
 
@@ -36,10 +36,14 @@ Verificação SQL posterior encontrou 79 membros e três destaques na decisão d
 TypeScript/builds portável e Vinext passaram. A interface foi sincronizada e empacotada no fonte Sites `c784e3af17183aa3e8be20ab1e2edc866e2f817a`; versão 4 publicada com status `succeeded` em 12/10/2026. Navegador real/QA visual continuam indisponíveis, conforme limite já documentado. Não fabrico screenshots.
 
 ## Estado final
-Migração e testes SQL concluídos. Formulário/lista/histórico e adaptador implementados. Adaptador JavaScript implantado, aceitação HTTP concluída e site atualizado. Revisão visual real continua pendente. Nenhuma PR, issue, review, ticket ou mensagem a avaliadores foi criada.
+Migração e testes SQL concluídos. Formulário/lista/histórico e adaptador implementados. Adaptador JavaScript implantado, aceitação HTTP concluída e site atualizado. A revisão visual, pendente naquela etapa, foi concluída em 13/10/2026. Nenhuma PR, issue, review, ticket ou mensagem a avaliadores foi criada.
 
 ## Orientação explícita no formulário
 
-Após usar o site, o usuário percebeu que o registro só fica disponível depois de “Revisar evidência” e pediu um alerta no formulário. Acrescentei um aviso visível junto ao registro, explicando a etapa e que mudança de seleção/contexto exige nova revisão. Depois da prévia, a mensagem muda para “Evidência revisada. Você já pode registrar a decisão e a ação.” O botão aponta para o aviso com aria-describedby, e a atualização usa aria-live polite. Proteção de registro e regras de negócio preservadas.
+Após usar o site, percebi que o registro só fica disponível depois de “Revisar evidência” e pedi um alerta no formulário. Com apoio do Codex, acrescentei um aviso visível junto ao registro, explicando a etapa e que mudança de seleção/contexto exige nova revisão. Depois da prévia, a mensagem muda para “Evidência revisada. Você já pode registrar a decisão e a ação.” O botão aponta para o aviso com aria-describedby, e a atualização usa aria-live polite. Proteção de registro e regras de negócio preservadas.
 
-Ampliei as verificações do teste de seleção existente para conferir aviso antes/depois da revisão e seu retorno ao trocar o escopo. Os 13 testes de componentes passaram em DOM emulado; TypeScript do frontend portável passou. QA visual real continua pendente. Alteração solicitada pelo usuário, sem PR.
+Com apoio do Codex, ampliei as verificações do teste de seleção existente para conferir aviso antes/depois da revisão e seu retorno ao trocar o escopo. Os 13 testes de componentes passaram em DOM emulado; TypeScript do frontend portável passou. Naquela etapa, o QA visual ainda estava pendente; foi concluído em 13/10/2026. Alteração solicitada por mim, sem PR.
+
+## Conclusão posterior da revisão visual — 13/10/2026
+
+Concluí a revisão visual em navegador/celular, incluindo o assistente executivo. As pendências visuais acima descrevem a etapa histórica e estão encerradas. Os resultados de testes e seus limites permanecem os observados naquela etapa. Ver [consolidação documental](documentation_review_2026-10-13.md).

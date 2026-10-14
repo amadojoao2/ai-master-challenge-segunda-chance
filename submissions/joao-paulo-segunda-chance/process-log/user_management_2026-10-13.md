@@ -1,7 +1,7 @@
 # Gestão de usuários — 13/10/2026
 
 ## Autorização e escopo
-O proprietário aprovou o módulo de usuários/permissões, promoveu `email@raven.com` a administrador e determinou a proteção de `amadojoaoborges@gmail.com` como superadministrador. Confirmou permanência no Supabase Free e descartou SMTP/convites por e-mail. Aprovou senha inicial visível durante a definição, sem recuperação posterior, e troca pessoal obrigatória. Nenhuma senha real foi solicitada, lida, redefinida, registrada em logs ou versionada nesta implantação. Login existente já aceito pelo proprietário; não foi reaberto como pendência.
+Aprovei o módulo de usuários/permissões, promovi `email@raven.com` a administrador e determinei a proteção de `amadojoaoborges@gmail.com` como superadministrador. Confirmei permanência no Supabase Free e descartei SMTP/convites por e-mail. Aprovei senha inicial visível durante a definição, sem recuperação posterior, e troca pessoal obrigatória. Nenhuma senha real foi solicitada, lida, redefinida, registrada em logs ou versionada nesta implantação. Login existente já aceito por mim; não foi reaberto como pendência.
 
 ## Entrega
 - Tela Usuários e permissões: cadastro, perfil, permissões com dependências, ativação/desativação, redefinição de senha, pesquisa/filtros, operações pendentes e auditoria.
@@ -30,3 +30,7 @@ O proprietário aprovou o módulo de usuários/permissões, promoveu `email@rave
 Não foi possível fazer QA visual em navegador pelo ambiente disponível. Happy DOM não substitui desktop/celular reais. Cadastro/redefinição e primeiro acesso reais precisam ser exercitados com uma conta legítima; os testes SQL e de gateway não são uma execução HTTP integral do Supabase Auth. Nenhum usuário fictício foi criado no serviço compartilhado.
 
 A atualização fica na pasta e branch exclusivas da segunda chance. Nenhuma PR, issue ou mensagem a avaliadores foi criada. Documentação operacional em [user_management.md](../docs/user_management.md).
+
+## Conclusão posterior da revisão visual — 13/10/2026
+
+Concluí a revisão visual em navegador/celular, incluindo o assistente executivo. As pendências visuais acima descrevem a etapa histórica e estão encerradas. Os resultados de testes e seus limites permanecem os observados naquela etapa. Ver [consolidação documental](documentation_review_2026-10-13.md).

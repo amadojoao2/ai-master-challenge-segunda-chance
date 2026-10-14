@@ -1,17 +1,17 @@
 # Plano de implementação — aprovado
 
-Fundação executada: ver [estado da implementação](foundation_status.md). As fases de site/importador web/decisões permanecem seguintes.
+Estado atual em 13/10/2026: fundação, site, importador, decisões, login, assistente e gestão de usuários implementados. Concluí a aceitação do login e a revisão visual. A PR aguarda minha autorização. O plano abaixo conserva as propostas e critérios da etapa inicial; os contratos finais estão em [status da aplicação](web_status.md) e [reprodução](reproduction.md).
 
 ## Escopo e destino
 
 - Produto: site executivo de diagnóstico, decisões e acompanhamento, atualizado por CSV/Excel.
 - ML não é o diferencial nem o fundamento da priorização operacional.
-- Repositório: `amadojoao2/ai-master-challenge`.
+- Repositório atual: `amadojoao2/ai-master-challenge-segunda-chance`, fork direto do repositório oficial. [Transferência](../process-log/README.md#transferência-para-o-fork-oficial--13102026).
 - Branch: `submission/joao-paulo-segunda-chance`, baseada na `main` oficial `4aed364d572fabe0f1fff1f0c6f32960b30fe575`.
 - Todo arquivo de entrega permanece em `submissions/joao-paulo-segunda-chance/`.
-- Não abrir PR nem solicitar revisão até a entrega estar completa e o usuário determinar o envio.
+- Não abrir PR nem solicitar revisão até a entrega estar completa e eu autorizar o envio.
 - Supabase de destino: `challenge_g4_projeto`, conexão `challenge_g4`.
-- Estado atualizado: auditoria e fundação implementadas no projeto dedicado, com dados preservados e primeira versão publicada no banco. Site e importador web ainda pendentes.
+- Estado na aprovação inicial: auditoria e fundação implementadas, com primeira versão publicada. Site e importador foram concluídos nas etapas seguintes.
 
 ## Arquitetura: monólito modular
 
@@ -105,9 +105,9 @@ Próximos testes ANTES dos casos de uso correspondentes:
 - Decisões: transições permitidas, responsável/prazo e preservação da evidência após atualização.
 - Segurança: usuários/perfis distintos e negação explícita, inclusive acesso a arquivos.
 
-## Segurança
+## Segurança — evolução do plano
 
-Escopo atualizado após aprovação: acesso livre, sem login por e-mail/senha. Sessões anônimas autorizam operações limitadas ao workspace; autor/responsável declarados, sem confirmação de identidade. RPCs privilegiadas permanecem apenas no backend, RLS habilitado e arquivos originais privados em bytea no Postgres. Autenticação, papéis e Storage são evoluções futuras. Nenhum segredo privilegiado no frontend, Git ou relatório. Revalidar projeto de destino antes de migração. Aplicação e schema só serão alterados no projeto dedicado `challenge_g4_projeto`.
+Na etapa inicial, aprovei acesso livre, sem login por e-mail/senha. Sessões anônimas autorizam operações limitadas ao workspace; autor/responsável declarados, sem confirmação de identidade. RPCs privilegiadas permanecem apenas no backend, RLS habilitado e arquivos originais privados em bytea no Postgres. Naquele plano, autenticação, papéis e Storage eram evoluções futuras. Autenticação e papéis foram posteriormente implementados; [modelo atual](authentication.md). Nenhum segredo privilegiado no frontend, Git ou relatório. Revalidar projeto de destino antes de migração. Aplicação e schema só serão alterados no projeto dedicado `challenge_g4_projeto`.
 
 ## Sequência e critérios de aceite
 
@@ -124,9 +124,9 @@ O site começa pelas perguntas do CEO: o que mudou, onde a perda se concentra, c
 
 ## GitHub e revisão
 
-Versionar mudanças concluídas e verificadas nesta branch, sem segredos e sem alterações fora da pasta. Preservar a PR #66 como histórico independente. Não criar issue, comentário, pedido de review ou PR como parte do desenvolvimento. A futura PR terá título `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e base `main` oficial quando o usuário determinar o envio.
+Versionar mudanças concluídas e verificadas nesta branch, sem segredos e sem alterações fora da pasta. Preservar a PR #66 como histórico independente. Não criar issue, comentário, pedido de review ou PR como parte do desenvolvimento. A futura PR terá título `[Submission] João Paulo — Challenge 001 (Segunda Chance)` e base `main` oficial quando eu autorizar o envio.
 
 
 ## Situação após a fase web
 
-Etapas 1–4 implementadas e verificadas, com limite de QA visual documentado. Diagnóstico, atualização por fonte e decisões estão no site publicado. A publicação do pipeline foi testada integralmente em transação revertida; painel ativo original preservado. Ver [status e limites da aplicação](web_status.md). A aceitação posterior publicou uma segunda versão por HTTP sem mudar fatos, testou componentes e decisões e corrigiu erros de UX/API. A etapa 5 tem narrativa/Git e README conferidos; revisão visual real e autorização para a nova PR continuam pendentes.
+Etapas 1–4 implementadas e verificadas; revisão visual concluída em 13/10/2026. Diagnóstico, atualização por fonte e decisões estão no site publicado. A publicação do pipeline foi testada integralmente em transação revertida; painel ativo original preservado. Ver [status e limites da aplicação](web_status.md). A aceitação posterior publicou uma segunda versão por HTTP sem mudar fatos, testou componentes e decisões e corrigiu erros de UX/API. A etapa 5 tem narrativa/Git e README conferidos; revisão visual concluída e autorização para a nova PR ainda pendente.
