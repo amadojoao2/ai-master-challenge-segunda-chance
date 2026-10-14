@@ -36,6 +36,7 @@ São links de compartilhamento do ChatGPT fornecidos por mim para a banca, subst
 | 13 | Transferência para o fork oficial | Importação do histórico para o fork diretamente ligado à G4; referências aos commits originais e conteúdo conferido, conforme registro abaixo. |
 | 14 | Revisão documental para a banca | Findings com dados, recomendações de negócio, narrativa em primeira pessoa, conclusão da revisão visual e preparação do acesso da banca. [Registro](documentation_review_2026-10-13.md). |
 | 15 | Segurança do assistente | Separação entre instruções e dados, respostas fixas, fim da explicação livre e testes adversariais. [Registro](assistant_security_2026-10-13.md). |
+| 16 | Conferência do recorte explícito | Comparação de setor/país escrito na pergunta com a consulta tipada antes do SQL; esclarecimento de divergências e nomes múltiplos. [Registro](assistant_filter_guard_2026-10-14.md). |
 
 ## Problemas encontrados e correções
 
@@ -65,6 +66,7 @@ As quantidades abaixo pertencem às respectivas rodadas. Não devem ser somadas 
 | Assistente | 7 Specs + 20 componentes + 9 adaptadores | 36 testes JS nessa aceitação; SQL real com rollback e bloqueios HTTP. Diagnóstico do provedor: quatro respostas reais com fixture sintético; não é conversa integral de CEO. |
 | Revisão geral | 26 Python + 27 domínio/referência web + 36 componentes/adaptadores | 89 testes aprovados, zero skips; comparação dos 89 resultados de qualidade com o banco. |
 | Gestão de usuários | 47 componentes/adaptadores, SQL isolado e 4 guardas HTTP | Zero falhas/skips; SQL em PGlite local e preflight real com rollback. Cadastro/redefinição HTTP com conta legítima ainda não exercitados. |
+| Conferência de filtros do assistente | 12 domínio + 47 componentes/adaptadores, TypeScript e pacote Edge | Divergências e nomes múltiplos bloqueiam SQL em testes simulados; gateway v8 ativo com JWT. Guardas HTTP anônimos verificados separadamente. |
 
 Componentes em Happy DOM e adaptadores com API simulada não equivalem a navegador real. O SQL local de gestão de usuários cria somente identidades sintéticas em memória; suas fixtures não devem ser aplicadas no Supabase compartilhado. Comandos e dependências em [Reprodução](../docs/reproduction.md) e [Gestão de usuários](../docs/user_management.md).
 
