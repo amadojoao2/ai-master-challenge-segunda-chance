@@ -35,6 +35,7 @@ São links de compartilhamento do ChatGPT fornecidos por mim para a banca, subst
 | 12 | Consolidação documental | Índice, decisões de autenticação/modelos, links das conversas e notas posteriores sobre login e formatos de evidência. Este índice e [decisões](decisions_2026-10-13.md). |
 | 13 | Transferência para o fork oficial | Importação do histórico para o fork diretamente ligado à G4; referências aos commits originais e conteúdo conferido, conforme registro abaixo. |
 | 14 | Revisão documental para a banca | Findings com dados, recomendações de negócio, narrativa em primeira pessoa, conclusão da revisão visual e preparação do acesso da banca. [Registro](documentation_review_2026-10-13.md). |
+| 15 | Segurança do assistente | Separação entre instruções e dados, respostas fixas, fim da explicação livre e testes adversariais. [Registro](assistant_security_2026-10-13.md). |
 
 ## Problemas encontrados e correções
 

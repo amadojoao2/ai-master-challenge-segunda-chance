@@ -83,7 +83,7 @@ O frontend usa @supabase/supabase-js 2.117.2 e os adaptadores `challenge-auth-we
 
 ## Assistente executivo
 
-Sétima área, com histórico privado e consultas calculadas no banco. Migrações `db/assistant.sql` e `db/assistant_context_catalog.sql`; pacote `scripts/build_assistant_edge.mjs`; gateway challenge-assistant com JWT exigido. `node --test web/tests/assistant.test.mjs` testa Specs; suíte frontend tem 36 casos de componentes e adaptadores simulados. `tests/db_assistant.sql` requer sessão real existente e usa rollback, sem Auth fictício. `python web/tests/http_assistant.py` testa bloqueios anônimos. [Contratos, limites, Secret e validação](../docs/assistant.md).
+Sétima área, com histórico privado e consultas calculadas no banco. Migrações `db/assistant.sql`, `db/assistant_context_catalog.sql` e `db/assistant_prompt_hardening.sql`; pacote `scripts/build_assistant_edge.mjs`; gateway challenge-assistant com JWT exigido. A versão endurecida separa dados importados das instruções, usa respostas fixas para esclarecimentos e não faz segunda geração de explicação. [Registro de segurança](../process-log/assistant_security_2026-10-13.md). `node --test web/tests/assistant.test.mjs` testa Specs; suíte frontend tem 47 casos de componentes e adaptadores simulados. `tests/db_assistant.sql` requer sessão real existente e usa rollback, sem Auth fictício. `python web/tests/http_assistant.py` testa bloqueios anônimos. [Contratos, limites, Secret e validação](../docs/assistant.md).
 
 ## Gestão de usuários
 
